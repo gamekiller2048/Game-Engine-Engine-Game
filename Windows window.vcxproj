@@ -169,11 +169,10 @@
     <ClCompile Include="src\graphics\errors.cpp" />
     <ClCompile Include="src\graphics\app.cpp" />
     <ClCompile Include="src\graphics\scene.cpp" />
-    <ClCompile Include="src\graphics\win32\app.cpp" />
     <ClCompile Include="src\graphics\opengl\glcontext.cpp" />
+    <ClCompile Include="src\graphics\win32\app.cpp" />
     <ClCompile Include="src\graphics\win32\devicecontext.cpp" />
     <ClCompile Include="src\graphics\win32\glcontext.cpp" />
-    <ClCompile Include="src\graphics\win32\glcontextimpl.hpp" />
     <ClCompile Include="src\graphics\win32\window.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
     <ClCompile Include="src\logging\error.cpp" />
@@ -220,6 +219,7 @@
     <ClInclude Include="include\typealias.hpp" />
     <ClInclude Include="src\graphics\win32\devicecontextimpl.hpp" />
     <ClInclude Include="src\graphics\win32\errorcheck.hpp" />
+    <ClInclude Include="src\graphics\win32\glcontextimpl.hpp" />
     <ClInclude Include="src\graphics\win32\windowimpl.hpp" />
     <ClInclude Include="vendor\include\glad\gl.h" />
     <ClInclude Include="vendor\include\glad\wgl.h" />
