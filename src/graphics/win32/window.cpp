@@ -1,8 +1,8 @@
 #include <graphics/win32/window.hpp>
+#include <Windows.h>
 #include <graphics/win32/glcontext.hpp>
 #include "windowimpl.hpp"
 #include "errorcheck.hpp"
-#include <Windows.h>
 #include "devicecontextimpl.hpp"
 
 namespace mgl
@@ -43,11 +43,12 @@ namespace mgl
 				wc.lpfnWndProc = (WNDPROC)WindowProc;
 				wc.hInstance = hInstance;
 
+				// CS_OWNDC creates a private DC in memory for this window
+				// DC is released automatically with the window and GetDC retrieves the same DC each time
 				if(api == RenderApi::OPENGL)
 					wc.style = CS_OWNDC;
-
+					
 				wc.lpszClassName = CLASS_NAME.c_str();
-
 				WIN_CALLV(RegisterClassA, &wc);
 			}
 
@@ -81,7 +82,6 @@ namespace mgl
 				pfd.cStencilBits = 8;
 				int pixelFormat = WIN_CALLV(ChoosePixelFormat, hDC, &pfd);
 				WIN_CALLV(SetPixelFormat, hDC, pixelFormat, &pfd);
-				WIN_CALLV(ReleaseDC, impl->hWnd, hDC);
 			}
 
 			show();

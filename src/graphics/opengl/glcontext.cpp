@@ -1,4 +1,5 @@
 #include <graphics/opengl/glcontext.hpp>
+
 #ifdef _WIN32
 #include <graphics/win32/glcontext.hpp>
 #endif

@@ -1,9 +1,10 @@
 #include <graphics/window.hpp>
+#include <graphics/opengl/glcontext.hpp>
+
 #ifdef _WIN32
 #include <graphics/win32/window.hpp>
 #endif
 
-#include <graphics/opengl/glcontext.hpp>
 
 namespace mgl
 {

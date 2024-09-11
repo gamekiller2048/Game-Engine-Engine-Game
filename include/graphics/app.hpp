@@ -1,6 +1,6 @@
 #pragma once
-#include <graphics/window.hpp>
 #include <vector>
+#include <graphics/window.hpp>
 
 namespace mgl
 {

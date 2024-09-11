@@ -14,7 +14,6 @@ namespace mgl
 			~GLContext();
 
 			void useWindow(const mgl::Window* window);
-			void releaseWindow(const mgl::Window* window);
 			void makeCurrent();
 			void swapBuffers();
 			bool isCurrent() const;

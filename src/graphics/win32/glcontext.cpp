@@ -1,11 +1,11 @@
 #include <graphics/win32/glcontext.hpp>
+#include <glad/wgl.h>
+#include <Windows.h>
 #include <graphics/win32/window.hpp>
 #include "glcontextimpl.hpp"
 #include "windowimpl.hpp"
 #include "devicecontextimpl.hpp"
 #include "errorcheck.hpp"
-#include <glad/wgl.h>
-#include <Windows.h>
 
 namespace mgl
 {
@@ -37,8 +37,6 @@ namespace mgl
             };
 
             impl->hRC = WIN_CALLV(wglCreateContextAttribsARB, impl->hDC, NULL, attribs);
-
-            releaseWindow(window);
         }
 
         GLContext::~GLContext()
@@ -52,17 +50,9 @@ namespace mgl
             impl->hDC = WIN_CALLV(GetDC, win->getImpl()->hWnd);
         }
 
-        void GLContext::releaseWindow(const mgl::Window* window)
-        {
-            const Window* win = static_cast<const Window*>(window);
-            WIN_CALLV(ReleaseDC, win->getImpl()->hWnd, impl->hDC);
-            impl->hDC = nullptr;
-        }
-
         void GLContext::makeCurrent()
         {
-            if(!isCurrent())
-                WIN_CALLV(wglMakeCurrent, impl->hDC, impl->hRC);
+            WIN_CALLV(wglMakeCurrent, impl->hDC, impl->hRC);
         }
 
         void GLContext::swapBuffers()
@@ -73,8 +63,7 @@ namespace mgl
         bool GLContext::isCurrent() const
         {
             HGLRC hRC = WIN_CALLR(wglGetCurrentContext);
-            HDC hDC = WIN_CALLR(wglGetCurrentDC);
-            return impl->hRC == hRC && hDC == impl->hDC;
+            return impl->hRC == hRC;
         }
 	}
 }

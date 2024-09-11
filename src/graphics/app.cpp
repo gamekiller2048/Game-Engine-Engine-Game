@@ -1,4 +1,5 @@
 #include <graphics/app.hpp>
+
 #ifdef _WIN32
 #include <graphics/win32/app.hpp>
 #endif

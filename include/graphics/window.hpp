@@ -1,8 +1,8 @@
 #pragma once
+#include <unordered_map>
 #include <math/math.hpp>
 #include <graphics/rendercontext.hpp>
 #include <graphics/scene.hpp>
-#include <unordered_map>
 
 namespace mgl
 {
