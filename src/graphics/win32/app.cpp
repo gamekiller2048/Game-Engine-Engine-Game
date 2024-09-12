@@ -7,6 +7,9 @@ namespace mgl
 {
 	namespace win32
 	{
+        App::App(RenderApi api) :
+            mgl::App(api) {}
+
 		void App::run()
 		{
             bool running = true;

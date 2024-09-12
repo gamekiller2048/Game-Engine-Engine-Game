@@ -18,7 +18,7 @@ namespace mml
         Mat(Mat<T, 4, 4> mat);
 
         template<typename U>
-        explicit Mat(const Mat<U, 2, 2>& mat);
+        Mat(const Mat<U, 2, 2>& mat);
 
         Mat<T, 2, 2> rotate(T r) const;
         Mat<T, 2, 2> scale(const Vec<T, 2>& v) const;

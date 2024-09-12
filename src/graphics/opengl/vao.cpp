@@ -1,6 +1,5 @@
 #include <graphics/opengl/vao.hpp>
 #include <glad/gl.h>
-#include <math/math.hpp>
 #include "errorcheck.hpp"
 
 namespace mgl

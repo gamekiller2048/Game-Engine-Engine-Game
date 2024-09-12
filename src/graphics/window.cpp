@@ -1,4 +1,5 @@
 #include <graphics/window.hpp>
+#include <graphics/app.hpp>
 #include <graphics/opengl/glcontext.hpp>
 
 #ifdef _WIN32
@@ -8,12 +9,12 @@
 
 namespace mgl
 {
-	Window::Window(const std::string& title, uint width, uint height, RenderApi api) :
-		title(title), size(width, height), api(api) {}
+	Window::Window(const std::string& title, uint width, uint height) :
+		title(title), size(width, height) {}
 
 	void Window::createContext()
 	{
-		switch(api) {
+		switch(App::getInstance()->getRenderApi()) {
 		case RenderApi::OPENGL:
 			context = createGLContext(this, 4, 3);
 		}
@@ -89,10 +90,10 @@ namespace mgl
 		return size;
 	}
 
-	Ref<Window> createWindow(const std::string& title, uint width, uint height, RenderApi api)
+	Ref<Window> createWindow(const std::string& title, uint width, uint height)
 	{
 #ifdef _WIN32
-		return CreateRef<win32::Window>(title, width, height, api);
+		return CreateRef<win32::Window>(title, width, height);
 #endif
 	}
 }

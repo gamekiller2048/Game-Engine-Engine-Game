@@ -28,7 +28,7 @@ namespace mml
         static Vec<T, 3> fromArray(const T data[3]);
         
         template<typename U>
-        explicit Vec(const Vec<U, 3>& vec);
+        Vec(const Vec<U, 3>& vec);
 
         template<typename U>
         explicit Vec(const Col<U, 3>& col);

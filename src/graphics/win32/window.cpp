@@ -1,5 +1,6 @@
 #include <graphics/win32/window.hpp>
 #include <Windows.h>
+#include <graphics/app.hpp>
 #include <graphics/win32/glcontext.hpp>
 #include "windowimpl.hpp"
 #include "errorcheck.hpp"
@@ -31,8 +32,8 @@ namespace mgl
 			return 0;
 		}
 
-		Window::Window(const std::string& title, uint width, uint height, RenderApi api) :
-			mgl::Window(title, width, height, api), impl(CreateOwned<WindowImpl>())
+		Window::Window(const std::string& title, uint width, uint height) :
+			mgl::Window(title, width, height), impl(CreateOwned<WindowImpl>())
 		{
 			HINSTANCE hInstance = WIN_CALLV(GetModuleHandle, NULL);
 
@@ -45,7 +46,7 @@ namespace mgl
 
 				// CS_OWNDC creates a private DC in memory for this window
 				// DC is released automatically with the window and GetDC retrieves the same DC each time
-				if(api == RenderApi::OPENGL)
+				if(App::getInstance()->getRenderApi() == RenderApi::OPENGL)
 					wc.style = CS_OWNDC;
 					
 				wc.lpszClassName = CLASS_NAME.c_str();
@@ -70,7 +71,7 @@ namespace mgl
 			// TODO: this function returns 0 so make fix to wrap with WIN_CALL*
 			SetWindowLongPtr(impl->hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 
-			if(api == RenderApi::OPENGL) {
+			if(App::getInstance()->getRenderApi() == RenderApi::OPENGL) {
 				HDC hDC = WIN_CALLV(GetDC, impl->hWnd);
 				PIXELFORMATDESCRIPTOR pfd = {};
 				pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);

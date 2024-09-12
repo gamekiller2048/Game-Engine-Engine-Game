@@ -28,7 +28,7 @@ namespace mml
         static Vec<T, 2> fromArray(const T data[2]);
 
         template<typename U>
-        explicit Vec(const Vec<U, 2>& vec);
+        Vec(const Vec<U, 2>& vec);
 
         float length() const;
         Vec<T, 2> floor() const;

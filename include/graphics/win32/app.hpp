@@ -8,6 +8,8 @@ namespace mgl
 		class App : public mgl::App
 		{
 		public:
+			App(RenderApi api);
+
 			void run();
 			void destroy();
 		};

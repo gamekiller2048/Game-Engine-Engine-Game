@@ -166,7 +166,7 @@ namespace mgl
         GL_CALL(glDrawElementsInstanced, (GLenum)primative, count, GL_UNSIGNED_INT, 0, instances);
     }
 
-    void ShaderProgram::compute(const mml::uvec3& workGroups) const
+    void ShaderProgram::compute(const GLuvec3& workGroups) const
     {
         use();
         GL_CALL(glDispatchCompute, workGroups.x, workGroups.y, workGroups.z);
@@ -191,22 +191,22 @@ namespace mgl
         return cache[loc];
     }
 
-    void ShaderProgram::uniformMat3(const std::string& loc, const mml::mat3& mat, bool transpose) const
+    void ShaderProgram::uniformMat3(const std::string& loc, const GLmat3& mat, bool transpose) const
     {
         uniformMat3(getUniform(loc), mat, transpose);
     }
 
-    void ShaderProgram::uniformMat3s(const std::string& loc, const std::vector<mml::mat3>& values, bool transpose) const
+    void ShaderProgram::uniformMat3s(const std::string& loc, const std::vector<GLmat3>& values, bool transpose) const
     {
         uniformMat3s(getUniform(loc), values, transpose);
     }
 
-    void ShaderProgram::uniformMat4(const std::string& loc, const mml::mat4& mat, bool transpose) const
+    void ShaderProgram::uniformMat4(const std::string& loc, const GLmat4& mat, bool transpose) const
     {
         uniformMat4(getUniform(loc), mat, transpose);
     }
 
-    void ShaderProgram::uniformMat4s(const std::string& loc, const std::vector<mml::mat4>& values, bool transpose) const
+    void ShaderProgram::uniformMat4s(const std::string& loc, const std::vector<GLmat4>& values, bool transpose) const
     {
         uniformMat4s(getUniform(loc), values, transpose);
     }
@@ -221,32 +221,32 @@ namespace mgl
         uniformFloats(getUniform(loc), values);
     }
 
-    void ShaderProgram::uniformVec2(const std::string& loc, const mml::vec2& vec) const
+    void ShaderProgram::uniformVec2(const std::string& loc, const GLvec2& vec) const
     {
         uniformVec2(getUniform(loc), vec);
     }
 
-    void ShaderProgram::uniformVec2s(const std::string& loc, const std::vector<mml::vec2>& values) const
+    void ShaderProgram::uniformVec2s(const std::string& loc, const std::vector<GLvec2>& values) const
     {
         uniformVec2s(getUniform(loc), values);
     }
 
-    void ShaderProgram::uniformVec3(const std::string& loc, const mml::vec3& vec) const
+    void ShaderProgram::uniformVec3(const std::string& loc, const GLvec3& vec) const
     {
         uniformVec3(getUniform(loc), vec);
     }
 
-    void ShaderProgram::uniformVec3s(const std::string& loc, const std::vector<mml::vec3>& values) const
+    void ShaderProgram::uniformVec3s(const std::string& loc, const std::vector<GLvec3>& values) const
     {
         uniformVec3s(getUniform(loc), values);
     }
 
-    void ShaderProgram::uniformVec4(const std::string& loc, const mml::vec4& vec) const
+    void ShaderProgram::uniformVec4(const std::string& loc, const GLvec4& vec) const
     {
         uniformVec4(getUniform(loc), vec);
     }
 
-    void ShaderProgram::uniformVec4s(const std::string& loc, const std::vector<mml::vec4>& values) const
+    void ShaderProgram::uniformVec4s(const std::string& loc, const std::vector<GLvec4>& values) const
     {
         uniformVec4s(getUniform(loc), values);
     }
@@ -271,22 +271,22 @@ namespace mgl
         uniformUints(getUniform(loc), values);
     }
 
-    void ShaderProgram::uniformMat3(GLuint loc, const mml::mat3& mat, bool transpose) const
+    void ShaderProgram::uniformMat3(GLuint loc, const GLmat3& mat, bool transpose) const
     {
         GL_CALL(glUniformMatrix3fv, loc, 1, transpose, (GLfloat*)&mat);
     }
 
-    void ShaderProgram::uniformMat3s(GLuint loc, const std::vector<mml::mat3>& values, bool transpose) const
+    void ShaderProgram::uniformMat3s(GLuint loc, const std::vector<GLmat3>& values, bool transpose) const
     {
         GL_CALL(glUniformMatrix3fv, loc, values.size(), transpose, (GLfloat*)values.data());
     }
 
-    void ShaderProgram::uniformMat4(GLuint loc, const mml::mat4& mat, bool transpose) const
+    void ShaderProgram::uniformMat4(GLuint loc, const GLmat4& mat, bool transpose) const
     {
         GL_CALL(glUniformMatrix4fv, loc, 1, transpose, (GLfloat*)&mat);
     }
 
-    void ShaderProgram::uniformMat4s(GLuint loc, const std::vector<mml::mat4>& values, bool transpose) const
+    void ShaderProgram::uniformMat4s(GLuint loc, const std::vector<GLmat4>& values, bool transpose) const
     {
         GL_CALL(glUniformMatrix4fv, loc, values.size(), transpose, (GLfloat*)values.data());
     }
@@ -301,32 +301,32 @@ namespace mgl
         GL_CALL(glUniform1fv, loc, values.size(), values.data());
     }
 
-    void ShaderProgram::uniformVec2(GLuint loc, const mml::vec2& vec) const
+    void ShaderProgram::uniformVec2(GLuint loc, const GLvec2& vec) const
     {
         GL_CALL(glUniform2fv, loc, 1, (GLfloat*)&vec);
     }
 
-    void ShaderProgram::uniformVec2s(GLuint loc, const std::vector<mml::vec2>& values) const
+    void ShaderProgram::uniformVec2s(GLuint loc, const std::vector<GLvec2>& values) const
     {
         GL_CALL(glUniform3fv, loc, values.size(), (GLfloat*)values.data());
     }
 
-    void ShaderProgram::uniformVec3(GLuint loc, const mml::vec3& vec) const
+    void ShaderProgram::uniformVec3(GLuint loc, const GLvec3& vec) const
     {
         GL_CALL(glUniform3fv, loc, 1, (GLfloat*)&vec);
     }
 
-    void ShaderProgram::uniformVec3s(GLuint loc, const std::vector<mml::vec3>& values) const
+    void ShaderProgram::uniformVec3s(GLuint loc, const std::vector<GLvec3>& values) const
     {
         GL_CALL(glUniform3fv, loc, values.size(), (GLfloat*)values.data());
     }
 
-    void ShaderProgram::uniformVec4(GLuint loc, const mml::vec4& vec) const
+    void ShaderProgram::uniformVec4(GLuint loc, const GLvec4& vec) const
     {
         GL_CALL(glUniform4fv, loc, 1, (GLfloat*)&vec);
     }
 
-    void ShaderProgram::uniformVec4s(GLuint loc, const std::vector<mml::vec4>& values) const
+    void ShaderProgram::uniformVec4s(GLuint loc, const std::vector<GLvec4>& values) const
     {
         GL_CALL(glUniform4fv, loc, values.size(), (GLfloat*)values.data());
     }

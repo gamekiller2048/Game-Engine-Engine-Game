@@ -1,15 +1,15 @@
 #pragma once
 #include <unordered_map>
 #include <math/math.hpp>
-#include <graphics/rendercontext.hpp>
 #include <graphics/scene.hpp>
+#include <graphics/rendercontext.hpp>
 
 namespace mgl
 {
 	class Window
 	{
 	public:
-		Window(const std::string& title, uint width, uint height, RenderApi api);
+		Window(const std::string& title, uint width, uint height);
 		virtual ~Window() = default;
 
 		void addScene(const std::string& name, const Ref<Scene>& scene);
@@ -48,12 +48,11 @@ namespace mgl
 		mml::uvec2 size;
 		bool destroyed = false;
 
-		RenderApi api;
 		Ref<RenderContext> context;
 
 		std::unordered_map<std::string, Ref<Scene>> scenes;
 		Ref<Scene> curScene;
 	};
 
-	Ref<Window> createWindow(const std::string& title, uint width, uint height, RenderApi api);
+	Ref<Window> createWindow(const std::string& title, uint width, uint height);
 }

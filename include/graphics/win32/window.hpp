@@ -10,7 +10,7 @@ namespace mgl
 		class Window : public mgl::Window
 		{
 		public:
-			Window(const std::string& title, uint width, uint height, RenderApi api);
+			Window(const std::string& title, uint width, uint height);
 			~Window();
 
 			WindowImpl* getImpl() const;

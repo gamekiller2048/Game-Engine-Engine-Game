@@ -163,11 +163,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\graphics\opengl\glcontext.hpp" />
-    <ClCompile Include="include\graphics\rendercontext.hpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\graphics\errors.cpp" />
     <ClCompile Include="src\graphics\app.cpp" />
+    <ClCompile Include="src\graphics\errors.cpp" />
+    <ClCompile Include="src\graphics\geometry\shape2d.cpp" />
+    <ClCompile Include="src\graphics\geometry\shape3d.cpp" />
+    <ClCompile Include="src\graphics\geometry\vertex.cpp" />
     <ClCompile Include="src\graphics\opengl\arraytexture2d.cpp" />
     <ClCompile Include="src\graphics\opengl\buffer.cpp" />
     <ClCompile Include="src\graphics\opengl\computeshader.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="src\graphics\opengl\fbo.cpp" />
     <ClCompile Include="src\graphics\opengl\fragmentshader.cpp" />
     <ClCompile Include="src\graphics\opengl\geometryshader.cpp" />
+    <ClCompile Include="src\graphics\opengl\glcontext.cpp" />
     <ClCompile Include="src\graphics\opengl\globject.cpp" />
     <ClCompile Include="src\graphics\opengl\rbo.cpp" />
     <ClCompile Include="src\graphics\opengl\shader.cpp" />
@@ -186,7 +188,6 @@
     <ClCompile Include="src\graphics\opengl\vbo.cpp" />
     <ClCompile Include="src\graphics\opengl\vertexshader.cpp" />
     <ClCompile Include="src\graphics\scene.cpp" />
-    <ClCompile Include="src\graphics\opengl\glcontext.cpp" />
     <ClCompile Include="src\graphics\win32\app.cpp" />
     <ClCompile Include="src\graphics\win32\devicecontext.cpp" />
     <ClCompile Include="src\graphics\win32\glcontext.cpp" />
@@ -207,6 +208,9 @@
   <ItemGroup>
     <ClInclude Include="include\graphics\app.hpp" />
     <ClInclude Include="include\graphics\errors.hpp" />
+    <ClInclude Include="include\graphics\geometry\shape2d.hpp" />
+    <ClInclude Include="include\graphics\geometry\shape3d.hpp" />
+    <ClInclude Include="include\graphics\geometry\vertex.hpp" />
     <ClInclude Include="include\graphics\opengl\arraytexture2d.hpp" />
     <ClInclude Include="include\graphics\opengl\buffer.hpp" />
     <ClInclude Include="include\graphics\opengl\computeshader.hpp" />
@@ -216,7 +220,9 @@
     <ClInclude Include="include\graphics\opengl\fbo.hpp" />
     <ClInclude Include="include\graphics\opengl\fragmentshader.hpp" />
     <ClInclude Include="include\graphics\opengl\geometryshader.hpp" />
+    <ClInclude Include="include\graphics\opengl\glcontext.hpp" />
     <ClInclude Include="include\graphics\opengl\globject.hpp" />
+    <ClInclude Include="include\graphics\opengl\gltypes.hpp" />
     <ClInclude Include="include\graphics\opengl\rbo.hpp" />
     <ClInclude Include="include\graphics\opengl\shader.hpp" />
     <ClInclude Include="include\graphics\opengl\shaderprogram.hpp" />
@@ -225,6 +231,7 @@
     <ClInclude Include="include\graphics\opengl\vao.hpp" />
     <ClInclude Include="include\graphics\opengl\vbo.hpp" />
     <ClInclude Include="include\graphics\opengl\vertexshader.hpp" />
+    <ClInclude Include="include\graphics\rendercontext.hpp" />
     <ClInclude Include="include\graphics\scene.hpp" />
     <ClInclude Include="include\graphics\win32\app.hpp" />
     <ClInclude Include="include\graphics\win32\devicecontext.hpp" />

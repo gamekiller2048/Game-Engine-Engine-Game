@@ -1,5 +1,4 @@
 #pragma once
-#include <math/math.hpp>
 #include <graphics/opengl/shader.hpp>
 
 namespace mgl
@@ -25,9 +24,5 @@ namespace mgl
     {
         public:
             ComputeShader();
-            ComputeShader(ComputeShader&& other) noexcept;
-
-            void compute(const mml::uvec3& workGroups);
-            void wait();
     };
 }

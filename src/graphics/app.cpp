@@ -6,15 +6,36 @@
 
 namespace mgl
 {
+	App::App(RenderApi api) :
+		api(api) 
+	{
+		instance = this;
+	}
+
 	void App::addWindow(const Ref<Window>& window)
 	{
 		windows.push_back(window);
 	}
 
-	Ref<App> createApp()
+	RenderApi App::getRenderApi() const
+	{
+		return api;
+	}
+
+	void App::setRenderApi(RenderApi api)
+	{
+		this->api = api;
+	}
+
+	App* App::getInstance()
+	{
+		return App::instance;
+	}
+
+	Ref<App> createApp(RenderApi api)
 	{
 #ifdef _WIN32
-		return CreateRef<win32::App>();
+		return CreateRef<win32::App>(api);
 #endif
 	}
 }

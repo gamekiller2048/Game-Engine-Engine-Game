@@ -22,7 +22,7 @@ namespace mml
         Mat(Mat<T, 4, 4> mat);
 
         template<typename U>
-        explicit Mat(const Mat<U, 3, 3>& mat);
+        Mat(const Mat<U, 3, 3>& mat);
 
         Mat<T, 3, 3> rotate(const Vec<T, 3>& vec) const;
         Mat<T, 3, 3> scale(const Vec<T, 3>& vec) const;
