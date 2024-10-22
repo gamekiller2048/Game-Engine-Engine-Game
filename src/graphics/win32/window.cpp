@@ -40,8 +40,8 @@ namespace mgl
 			return 0;
 		}
 
-		Window::Window(const std::string& title, uint width, uint height) :
-			mgl::Window(title, width, height), impl(CreateOwned<WindowImpl>())
+		Window::Window(const std::string& title, uint width, uint height, const std::vector<WindowHint>& hints) :
+			mgl::Window(title, width, height, hints), impl(CreateOwned<WindowImpl>())
 		{
 			HINSTANCE hInstance = WIN_CALLV(GetModuleHandle, NULL);
 
@@ -78,6 +78,9 @@ namespace mgl
 
 			// TODO: this function returns 0 so make fix to wrap with WIN_CALL*
 			SetWindowLongPtr(impl->hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+
+			SetWindowLong(impl->hWnd, GWL_EXSTYLE, GetWindowLong(impl->hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);
+			SetLayeredWindowAttributes(impl->hWnd, RGB(255, 0, 0), 0, LWA_COLORKEY); // Make white pixels transparent
 
 			if(App::getInstance()->getRenderApi() == RenderApi::OPENGL) {
 				HDC hDC = WIN_CALLV(GetDC, impl->hWnd);

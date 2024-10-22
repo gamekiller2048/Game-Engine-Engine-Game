@@ -9,7 +9,7 @@
 
 namespace mgl
 {
-	Window::Window(const std::string& title, uint width, uint height) :
+	Window::Window(const std::string& title, uint width, uint height, const std::vector<WindowHint>& hints) :
 		title(title), size(width, height) {}
 
 	void Window::createContext()
@@ -95,10 +95,10 @@ namespace mgl
 		return size;
 	}
 
-	Ref<Window> createWindow(const std::string& title, uint width, uint height)
+	Ref<Window> createWindow(const std::string& title, uint width, uint height, const std::vector<WindowHint>& hints)
 	{
 #ifdef _WIN32
-		return CreateRef<win32::Window>(title, width, height);
+		return CreateRef<win32::Window>(title, width, height, hints);
 #endif
 	}
 }

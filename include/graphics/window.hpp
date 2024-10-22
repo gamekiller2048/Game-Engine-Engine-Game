@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include <unordered_map>
 #include <math/math.hpp>
 #include <graphics/scene.hpp>
@@ -6,10 +7,18 @@
 
 namespace mgl
 {
+	// TODO: implement the hints
+	enum class WindowHint
+	{
+		FULLSCREEN,
+		BORDERLESS,
+		MINIMIZABLE
+	};
+
 	class Window
 	{
 	public:
-		Window(const std::string& title, uint width, uint height);
+		Window(const std::string& title, uint width, uint height, const std::vector<WindowHint>& hints);
 		virtual ~Window() = default;
 
 		void addScene(const std::string& name, const Ref<Scene>& scene);
@@ -57,5 +66,5 @@ namespace mgl
 		Ref<Scene> curScene;
 	};
 
-	Ref<Window> createWindow(const std::string& title, uint width, uint height);
+	Ref<Window> createWindow(const std::string& title, uint width, uint height, const std::vector<WindowHint>& hints={});
 }
