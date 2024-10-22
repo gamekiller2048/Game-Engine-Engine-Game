@@ -21,6 +21,7 @@ namespace mgl
 		Ref<RenderContext> getContext() const;
 
 		bool isDestroyed() const;
+		void preventDefaultCallback();
 
 		virtual void destroy() = 0;
 		virtual void show() = 0;
@@ -41,6 +42,8 @@ namespace mgl
 		virtual void setWidth(uint width) = 0;
 		virtual void setHeight(uint height) = 0;
 		virtual void setSize(const mml::uvec2& size) = 0;
+
+		bool defaultCallback = true;
 
 	protected:
 		std::string title;

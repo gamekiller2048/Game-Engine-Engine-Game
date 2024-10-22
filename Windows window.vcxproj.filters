@@ -138,6 +138,21 @@
     <ClCompile Include="src\resourceloader\resourceloader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\input\event.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\input\win32\input.hpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\win32\input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\win32\errors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\include\glad\gl.h">
@@ -155,7 +170,7 @@
     <ClInclude Include="src\graphics\win32\devicecontextimpl.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\win32\errorcheck.hpp">
+    <ClInclude Include="src\common\win32\errorcheck.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\win32\glcontextimpl.hpp">
@@ -338,7 +353,25 @@
     <ClInclude Include="include\resourceloader\resourceloader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\typealias.hpp">
+    <ClInclude Include="include\input\action.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\event.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\key.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\mousebutton.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\input.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common\typealias.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common\win32\errors.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

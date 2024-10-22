@@ -1,6 +1,6 @@
 #pragma once
 #include <logging/logging.hpp>
-#include <graphics/errors.hpp>
+#include <common/win32/errors.hpp>
 
 // check error using GetLastError()
 #define WIN_CALL(x, ...)                                                \
@@ -8,7 +8,7 @@
         x(__VA_ARGS__);                                                 \
         uint error = (uint)GetLastError();                              \
         if(error)                                                       \
-            MLL_LOG(mgl::Win32Error(error));                            \
+            MLL_LOG(mcl::Win32Error(error));                            \
     } while(0)                                          
 
 // return value and check error if the value is NULL
@@ -16,7 +16,7 @@
     [&]() {                                                             \
         auto res = x(__VA_ARGS__);                                      \
         if(res == NULL)                                                 \
-            MLL_LOG(mgl::Win32Error((uint)GetLastError()));             \
+            MLL_LOG(mcl::Win32Error((uint)GetLastError()));             \
         return res;                                                     \
     }()
 
@@ -26,6 +26,6 @@
         auto res = x(__VA_ARGS__);                                      \
         uint error = (uint)GetLastError();                              \
         if(error)                                                       \
-            MLL_LOG(mgl::Win32Error(error));                       \
+            MLL_LOG(mcl::Win32Error(error));                            \
         return res;                                                     \
     }()

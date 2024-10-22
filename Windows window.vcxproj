@@ -92,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <ForcedIncludeFiles>iostream;string;typealias.hpp;logging/logging.hpp</ForcedIncludeFiles>
+      <ForcedIncludeFiles>iostream;string;common/typealias.hpp;logging/logging.hpp</ForcedIncludeFiles>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -111,7 +111,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <ForcedIncludeFiles>iostream;string;typealias.hpp;logging/logging.hpp</ForcedIncludeFiles>
+      <ForcedIncludeFiles>iostream;string;common/typealias.hpp;logging/logging.hpp</ForcedIncludeFiles>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -130,7 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <ForcedIncludeFiles>iostream;string;typealias.hpp;logging/logging.hpp</ForcedIncludeFiles>
+      <ForcedIncludeFiles>iostream;string;common/typealias.hpp;logging/logging.hpp</ForcedIncludeFiles>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -149,7 +149,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <ForcedIncludeFiles>iostream;string;typealias.hpp;logging/logging.hpp</ForcedIncludeFiles>
+      <ForcedIncludeFiles>iostream;string;common/typealias.hpp;logging/logging.hpp</ForcedIncludeFiles>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -163,7 +163,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include\input\win32\input.hpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\common\win32\errors.cpp" />
     <ClCompile Include="src\graphics\app.cpp" />
     <ClCompile Include="src\graphics\errors.cpp" />
     <ClCompile Include="src\graphics\geometry\shape2d.cpp" />
@@ -193,6 +195,9 @@
     <ClCompile Include="src\graphics\win32\glcontext.cpp" />
     <ClCompile Include="src\graphics\win32\window.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
+    <ClCompile Include="src\input\event.cpp" />
+    <ClCompile Include="src\input\input.cpp" />
+    <ClCompile Include="src\input\win32\input.cpp" />
     <ClCompile Include="src\logging\error.cpp" />
     <ClCompile Include="src\logging\info.cpp" />
     <ClCompile Include="src\logging\logable.cpp" />
@@ -206,6 +211,8 @@
     <ClCompile Include="vendor\src\glad\wgl.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\common\typealias.hpp" />
+    <ClInclude Include="include\common\win32\errors.hpp" />
     <ClInclude Include="include\graphics\app.hpp" />
     <ClInclude Include="include\graphics\errors.hpp" />
     <ClInclude Include="include\graphics\geometry\shape2d.hpp" />
@@ -238,6 +245,11 @@
     <ClInclude Include="include\graphics\win32\glcontext.hpp" />
     <ClInclude Include="include\graphics\win32\window.hpp" />
     <ClInclude Include="include\graphics\window.hpp" />
+    <ClInclude Include="include\input\action.hpp" />
+    <ClInclude Include="include\input\event.hpp" />
+    <ClInclude Include="include\input\input.hpp" />
+    <ClInclude Include="include\input\key.hpp" />
+    <ClInclude Include="include\input\mousebutton.hpp" />
     <ClInclude Include="include\logging\error.hpp" />
     <ClInclude Include="include\logging\info.hpp" />
     <ClInclude Include="include\logging\logable.hpp" />
@@ -264,10 +276,9 @@
     <ClInclude Include="include\resourceloader\errors.hpp" />
     <ClInclude Include="include\resourceloader\imageloader.hpp" />
     <ClInclude Include="include\resourceloader\resourceloader.hpp" />
-    <ClInclude Include="include\typealias.hpp" />
     <ClInclude Include="src\graphics\opengl\errorcheck.hpp" />
     <ClInclude Include="src\graphics\win32\devicecontextimpl.hpp" />
-    <ClInclude Include="src\graphics\win32\errorcheck.hpp" />
+    <ClInclude Include="src\common\win32\errorcheck.hpp" />
     <ClInclude Include="src\graphics\win32\glcontextimpl.hpp" />
     <ClInclude Include="src\graphics\win32\windowimpl.hpp" />
     <ClInclude Include="vendor\include\glad\gl.h" />

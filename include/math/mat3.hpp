@@ -24,6 +24,8 @@ namespace mml
         template<typename U>
         Mat(const Mat<U, 3, 3>& mat);
 
+        std::string toString() const;
+
         Mat<T, 3, 3> rotate(const Vec<T, 3>& vec) const;
         Mat<T, 3, 3> scale(const Vec<T, 3>& vec) const;
         Mat<T, 3, 3> translate(const Vec<T, 2>& vec) const;
@@ -145,6 +147,18 @@ namespace mml
         );
 
         return (*this) * rx * ry * rz;
+    }
+
+
+    template<typename T>
+    std::string Mat<T, 3, 3>::toString() const
+    {
+        std::ostringstream oss;
+        oss << '|' << this->mat[0][0] << ' ' << this->mat[0][1] << ' ' << this->mat[0][2] << "|\n|"
+                   << this->mat[1][0] << ' ' << this->mat[1][1] << ' ' << this->mat[1][2] << "|\n|"
+                   << this->mat[2][0] << ' ' << this->mat[2][1] << ' ' << this->mat[2][2] << '|';
+
+        return oss.str();
     }
 
     template<typename T>
@@ -274,8 +288,6 @@ namespace mml
     template<typename T>
     std::ostream& operator<<(std::ostream& out, const Mat<T, 3, 3>& mat)
     {
-        return out << '|' << mat[0][0] << ' ' << mat[0][1] << ' ' << mat[0][2] << "|\n|"
-                          << mat[1][0] << ' ' << mat[1][1] << ' ' << mat[1][2] << "|\n|"
-                          << mat[2][0] << ' ' << mat[2][1] << ' ' << mat[2][2] << '|';
+        return mat.toString();
     }
 }

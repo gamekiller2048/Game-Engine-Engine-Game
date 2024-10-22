@@ -17,6 +17,7 @@ namespace mgl
 			void makeCurrent();
 			void swapBuffers();
 			bool isCurrent() const;
+			bool isWindowUsed(const Window* window) const;
 
 		protected:
 			Owned<GLContextImpl> impl;

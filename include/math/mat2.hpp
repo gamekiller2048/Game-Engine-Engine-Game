@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <sstream>
 #include <math/mat.hpp>
 #include <math/vec.hpp>
 #include <math/trig.hpp>
@@ -19,6 +20,8 @@ namespace mml
 
         template<typename U>
         Mat(const Mat<U, 2, 2>& mat);
+
+        std::string toString() const;
 
         Mat<T, 2, 2> rotate(T r) const;
         Mat<T, 2, 2> scale(const Vec<T, 2>& v) const;
@@ -101,6 +104,15 @@ namespace mml
         this->mat[1][1] = mat[1][1];
     }
 
+    template<typename T>
+    std::string Mat<T, 2, 2>::toString() const
+    {
+        std::ostringstream oss;
+        oss << '|' << this->mat[0][0] << ' ' << this->mat[0][1] << "|\n|"
+                   << this->mat[1][0] << ' ' << this->mat[1][1] << '|';
+
+        return oss.str();
+    }
 
     template<typename T>
     Mat<T, 2, 2> Mat<T, 2, 2>::rotate(T r) const
@@ -216,7 +228,6 @@ namespace mml
     template<typename T>
     std::ostream& operator<<(std::ostream& out, const Mat<T, 2, 2>& mat)
     {
-        return out << '|' << mat[0][0] << ' ' << mat[0][1] << "|\n|"
-                          << mat[1][0] << ' ' << mat[1][1] << '|';
+        return mat.toString();
     }
 }

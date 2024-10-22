@@ -1,4 +1,5 @@
 #pragma once
+#include <input/event.hpp>
 
 namespace mgl
 {
@@ -12,8 +13,8 @@ namespace mgl
         virtual void enter();
         virtual void exit();
 
-        //virtual void keyCallback(const Event::KeyEvent& event);
-        //virtual void mouseCallback(const Event::MouseEvent& event);
+        virtual void keyCallback(const mil::KeyEvent& event);
+        //virtual void mouseCallback(const mil::MouseEvent& event);
         virtual void windowSizeCallback(int w, int h);
         virtual void windowPosCallback(int x, int y);
         virtual void windowCloseCallback();

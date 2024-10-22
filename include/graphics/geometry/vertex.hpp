@@ -1,7 +1,8 @@
 #pragma once
-#include <math/math.hpp>
 #include <vector>
+#include <math/math.hpp>
 #include <graphics/opengl/buffer.hpp>
+#include <graphics/opengl/gltypes.hpp>
 
 namespace mgl
 {
@@ -14,15 +15,15 @@ namespace mgl
 
     struct Vertex2D
     {
-        mml::vec2 pos;
+        GLvec2 pos;
 
         std::vector<VBI> structure() const;
     };
 
     struct Vertex2DUV
     {
-        mml::vec2 pos;
-        mml::vec2 texUV;
+        GLvec2 pos;
+        GLvec2 texUV;
 
         std::vector<VBI> structure() const;
     };
@@ -30,32 +31,32 @@ namespace mgl
 
     struct Vertex3D
     {
-        mml::vec3 pos;
+        GLvec3 pos;
 
         std::vector<VBI> structure() const;
     };
 
     struct Vertex3DUV
     {
-        mml::vec3 pos;
-        mml::vec2 texUV;
+        GLvec3 pos;
+        GLvec2 texUV;
 
         std::vector<VBI> structure() const;
     };
 
     struct Vertex3DN
     {
-        mml::vec3 pos;
-        mml::vec3 normal;
+        GLvec3 pos;
+        GLvec3 normal;
 
         std::vector<VBI> structure() const;
     };
 
     struct Vertex3DUVN
     {
-        mml::vec3 pos;
-        mml::vec2 texUV;
-        mml::vec3 normal;
+        GLvec3 pos;
+        GLvec2 texUV;
+        GLvec3 normal;
 
         std::vector<VBI> structure() const;
     };

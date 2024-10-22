@@ -3,12 +3,6 @@
 
 namespace mgl
 {
-    class Win32Error : public mll::Error
-    {
-    public:
-        Win32Error(uint error);
-    };
-
     class GLError : public mll::Error
     {
     public:

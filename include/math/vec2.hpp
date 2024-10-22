@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <sstream>
 #include <math/vec.hpp>
 #include <math/mat.hpp>
 #include <math/common.hpp>
@@ -29,6 +30,8 @@ namespace mml
 
         template<typename U>
         Vec(const Vec<U, 2>& vec);
+
+        std::string toString() const;
 
         float length() const;
         Vec<T, 2> floor() const;
@@ -126,6 +129,14 @@ namespace mml
     Vec<T, 2>::Vec(const Vec<U, 2>& vec) :
         x((T)vec.x), y((T)vec.y) {}
 
+
+    template<typename T>
+    std::string Vec<T, 2>::toString() const
+    {
+        std::ostringstream oss;
+        oss << '(' << this->x << ", " << this->y << ')';
+        return oss.str();
+    }
 
     template<typename T>
     float Vec<T, 2>::length() const
@@ -428,7 +439,7 @@ namespace mml
     template<typename T>
     std::ostream& operator<<(std::ostream& out, const Vec<T, 2>& vec)
     {
-        return out << '(' << vec.x << ", " << vec.y << ')';
+        return vec.toString();
     }
 }
 

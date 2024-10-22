@@ -1,7 +1,7 @@
 #include <graphics/win32/app.hpp>
 #include <Windows.h>
 #include <glad/gl.h>
-#include "errorcheck.hpp"
+#include "../../common/win32/errorcheck.hpp"
 
 namespace mgl
 {
@@ -39,6 +39,8 @@ namespace mgl
                         }
 
                         window->getContext()->useWindow(window.get());
+
+                        if(!window->getContext()->isCurrent() || !window->getContext()->isWindowUsed(window.get()))
                         window->getContext()->makeCurrent();
                         window->getScene()->update();
                         window->getContext()->swapBuffers();

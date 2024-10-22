@@ -3,8 +3,8 @@
 #include <graphics/app.hpp>
 #include <graphics/win32/glcontext.hpp>
 #include "windowimpl.hpp"
-#include "errorcheck.hpp"
 #include "devicecontextimpl.hpp"
+#include "../../common/win32/errorcheck.hpp"
 
 namespace mgl
 {
@@ -18,6 +18,8 @@ namespace mgl
 			if(!window)
 				return DefWindowProcA(hWnd, uMsg, wParam, lParam);
 
+			window->defaultCallback = true;
+
 			switch(uMsg)
 			{
 			case WM_DESTROY:
@@ -25,6 +27,12 @@ namespace mgl
 			case WM_CLOSE:
 				window->destroy();
 				break;
+			case WM_KEYDOWN:
+				window->getScene()->keyCallback(mil::KeyEvent((mil::Key)wParam, mil::Action::PRESS));
+				if(!window->defaultCallback) break;
+			case WM_KEYUP:
+				window->getScene()->keyCallback(mil::KeyEvent((mil::Key)wParam, mil::Action::RELEASE));
+				if(!window->defaultCallback) break;
 			default:
 				return DefWindowProcA((HWND)hWnd, uMsg, wParam, lParam);
 			}

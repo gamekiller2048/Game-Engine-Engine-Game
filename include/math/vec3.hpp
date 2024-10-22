@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <sstream>
 #include <math/vec.hpp>
 #include <math/col.hpp>
 #include <math/mat.hpp>
@@ -32,6 +33,8 @@ namespace mml
 
         template<typename U>
         explicit Vec(const Col<U, 3>& col);
+
+        std::string toString() const;
 
         float length() const;
         Vec<T, 3> floor() const;
@@ -133,6 +136,14 @@ namespace mml
     Vec<T, 3>::Vec(const Col<U, 3>& col) :
         x((T)col.r), y((T)col.g), z((T)col.b) {}
 
+
+    template<typename T>
+    std::string Vec<T, 3>::toString() const
+    {
+        std::ostringstream oss;
+        oss << '(' << this->x << ", " << this->y << ", " << this->z << ')';
+        return oss.str();
+    }
 
     template<typename T>
     float Vec<T, 3>::length() const
@@ -471,7 +482,7 @@ namespace mml
     template<typename T>
     std::ostream& operator<<(std::ostream& out, const Vec<T, 3>& vec)
     {
-        return out << '(' << vec.x << ", " << vec.y << ", " << vec.z << ')';
+        return vec.toString();
     }
 }
 

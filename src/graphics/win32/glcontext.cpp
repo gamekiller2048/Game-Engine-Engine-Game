@@ -5,7 +5,7 @@
 #include "glcontextimpl.hpp"
 #include "windowimpl.hpp"
 #include "devicecontextimpl.hpp"
-#include "errorcheck.hpp"
+#include "../../common/win32/errorcheck.hpp"
 
 namespace mgl
 {
@@ -64,6 +64,12 @@ namespace mgl
         {
             HGLRC hRC = WIN_CALLR(wglGetCurrentContext);
             return impl->hRC == hRC;
+        }
+
+        bool GLContext::isWindowUsed(const mgl::Window* window) const
+        {
+            const Window* win = static_cast<const Window*>(window);
+            return wglGetCurrentDC() == WIN_CALLV(GetDC, win->getImpl()->hWnd);
         }
 	}
 }

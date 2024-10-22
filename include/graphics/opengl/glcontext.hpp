@@ -13,6 +13,7 @@ namespace mgl
 		virtual void makeCurrent() = 0;
 		virtual void swapBuffers() = 0;
 		virtual bool isCurrent() const = 0;
+		virtual bool isWindowUsed(const Window* window) const = 0;
 
 	protected:
 		uint major;

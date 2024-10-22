@@ -5,22 +5,6 @@
 
 namespace mgl
 {
-	Win32Error::Win32Error(uint error) :
-		mll::Error("Win32")
-	{
-		// this condition should not happen
-		if(!error)
-			severity = mll::Severity::WARNING;
-
-		LPSTR msgBuf = nullptr;
-
-		size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-			NULL, error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&msgBuf, 0, NULL);
-
-		message = std::string(msgBuf, size);
-		LocalFree(msgBuf);
-	}
-
 	const static std::unordered_map<int, std::string> GLErrorMap = {
 		{GL_INVALID_ENUM, "Invalid Enum"},
 		{GL_INVALID_VALUE, "Invalid Value"},

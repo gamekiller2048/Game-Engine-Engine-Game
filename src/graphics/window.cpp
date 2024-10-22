@@ -35,6 +35,11 @@ namespace mgl
 		return destroyed;
 	}
 
+	void Window::preventDefaultCallback()
+	{
+		defaultCallback = false;
+	}
+
 	void Window::addScene(const std::string& name, const Ref<Scene>& scene)
 	{
 		scenes[name] = scene;
