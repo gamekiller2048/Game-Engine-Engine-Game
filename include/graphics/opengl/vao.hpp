@@ -5,16 +5,19 @@
 
 namespace mgl
 {
-    class VAO : public GLObject
+    namespace gl
     {
-    public:
-        VAO() = default;
-        VAO(VAO&& other) noexcept;
-        ~VAO();
+        class VAO : public GLObject
+        {
+        public:
+            VAO() = default;
+            VAO(VAO&& other) noexcept;
+            ~VAO();
 
-        void create();
-        void linkAttrib(const VBO& vbo, GLuint layout, GLuint numComponents, Primative type, GLsizeiptr stride, GLuint offset) const;
-        void bind() const;
-        void unbind() const;
-    };
+            void create();
+            void linkAttrib(const VBO& vbo, GLuint layout, GLuint numComponents, Primative type, GLsizeiptr stride, GLuint offset) const;
+            void bind() const;
+            void unbind() const;
+        };
+    }
 }

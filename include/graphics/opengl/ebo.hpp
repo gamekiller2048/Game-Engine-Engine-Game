@@ -3,10 +3,13 @@
 
 namespace mgl
 {
-    class EBO : public Buffer
+    namespace gl
     {
-    public:
-        EBO();
-        EBO(EBO&& other) noexcept;
-    };
+        class EBO : public Buffer
+        {
+        public:
+            EBO();
+            EBO(EBO&& other) noexcept;
+        };
+    }
 }

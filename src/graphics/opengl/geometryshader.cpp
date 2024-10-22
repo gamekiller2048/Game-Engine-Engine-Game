@@ -2,9 +2,12 @@
 
 namespace mgl
 {
-	GeometryShader::GeometryShader() :
-		Shader(ShaderType::GEOMETRY) {}
+	namespace gl
+	{
+		GeometryShader::GeometryShader() :
+			Shader(ShaderType::GEOMETRY) {}
 
-	GeometryShader::GeometryShader(GeometryShader&& other) noexcept :
-		Shader(std::move(other)) {}
+		GeometryShader::GeometryShader(GeometryShader&& other) noexcept :
+			Shader(std::move(other)) {}
+	}
 }

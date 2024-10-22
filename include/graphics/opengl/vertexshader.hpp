@@ -3,10 +3,13 @@
 
 namespace mgl
 {
-	class VertexShader : public Shader
+	namespace gl
 	{
-	public:
-		VertexShader();
-		VertexShader(VertexShader&& other) noexcept;
-	};
+		class VertexShader : public Shader
+		{
+		public:
+			VertexShader();
+			VertexShader(VertexShader&& other) noexcept;
+		};
+	}
 }

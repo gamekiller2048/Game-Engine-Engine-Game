@@ -2,9 +2,12 @@
 
 namespace mgl
 {
-    VBO::VBO() :
-        Buffer(BufferType::VERTEX) {}
+    namespace gl
+    {
+        VBO::VBO() :
+            Buffer(BufferType::VERTEX) {}
 
-    VBO::VBO(VBO&& other) noexcept :
-        Buffer(std::move(other)) {}
+        VBO::VBO(VBO&& other) noexcept :
+            Buffer(std::move(other)) {}
+    }
 }

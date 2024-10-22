@@ -10,7 +10,7 @@ class MyScene : public mgl::Scene
 {
 public:
 	Ref<mgl::Window> window;
-	mgl::ShaderProgram shader;
+	mgl::gl::ShaderProgram shader;
 
 	float i = 0.0f;
 	

@@ -6,7 +6,7 @@ namespace mgl
 	class GLObject
 	{
 	public:
-		GLObject(GLenum type=GL_NONE);
+		GLObject(GLenum type = GL_NONE);
 		GLObject(GLObject&& other) noexcept;
 
 		GLuint getID() const;

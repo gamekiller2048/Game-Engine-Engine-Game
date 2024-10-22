@@ -3,10 +3,13 @@
 
 namespace mgl
 {
-	class FragmentShader : public Shader
+	namespace gl
 	{
-	public:
-		FragmentShader();
-		FragmentShader(FragmentShader&& other) noexcept;
-	};
+		class FragmentShader : public Shader
+		{
+		public:
+			FragmentShader();
+			FragmentShader(FragmentShader&& other) noexcept;
+		};
+	}
 }

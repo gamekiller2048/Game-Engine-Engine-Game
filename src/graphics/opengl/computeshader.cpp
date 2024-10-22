@@ -2,6 +2,9 @@
 
 namespace mgl
 {
-    ComputeShader::ComputeShader() :
-        Shader(ShaderType::COMPUTE) {}
+    namespace gl
+    {
+        ComputeShader::ComputeShader() :
+            Shader(ShaderType::COMPUTE) {}
+    }
 }

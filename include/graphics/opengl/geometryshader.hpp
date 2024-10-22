@@ -3,10 +3,13 @@
 
 namespace mgl
 {
-	class GeometryShader : public Shader
+	namespace gl
 	{
-	public:
-		GeometryShader();
-		GeometryShader(GeometryShader&& other) noexcept;
-	};
+		class GeometryShader : public Shader
+		{
+		public:
+			GeometryShader();
+			GeometryShader(GeometryShader&& other) noexcept;
+		};
+	}
 }

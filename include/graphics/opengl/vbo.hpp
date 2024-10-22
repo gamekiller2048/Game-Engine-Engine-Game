@@ -3,10 +3,13 @@
 
 namespace mgl
 {
-    class VBO : public Buffer
+    namespace gl
     {
-    public:
-        VBO();
-        VBO(VBO&& other) noexcept;
-    };
+        class VBO : public Buffer
+        {
+        public:
+            VBO();
+            VBO(VBO&& other) noexcept;
+        };
+    }
 }

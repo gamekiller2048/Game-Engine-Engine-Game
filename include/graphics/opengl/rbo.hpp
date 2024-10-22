@@ -5,18 +5,21 @@
 
 namespace mgl
 {
-    class RBO : public GLObject
+    namespace gl
     {
-    public:
-        RBO();
-        RBO(RBO&& other) noexcept;
-        ~RBO();
-        
-        void create();
+        class RBO : public GLObject
+        {
+        public:
+            RBO();
+            RBO(RBO&& other) noexcept;
+            ~RBO();
 
-        void bind() const;
-        void unbind() const;
+            void create();
 
-        void allocate(GLuint width, GLuint height, Format format) const;
-    };
+            void bind() const;
+            void unbind() const;
+
+            void allocate(GLuint width, GLuint height, Format format) const;
+        };
+    }
 }

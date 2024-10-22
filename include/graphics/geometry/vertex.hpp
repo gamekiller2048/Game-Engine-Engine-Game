@@ -7,58 +7,61 @@
 
 namespace mgl
 {
-    template<typename T, typename U>
-    struct Geometry
+    namespace gl
     {
-        std::vector<T> vertices;
-        std::vector<U> indices;
-    };
+        template<typename T, typename U>
+        struct Geometry
+        {
+            std::vector<T> vertices;
+            std::vector<U> indices;
+        };
 
-    struct Vertex2D
-    {
-        GLvec2 pos;
+        struct Vertex2D
+        {
+            GLvec2 pos;
 
-        std::vector<VBI> structure() const;
-    };
+            std::vector<VBI> structure() const;
+        };
 
-    struct Vertex2DUV
-    {
-        GLvec2 pos;
-        GLvec2 texUV;
+        struct Vertex2DUV
+        {
+            GLvec2 pos;
+            GLvec2 texUV;
 
-        std::vector<VBI> structure() const;
-    };
+            std::vector<VBI> structure() const;
+        };
 
 
-    struct Vertex3D
-    {
-        GLvec3 pos;
+        struct Vertex3D
+        {
+            GLvec3 pos;
 
-        std::vector<VBI> structure() const;
-    };
+            std::vector<VBI> structure() const;
+        };
 
-    struct Vertex3DUV
-    {
-        GLvec3 pos;
-        GLvec2 texUV;
+        struct Vertex3DUV
+        {
+            GLvec3 pos;
+            GLvec2 texUV;
 
-        std::vector<VBI> structure() const;
-    };
+            std::vector<VBI> structure() const;
+        };
 
-    struct Vertex3DN
-    {
-        GLvec3 pos;
-        GLvec3 normal;
+        struct Vertex3DN
+        {
+            GLvec3 pos;
+            GLvec3 normal;
 
-        std::vector<VBI> structure() const;
-    };
+            std::vector<VBI> structure() const;
+        };
 
-    struct Vertex3DUVN
-    {
-        GLvec3 pos;
-        GLvec2 texUV;
-        GLvec3 normal;
+        struct Vertex3DUVN
+        {
+            GLvec3 pos;
+            GLvec2 texUV;
+            GLvec3 normal;
 
-        std::vector<VBI> structure() const;
-    };
+            std::vector<VBI> structure() const;
+        };
+    }
 }

@@ -2,9 +2,12 @@
 
 namespace mgl
 {
-    EBO::EBO() :
-        Buffer(BufferType::ELEMENT) {}
+    namespace gl
+    {
+        EBO::EBO() :
+            Buffer(BufferType::ELEMENT) {}
 
-    EBO::EBO(EBO&& other) noexcept :
-        Buffer(std::move(other)) {}
+        EBO::EBO(EBO&& other) noexcept :
+            Buffer(std::move(other)) {}
+    }
 }
