@@ -1,3 +1,4 @@
+// TODO: interface for each api (currently only openGL)
 #pragma once
 #include <vector>
 #include <math/math.hpp>

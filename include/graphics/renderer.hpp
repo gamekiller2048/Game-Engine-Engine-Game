@@ -1,5 +1,6 @@
 namespace mgl
 {
+	// TODO: renderer implementation
 	class Renderer
 	{
 	public:
