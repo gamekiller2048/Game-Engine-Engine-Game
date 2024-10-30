@@ -4,14 +4,6 @@
 
 namespace mgl
 {
-	void Window::createContext()
-	{
-		switch(App::getInstance()->getRenderApi()) {
-		case RenderApi::OPENGL:
-			context = CreateRef<GLContext>(this, 4, 3);
-		}
-	}
-
 	void Window::setContext(const Ref<RenderContext>& context)
 	{
 		this->context = context;

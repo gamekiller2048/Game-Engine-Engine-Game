@@ -29,7 +29,6 @@ namespace mgl
 		void setScene(const std::string& name);
 		Ref<Scene> getScene() const;
 
-		void createContext();
 		void setContext(const Ref<RenderContext>& context);
 		Ref<RenderContext> getContext() const;
 
