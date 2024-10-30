@@ -1,4 +1,4 @@
-#include <input/win32/input.hpp>
+#include <input/input.hpp>
 #include <common/win32/errors.hpp>
 #include <Windows.h>
 #include "../../common/win32/errorcheck.hpp"
