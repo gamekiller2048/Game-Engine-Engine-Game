@@ -3,12 +3,9 @@
 
 namespace mgl
 {
-	namespace win32
+	class WindowImpl
 	{
-		class WindowImpl
-		{
-		public:
-			HWND hWnd;
-		};
-	}
+	public:
+		HWND hWnd;
+	};
 }

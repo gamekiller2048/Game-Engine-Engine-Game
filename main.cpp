@@ -48,8 +48,8 @@ public:
 
 int main()
 {
-	Ref<mgl::App> app = mgl::createApp(mgl::RenderApi::OPENGL);
-	Ref<mgl::Window> window = mgl::createWindow("hello world", 1000, 600);
+	Ref<mgl::App> app = CreateRef<mgl::App>(mgl::RenderApi::OPENGL);
+	Ref<mgl::Window> window = CreateRef<mgl::Window>("hello world", 1000, 600);
 	window->createContext();
 	
 	Ref<mgl::Scene> scene = CreateRef<MyScene>(window);

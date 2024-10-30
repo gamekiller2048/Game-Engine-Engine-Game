@@ -2,21 +2,13 @@
 #include <graphics/app.hpp>
 #include <graphics/opengl/glcontext.hpp>
 
-#ifdef _WIN32
-#include <graphics/win32/window.hpp>
-#endif
-
-
 namespace mgl
 {
-	Window::Window(const std::string& title, uint width, uint height, const std::vector<WindowHint>& hints) :
-		title(title), size(width, height) {}
-
 	void Window::createContext()
 	{
 		switch(App::getInstance()->getRenderApi()) {
 		case RenderApi::OPENGL:
-			context = createGLContext(this, 4, 3);
+			context = CreateRef<GLContext>(this, 4, 3);
 		}
 	}
 
@@ -93,12 +85,5 @@ namespace mgl
 	mml::uvec2 Window::getSize() const
 	{
 		return size;
-	}
-
-	Ref<Window> createWindow(const std::string& title, uint width, uint height, const std::vector<WindowHint>& hints)
-	{
-#ifdef _WIN32
-		return CreateRef<win32::Window>(title, width, height, hints);
-#endif
 	}
 }

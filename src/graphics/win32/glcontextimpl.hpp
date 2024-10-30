@@ -3,13 +3,10 @@
 
 namespace mgl
 {
-	namespace win32
+	class GLContextImpl
 	{
-		class GLContextImpl
-		{
-		public:
-			HGLRC hRC;
-			HDC hDC;
-		};
-	}
+	public:
+		HGLRC hRC;
+		HDC hDC;
+	};
 }

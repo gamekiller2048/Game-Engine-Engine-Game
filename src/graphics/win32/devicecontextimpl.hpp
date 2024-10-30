@@ -2,12 +2,9 @@
 
 namespace mgl
 {
-	namespace win32
+	class DeviceContextImpl
 	{
-		class DeviceContextImpl
-		{
-		public:
-			HDC hDC;
-		};
-	}
+	public:
+		HDC hDC;
+	};
 }

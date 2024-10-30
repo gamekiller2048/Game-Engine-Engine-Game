@@ -2,18 +2,15 @@
 
 namespace mgl
 {
-	namespace win32
+	class DeviceContextImpl;
+	class DeviceContext
 	{
-		class DeviceContextImpl;
-		class DeviceContext
-		{
-		public:
-			DeviceContext();
+	public:
+		DeviceContext();
 
-			DeviceContextImpl* getImpl() const;
+		DeviceContextImpl* getImpl() const;
 
-		protected:
-			Owned<DeviceContextImpl> impl;
-		};
-	}
+	protected:
+		Owned<DeviceContextImpl> impl;
+	};
 }

@@ -4,21 +4,24 @@
 
 namespace mgl
 {
+	class GLContextImpl;
 	class GLContext : public RenderContext
 	{
 	public:
-		GLContext(uint major, uint minor);
+		GLContext(Window* window, uint major, uint minor);
+		~GLContext();
 
-		virtual void useWindow(const Window* window) = 0;
-		virtual void makeCurrent() = 0;
-		virtual void swapBuffers() = 0;
-		virtual bool isCurrent() const = 0;
-		virtual bool isWindowUsed(const Window* window) const = 0;
+		void create(Window* window);
+		void useWindow(const Window* window);
+		void makeCurrent();
+		void swapBuffers();
+		bool isCurrent() const;
+		bool isWindowUsed(const Window* window) const ;
 
 	protected:
+		Owned<GLContextImpl> impl;
+
 		uint major;
 		uint minor;
 	};
-
-	Ref<GLContext> createGLContext(const Window* window, uint major, uint minor);
 }

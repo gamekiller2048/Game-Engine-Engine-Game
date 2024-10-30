@@ -15,12 +15,16 @@ namespace mgl
 		MINIMIZABLE
 	};
 
+	class WindowImpl;
 	class Window
 	{
 	public:
-		Window(const std::string& title, uint width, uint height, const std::vector<WindowHint>& hints);
-		virtual ~Window() = default;
+		Window(const std::string& title, uint width, uint height, const std::vector<WindowHint>& hints = {});
+		~Window();
 
+		WindowImpl* getImpl() const;
+
+		void create();
 		void addScene(const std::string& name, const Ref<Scene>& scene);
 		void setScene(const std::string& name);
 		Ref<Scene> getScene() const;
@@ -32,9 +36,9 @@ namespace mgl
 		bool isDestroyed() const;
 		void preventDefaultCallback();
 
-		virtual void destroy() = 0;
-		virtual void show() = 0;
-		virtual void hide() = 0;
+		void destroy();
+		void show();
+		void hide();
 
 		std::string getTitle() const;
 		int getX() const;
@@ -44,17 +48,19 @@ namespace mgl
 		uint getHeight() const;
 		mml::uvec2 getSize() const;
 
-		virtual void setTitle(const std::string& title) = 0;
-		virtual void setX(int x) = 0;
-		virtual void setY(int y) = 0;
-		virtual void setPos(const mml::ivec2& pos) = 0;
-		virtual void setWidth(uint width) = 0;
-		virtual void setHeight(uint height) = 0;
-		virtual void setSize(const mml::uvec2& size) = 0;
+		void setTitle(const std::string& title);
+		void setX(int x);
+		void setY(int y);
+		void setPos(const mml::ivec2& pos);
+		void setWidth(uint width);
+		void setHeight(uint height);
+		void setSize(const mml::uvec2& size);
 
 		bool defaultCallback = true;
 
 	protected:
+		Owned<WindowImpl> impl;
+
 		std::string title;
 		mml::ivec2 pos;
 		mml::uvec2 size;
@@ -65,6 +71,4 @@ namespace mgl
 		std::unordered_map<std::string, Ref<Scene>> scenes;
 		Ref<Scene> curScene;
 	};
-
-	Ref<Window> createWindow(const std::string& title, uint width, uint height, const std::vector<WindowHint>& hints={});
 }

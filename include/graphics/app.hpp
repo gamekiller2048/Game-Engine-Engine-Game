@@ -10,8 +10,8 @@ namespace mgl
 	public:
 		App(RenderApi api);
 
-		virtual void run() = 0;
-		virtual void destroy() = 0;
+		void run();
+		void destroy();
 		void addWindow(const Ref<Window>& window);
 
 		RenderApi getRenderApi() const;
@@ -25,6 +25,4 @@ namespace mgl
 
 		inline static App* instance;
 	};
-
-	Ref<App> createApp(RenderApi api);
 }

@@ -3,14 +3,11 @@
 
 namespace mgl
 {
-	namespace win32
-	{
-		DeviceContext::DeviceContext() :
-			impl(CreateOwned<DeviceContextImpl>()) {}
+	DeviceContext::DeviceContext() :
+		impl(CreateOwned<DeviceContextImpl>()) {}
 
-		DeviceContextImpl* DeviceContext::getImpl() const
-		{
-			return impl.get();
-		}
+	DeviceContextImpl* DeviceContext::getImpl() const
+	{
+		return impl.get();
 	}
 }
