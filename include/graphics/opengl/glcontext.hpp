@@ -4,11 +4,17 @@
 
 namespace mgl
 {
+	enum class GLContextProfile
+	{
+		CORE,
+		COMPATABILITY
+	};
+
 	class GLContextImpl;
 	class GLContext : public RenderContext
 	{
 	public:
-		GLContext(Window* window, uint major, uint minor);
+		GLContext(Window* window, uint major, uint minor, GLContextProfile profile = GLContextProfile::CORE);
 		~GLContext();
 
 		void create(Window* window);
@@ -23,5 +29,6 @@ namespace mgl
 
 		uint major;
 		uint minor;
+		GLContextProfile profile;
 	};
 }

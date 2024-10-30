@@ -9,8 +9,8 @@
 
 namespace mgl
 {
-    GLContext::GLContext(Window* window, uint major, uint minor) :
-        major(major), minor(minor), impl(CreateOwned<GLContextImpl>())
+    GLContext::GLContext(Window* window, uint major, uint minor, GLContextProfile profile) :
+        major(major), minor(minor), profile(profile), impl(CreateOwned<GLContextImpl>())
     {
         create(window);
     }
@@ -36,7 +36,8 @@ namespace mgl
         int attribs[] = {
             WGL_CONTEXT_MAJOR_VERSION_ARB, (int)major,
             WGL_CONTEXT_MINOR_VERSION_ARB, (int)minor,
-            WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB, 0
+            WGL_CONTEXT_PROFILE_MASK_ARB, 
+            profile == GLContextProfile::CORE ? WGL_CONTEXT_CORE_PROFILE_BIT_ARB : WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB, 0
         };
 
         impl->hRC = WIN_CALLV(wglCreateContextAttribsARB, impl->hDC, NULL, attribs);
