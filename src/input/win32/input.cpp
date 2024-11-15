@@ -12,6 +12,11 @@ namespace mil
         return mml::vec2((float)p.x, (float)p.y);
     }
 
+    void setMousePos(const mml::ivec2& pos)
+    {
+        WIN_CALL(SetCursorPos, pos.x, pos.y);
+    }
+
     bool isKeyPressed(Key key)
     {
         return WIN_CALLR(GetKeyState, (int)key) & 0x8000;

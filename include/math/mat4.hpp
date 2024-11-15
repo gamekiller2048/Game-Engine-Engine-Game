@@ -360,6 +360,6 @@ namespace mml
     template<typename T>
     std::ostream& operator<<(std::ostream& out, const Mat<T, 4, 4>& mat)
     {
-        return mat.toString();
+        return out << mat.toString();
     }
 }

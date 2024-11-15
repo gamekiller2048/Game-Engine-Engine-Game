@@ -13,7 +13,7 @@ namespace mgl
 {
     namespace gl
     {
-        enum class ShaderProgramParam
+        enum class ProgramParam
         {
             DELETE_STATUS = GL_DELETE_STATUS,
             LINK_STATUS = GL_LINK_STATUS,
@@ -27,18 +27,18 @@ namespace mgl
             ACTIVE_ATTRIBUTE_MAX_LENGTH = GL_ACTIVE_ATTRIBUTE_MAX_LENGTH
         };
 
-        class ShaderProgram : public GLObject
+        class Program : public GLObject
         {
         public:
-            ShaderProgram() = default;
-            ShaderProgram(ShaderProgram&& other) noexcept;
-            ~ShaderProgram();
+            Program() = default;
+            Program(Program&& other) noexcept;
+            ~Program();
 
             void create();
-            void use() const;
-            void unuse() const;
+            void bind() const;
+            void unbind() const;
 
-            GLint getParameterInt(ShaderProgramParam param) const;
+            GLint getParameterInt(ProgramParam param) const;
 
             void attachShaders(const std::vector<Shader*>& shaders) const;
             void attachShadersFromFile(const std::string& vertexPath="", const std::string& fragmentPath="", const std::string& geometryPath="", const std::string& computeFilePath="") const;

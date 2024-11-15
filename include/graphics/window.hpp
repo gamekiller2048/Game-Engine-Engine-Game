@@ -55,10 +55,14 @@ namespace mgl
 		void setHeight(uint height);
 		void setSize(const mml::uvec2& size);
 
+		mml::vec2 getMousePos() const;
+		void setMousePos(const mml::ivec2 & pos) const;
+
 		bool defaultCallback = true;
 
 	protected:
 		Owned<WindowImpl> impl;
+		friend class WindowImpl;
 
 		std::string title;
 		mml::ivec2 pos;

@@ -31,6 +31,12 @@ namespace mgl
             GL_CALL(glBindBuffer, gltype, 0);
         }
 
+        void Buffer::allocate(const void* buffer, GLsizei size, UsagePattern usage) const
+        {
+            bind();
+            GL_CALL(glBufferData, gltype, size, buffer, (GLenum)usage);
+        }
+
         template<typename T>
         void Buffer::allocate(const std::vector<T>& buffer, UsagePattern usage) const
         {
@@ -39,10 +45,16 @@ namespace mgl
         }
 
         template<typename T>
-        void Buffer::allocate(GLsizei bytes, UsagePattern usage) const
+        void Buffer::allocate(GLsizei size, UsagePattern usage) const
         {
             bind();
-            GL_CALL(glBufferData, gltype, bytes, nullptr, (GLenum)usage);
+            GL_CALL(glBufferData, gltype, size, nullptr, (GLenum)usage);
+        }
+
+        void Buffer::write(const void* buffer, GLsizei size, GLintptr start, GLsizei end) const
+        {
+            bind();
+            GL_CALL(glBufferSubData, gltype, start, end == -1 ? end : size, buffer);
         }
 
         template<typename T>

@@ -2,7 +2,6 @@
 #include <glad/gl.h>
 #include <unordered_set>
 #include <graphics/opengl/globject.hpp>
-#include <graphics/opengl/shaderprogram.hpp>
 #include <graphics/opengl/enums.hpp>
 #include <logging/logging.hpp>
 #include <graphics/errors.hpp>

@@ -7,5 +7,6 @@ namespace mgl
 	{
 	public:
 		HWND hWnd;
+		static LRESULT windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	};
 }

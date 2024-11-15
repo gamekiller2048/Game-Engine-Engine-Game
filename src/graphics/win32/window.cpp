@@ -9,10 +9,10 @@ namespace mgl
 {
 	static std::string CLASS_NAME;
 
-	static LRESULT WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	LRESULT WindowImpl::windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		Window* window = (Window*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
-		if(!window)
+		if(!window || !window->getScene())
 			return DefWindowProcA(hWnd, uMsg, wParam, lParam);
 
 		window->defaultCallback = true;
@@ -24,16 +24,44 @@ namespace mgl
 		case WM_CLOSE:
 			window->destroy();
 			break;
+		case WM_SIZE:
+			window->getScene()->windowSizeCallback(LOWORD(lParam), HIWORD(lParam));
+			window->size = mml::uvec2(LOWORD(lParam), HIWORD(lParam));
+			break;
+		case WM_MOVE:
+			window->getScene()->windowPosCallback((uint16)LOWORD(lParam), (uint16)HIWORD(lParam));
+			window->pos = mml::ivec2(LOWORD(lParam), HIWORD(lParam));
+			break;
+		case WM_LBUTTONDOWN:
+			window->getScene()->mouseCallback(mil::MouseEvent(mil::Mouse::M_LEFT, mil::Action::PRESS));
+			break;
+		case WM_LBUTTONUP:
+			window->getScene()->mouseCallback(mil::MouseEvent(mil::Mouse::M_LEFT, mil::Action::RELEASE));
+			break;
+		case WM_RBUTTONUP:
+			window->getScene()->mouseCallback(mil::MouseEvent(mil::Mouse::M_RIGHT, mil::Action::PRESS));
+			break;
+		case WM_RBUTTONDOWN:
+			window->getScene()->mouseCallback(mil::MouseEvent(mil::Mouse::M_RIGHT, mil::Action::RELEASE));
+			break;
+		case WM_MBUTTONUP:
+			window->getScene()->mouseCallback(mil::MouseEvent(mil::Mouse::M_MIDDLE, mil::Action::PRESS));
+			break;
+		case WM_MBUTTONDOWN:
+			window->getScene()->mouseCallback(mil::MouseEvent(mil::Mouse::M_MIDDLE, mil::Action::RELEASE));
+			break;
 		case WM_KEYDOWN:
 			window->getScene()->keyCallback(mil::KeyEvent((mil::Key)wParam, mil::Action::PRESS));
-			if(!window->defaultCallback) break;
+			break;
 		case WM_KEYUP:
 			window->getScene()->keyCallback(mil::KeyEvent((mil::Key)wParam, mil::Action::RELEASE));
-			if(!window->defaultCallback) break;
+			break;
 		default:
 			return DefWindowProcA((HWND)hWnd, uMsg, wParam, lParam);
 		}
 
+		if(window->defaultCallback)
+			return DefWindowProcA((HWND)hWnd, uMsg, wParam, lParam);
 		return 0;
 	}
 
@@ -51,7 +79,7 @@ namespace mgl
 			CLASS_NAME = "MGL_WINDOW";
 
 			WNDCLASSA wc = {};
-			wc.lpfnWndProc = (WNDPROC)WindowProc;
+			wc.lpfnWndProc = (WNDPROC)WindowImpl::windowProc;
 			wc.hInstance = hInstance;
 
 			// CS_OWNDC creates a private DC in memory for this window
@@ -78,11 +106,12 @@ namespace mgl
 			this
 		);
 
+		RECT rect;
+		WIN_CALL(GetWindowRect, impl->hWnd, &rect);
+		pos = mml::ivec2(rect.left, rect.top);
+
 		// TODO: this function returns 0 so make fix to wrap with WIN_CALL*
 		SetWindowLongPtr(impl->hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
-
-		SetWindowLong(impl->hWnd, GWL_EXSTYLE, GetWindowLong(impl->hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);
-		SetLayeredWindowAttributes(impl->hWnd, RGB(255, 0, 0), 0, LWA_COLORKEY); // Make white pixels transparent
 
 		if(App::getInstance()->getRenderApi() == RenderApi::OPENGL) {
 			HDC hDC = WIN_CALLV(GetDC, impl->hWnd);

@@ -1,21 +1,16 @@
 #include <graphics/render/mesh.hpp>
+#include <graphics/app.hpp>
+#include <graphics/render/opengl/mesh.hpp>
 
 namespace mgl
 {
-    void Mesh::create()
-    {
-        vbo.create();
-        ebo.create();
-        vao.create();
-    }
+	Ref<Mesh> createMesh()
+	{
+		switch(App::getInstance()->getRenderApi()) {
+		case RenderApi::OPENGL:
+			return CreateRef<gl::Mesh>();
+		}
 
-    void Mesh::draw(const ShaderProgram& shader) const
-    {
-        vao.bind();
-
-        if(indiceCount == 0)
-            shader.drawArrays(RenderPrimative::TRIANGLES, 0, vertexCount);
-        else
-            shader.drawElements(RenderPrimative::TRIANGLES, indiceCount);
-    }
+		return nullptr;
+	}
 }

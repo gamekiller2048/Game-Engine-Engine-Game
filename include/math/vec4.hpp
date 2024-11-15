@@ -481,7 +481,7 @@ namespace mml
     template<typename T>
     std::ostream& operator<<(std::ostream& out, const Vec<T, 4>& vec)
     {
-        return vec.toString();
+        return out << vec.toString();
     }
 }
 

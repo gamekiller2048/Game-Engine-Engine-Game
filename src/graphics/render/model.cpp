@@ -3,23 +3,51 @@
 
 namespace mgl
 {
-	mml::mat4 Model::getMatrix() const
+	Ref<Mesh> Model::getMesh() const
+	{
+		return mesh;
+	}
+
+	Ref<Material> Model::getMaterial() const
+	{
+		return material;
+	}
+
+	void Model::setMesh(const Ref<Mesh>& mesh)
+	{
+		this->mesh = mesh;
+	}
+
+	void Model::setMaterial(const Ref<Material>& material)
+	{
+		this->material = material;
+	}
+
+	mml::mat4 Model::calculateTransform()
 	{
 		return mml::translate(mml::scale(mml::rotate(mml::mat4(1), rotate), scale), pos);
 	}
 
-	void Model::addMesh(Mesh&& mesh)
+	void Model::setPos(const mml::vec3& pos)
 	{
-		meshes.push_back(std::move(mesh));
+		this->pos = pos;
+		setTransform(calculateTransform());
 	}
 
-	Mesh& Model::getMesh(uint index)
+	void Model::setRotate(const mml::vec3& rotate)
 	{
-		return meshes[index];
+		this->rotate = rotate;
+		setTransform(calculateTransform());
 	}
 
-	//const std::vector<Mesh> Model::getMeshes() const
-	//{
-	//	return meshes;
-	//}
+	void Model::setScale(const mml::vec3& scale)
+	{
+		this->scale = scale;
+		setTransform(calculateTransform());
+	}
+
+	void Model::setTransform(const mml::mat4& transform)
+	{
+		this->transform = transform;
+	}
 }

@@ -6,6 +6,7 @@
 namespace mil
 {
 	mml::vec2 getMousePos();
+	void setMousePos(const mml::ivec2& pos);
 	bool isKeyPressed(Key key);
 	bool isMousePressed(Mouse button);
 }

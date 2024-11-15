@@ -1,108 +1,92 @@
 #pragma once
 #include <vector>
 #include <numeric>
-#include <glad/gl.h>
-#include <graphics/opengl/vao.hpp>
-#include <graphics/opengl/vbo.hpp>
-#include <graphics/opengl/ebo.hpp>
-#include <graphics/opengl/shaderprogram.hpp>
 #include <graphics/geometry/vertex.hpp>
 
 namespace mgl
 {
+    enum class UsagePattern
+    {
+        STATIC,
+        DYNAMIC,
+        STREAM
+    };
+
     class Mesh
     {
     public:
-        Mesh() = default;
-
-        GLuint vertexCount = 0;
-        GLuint indiceCount = 0;
-
-        void create();
+        virtual void create() = 0;
+        virtual void bind() = 0;
 
         template<typename T, typename U>
-        void setGeometry(const Geometry<T, U>& geometry, int indicesPerElement=1, UsagePattern usage=UsagePattern::STATIC_DRAW);
+        void setGeometry(const Geometry<T, U>& geometry, int indicesPerElement = 1, UsagePattern usage = UsagePattern::STATIC);
 
         template<typename T>
-        void setVertices(const std::vector<T>& vertices, UsagePattern usage=UsagePattern::STATIC_DRAW);
-
-        template<typename T>
-        void setIndices(const std::vector<T>& indices, int indicesPerElement=1, UsagePattern usage=UsagePattern::STATIC_DRAW);
-
+        void setVertices(const std::vector<T>& vertices, UsagePattern usage = UsagePattern::STATIC);
+        
+        // indicesPerElement: when U is more then one component
+        // e.g U = Triange{a, b, c}, indicesPerElement=3
+        template<typename U>
+        void setIndices(const std::vector<U>& indices, int indicesPerElement = 1, UsagePattern usage = UsagePattern::STATIC);
+        
         template<typename T, typename U>
-        void updateGeometry(const Geometry<T, U>& geometry, GLsizei start=0, GLsizei end=-1, int indicesPerElement=1);
-
+        void updateGeometry(const Geometry<T, U>& geometry, size_t start = 0, size_t end = -1, int indicesPerElement = 1);
+        
         template<typename T>
-        void updateVertices(const std::vector<T>& vertices, GLsizei start=0, GLsizei end=-1);
-
-        template<typename T>
-        void updateIndices(const std::vector<T>& indices, GLsizei start=0, GLsizei end=-1, int indicesPerElement=1);
-
-        void draw(const ShaderProgram& shader) const;
-
+        void updateVertices(const std::vector<T>& vertices, size_t start = 0, size_t end = -1);
+        
+        template<typename U>
+        void updateIndices(const std::vector<U>& indices, size_t start = 0, size_t end = -1, int indicesPerElement = 1);
+    
     protected:
-        VAO vao;
-        VBO vbo;
-        EBO ebo;
+        uint vertexCount = 0;
+        uint indiceCount = 0;
+
+        virtual void setVertices(const void* vertices, const VertexLayout& vertexLayout, UsagePattern usage = UsagePattern::STATIC) = 0;
+        virtual void setIndices(const void* indices, int indicesPerElement = 1, UsagePattern usage = UsagePattern::STATIC) = 0;
+        virtual void updateVertices(const void* vertices, const VertexLayout& vertexLayout, size_t start = 0, size_t end = -1) = 0;
+        virtual void updateIndices(const void* indices, size_t start = 0, size_t end = -1, int indicesPerElement = 1) = 0;
     };
+
+    Ref<Mesh> createMesh();
 
     template<typename T, typename U>
     void Mesh::setGeometry(const Geometry<T, U>& geometry, int indicesPerElement, UsagePattern usage)
     {
         setVertices(geometry.vertices, usage);
         setIndices(geometry.indices, indicesPerElement, usage);
-    } 
+    }
 
     template<typename T>
     void Mesh::setVertices(const std::vector<T>& vertices, UsagePattern usage)
     {
         vertexCount = vertices.size();
-
-        vao.bind();
-        vbo.allocate(vertices, usage);
-
-        if(!vertexCount) return;
-
-        GLuint offset = 0;
-        for(const VBI& vbi : vertices[0].structure()) {
-            vao.linkAttrib(vbo, vbi.layout, vbi.components, vbi.type, sizeof(T), offset);
-            offset += vbi.components * sizeof(vbi.type);
-        }
+        setVertices(vertices.data(), vertices[0].vertexLayout(), usage);
     }
 
-    template<typename T>
-    void Mesh::setIndices(const std::vector<T>& indices, int indicesPerElement, UsagePattern usage)
+    template<typename U>
+    void Mesh::setIndices(const std::vector<U>& indices, int indicesPerElement, UsagePattern usage)
     {
         indiceCount = indices.size() * indicesPerElement;
-
-        vao.bind();
-        ebo.allocate(indices, usage);
+        setIndices(indices.data(), indicesPerElement, usage);
     }
 
     template<typename T, typename U>
-    void Mesh::updateGeometry(const Geometry<T, U>& geometry, GLsizei start, GLsizei end, int indicesPerElement)
+    void Mesh::updateGeometry(const Geometry<T, U>& geometry, size_t start, size_t end, int indicesPerElement)
     {
         updateVertices(geometry.vertices, start, end);
         updateIndices(geometry.indices, indicesPerElement, start, end);
     }
 
     template<typename T>
-    void Mesh::updateVertices(const std::vector<T>& vertices, GLsizei start, GLsizei end)
+    void Mesh::updateVertices(const std::vector<T>& vertices, size_t start, size_t end)
     {
-        vao.bind();
-        vbo.write(vertices, start, end);
-
-        GLuint offset = 0;
-        for(const VBI& vbi : vertices[0].structure()) {
-            vao.linkAttrib(vbo, vbi.layout, vbi.components, vbi.type, sizeof(T), offset);
-            offset += vbi.components * sizeof(vbi.type);
-        }
+        updateVertices(vertices.data(), vertices[0].vertexLayout(), start, end);
     }
 
-    template<typename T>
-    void Mesh::updateIndices(const std::vector<T>& indices, GLsizei start, GLsizei end, int indicesPerElement)
+    template<typename U>
+    void Mesh::updateIndices(const std::vector<U>& indices, size_t start, size_t end, int indicesPerElement)
     {
-        vao.bind();
-        ebo.write(indices, start, end);
+        updateIndices(indices.data(), start, end, indicesPerElement);
     }
 }

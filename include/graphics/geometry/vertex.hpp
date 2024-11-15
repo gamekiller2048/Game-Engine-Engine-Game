@@ -2,25 +2,25 @@
 #pragma once
 #include <vector>
 #include <math/math.hpp>
-#include <graphics/opengl/buffer.hpp>
+#include <graphics/render/vertexlayout.hpp>
 #include <graphics/opengl/gltypes.hpp>
 
 namespace mgl
 {
+    template<typename T, typename U>
+    struct Geometry
+    {
+        std::vector<T> vertices;
+        std::vector<U> indices;
+    };
+
     namespace gl
     {
-        template<typename T, typename U>
-        struct Geometry
-        {
-            std::vector<T> vertices;
-            std::vector<U> indices;
-        };
-
         struct Vertex2D
         {
             GLvec2 pos;
 
-            std::vector<VBI> structure() const;
+            VertexLayout vertexLayout() const;
         };
 
         struct Vertex2DUV
@@ -28,7 +28,7 @@ namespace mgl
             GLvec2 pos;
             GLvec2 texUV;
 
-            std::vector<VBI> structure() const;
+            VertexLayout vertexLayout() const;
         };
 
 
@@ -36,7 +36,7 @@ namespace mgl
         {
             GLvec3 pos;
 
-            std::vector<VBI> structure() const;
+            VertexLayout vertexLayout() const;
         };
 
         struct Vertex3DUV
@@ -44,7 +44,7 @@ namespace mgl
             GLvec3 pos;
             GLvec2 texUV;
 
-            std::vector<VBI> structure() const;
+            VertexLayout vertexLayout() const;
         };
 
         struct Vertex3DN
@@ -52,7 +52,7 @@ namespace mgl
             GLvec3 pos;
             GLvec3 normal;
 
-            std::vector<VBI> structure() const;
+            VertexLayout vertexLayout() const;
         };
 
         struct Vertex3DUVN
@@ -61,7 +61,7 @@ namespace mgl
             GLvec2 texUV;
             GLvec3 normal;
 
-            std::vector<VBI> structure() const;
+            VertexLayout vertexLayout() const;
         };
     }
 }

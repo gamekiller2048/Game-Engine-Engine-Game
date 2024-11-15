@@ -14,7 +14,7 @@ namespace mgl
         virtual void exit();
 
         virtual void keyCallback(const mil::KeyEvent& event);
-        //virtual void mouseCallback(const mil::MouseEvent& event);
+        virtual void mouseCallback(const mil::MouseEvent& event);
         virtual void windowSizeCallback(int w, int h);
         virtual void windowPosCallback(int x, int y);
         virtual void windowCloseCallback();

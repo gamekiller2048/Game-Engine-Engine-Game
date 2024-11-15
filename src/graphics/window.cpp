@@ -1,6 +1,6 @@
 #include <graphics/window.hpp>
 #include <graphics/app.hpp>
-#include <graphics/opengl/glcontext.hpp>
+#include <input/input.hpp>
 
 namespace mgl
 {
@@ -77,5 +77,15 @@ namespace mgl
 	mml::uvec2 Window::getSize() const
 	{
 		return size;
+	}
+
+	mml::vec2 Window::getMousePos() const
+	{
+		return mil::getMousePos() - pos;
+	}
+
+	void Window::setMousePos(const mml::ivec2& pos) const
+	{
+		mil::setMousePos(pos + this->pos);
 	}
 }

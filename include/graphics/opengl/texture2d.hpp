@@ -1,5 +1,6 @@
 #pragma once
-#include <memory>
+#include <glad/gl.h>
+#include <math/math.hpp>
 #include <graphics/opengl/texture.hpp>
 #include <graphics/opengl/enums.hpp>
 

@@ -1,5 +1,6 @@
 #pragma once
 #include <glad/gl.h>
+#include <math/math.hpp>
 #include <graphics/opengl/globject.hpp>
 #include <graphics/opengl/texture2d.hpp>
 #include <graphics/opengl/rbo.hpp>
