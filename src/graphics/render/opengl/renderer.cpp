@@ -12,8 +12,12 @@ namespace mgl
 			shader->bind();
 			model->getMaterial()->use();
 			shader->uniform("projection", camera->projView);
+			shader->uniform("transform", model->getTransform());
 
 			model->getMesh()->bind();
+
+			//shader->drawElements(mgl::gl::RenderPrimative::TRIANGLES, 36);
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 		}
 	}
 }

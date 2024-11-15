@@ -10,6 +10,10 @@ namespace mgl
 	public:
 		Ref<Mesh> getMesh() const;
 		Ref<Material> getMaterial() const;
+		mml::vec3 getPos() const;
+		mml::vec3 getRotate() const;
+		mml::vec3 getScale() const;
+		mml::mat4 getTransform() const;
 
 		void setMesh(const Ref<Mesh>& mesh);
 		void setMaterial(const Ref<Material>& material);

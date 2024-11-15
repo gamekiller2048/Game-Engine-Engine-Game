@@ -21,6 +21,7 @@ public:
 	Ref<mgl::gl::Context> context;
 	Ref<mgl::Model> model;
 	mgl::FirstPersonCamera camera;
+	Ref<mgl::BasicMaterial> material;
 
 	float i = 0.0f;
 	
@@ -35,8 +36,10 @@ public:
 		mesh->create();
 		mesh->setGeometry(mgl::gl::Shape3D().Cube());
 
+		material = CreateRef<mgl::BasicMaterial>();
+
 		model->setMesh(mesh);
-		model->setMaterial(CreateRef<mgl::BasicMaterial>());
+		model->setMaterial(material);
 	}
 
 	void keyCallback(const mil::KeyEvent& event)
@@ -55,24 +58,24 @@ public:
 
 	void update()
 	{
+		context->clearColor();
+		context->clearDepth();
+		glViewport(0, 0, window->getWidth(), window->getHeight());
+
 		window->setTitle(mil::getMousePos().toString());
 
 		if(mil::isKeyPressed(mil::Key::K_0)) {
 			std::cout << "Asd";
 		}
 
-		context->clearColor();
-		context->clearDepth();
-		glViewport(0, 0, window->getWidth(), window->getHeight());
-
-		//glClearColor(mml::sin(i) * 0.5f + 0.5f, 1.0f, 0.0f, 1.0f);
 		i += 0.001f;
+		material->color = mml::color(mml::sin(i) * 0.5f + 1, mml::cos(i) * 0.5f + 1, 0, 1);
+		model->setScale(mml::vec3(model->getScale().x + mml::cos(i * 10.0f) / 1000));
 
 		camera.BasicFirstPersonView(window);
 		camera.calculate();
 		camera.perspective(45.0f, 0.1f, 1000.0f, window->getSize());
-
-		//shader.drawElements(mgl::gl::RenderPrimative::TRIANGLES, 36);
+		
 		renderer->render(model, &camera);
 	}
 };

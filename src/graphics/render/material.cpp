@@ -11,22 +11,25 @@ namespace mgl
 			#version 430 core
 			layout(location = 0) in vec3 pos;
 			uniform mat4 projection;
+			uniform mat4 transform;
 			void main()
 			{
-				gl_Position = vec4(pos, 1) * projection;
+				gl_Position = vec4(pos, 1) * transform * projection;
 			})",
 
 			R"(
 			#version 430 core
+			uniform vec4 color;
 			void main()
 			{
-				gl_FragColor = vec4(1);
+				gl_FragColor = color;
 			})"
 		);
 	}
+
 	void BasicMaterial::use() const
 	{
-		
+		shader->uniform("color", (mml::vec4)color);
 	}
 
 	StandardMaterial::StandardMaterial()

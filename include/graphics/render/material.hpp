@@ -13,7 +13,7 @@ namespace mgl
 
     struct BasicMaterial : public Material
     {
-        mml::vec4 color;
+        mml::color color;
 
         BasicMaterial();
         void use() const;

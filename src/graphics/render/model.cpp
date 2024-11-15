@@ -13,6 +13,26 @@ namespace mgl
 		return material;
 	}
 
+	mml::vec3 Model::getPos() const
+	{
+		return pos;
+	}
+
+	mml::vec3 Model::getRotate() const
+	{
+		return rotate;
+	}
+
+	mml::vec3 Model::getScale() const
+	{
+		return scale;
+	}
+
+	mml::mat4 Model::getTransform() const
+	{
+		return transform;
+	}
+
 	void Model::setMesh(const Ref<Mesh>& mesh)
 	{
 		this->mesh = mesh;
