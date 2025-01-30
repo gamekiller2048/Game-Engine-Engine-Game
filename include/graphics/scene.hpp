@@ -18,5 +18,6 @@ namespace mgl
         virtual void windowSizeCallback(int w, int h);
         virtual void windowPosCallback(int x, int y);
         virtual void windowCloseCallback();
+        virtual void lowLevelMsgLoopCallback(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam);
     };
 }

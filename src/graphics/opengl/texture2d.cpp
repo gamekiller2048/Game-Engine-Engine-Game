@@ -1,4 +1,5 @@
 #include <graphics/opengl/texture2d.hpp>
+#include <graphics/opengl/context.hpp>
 #include <resourceloader/imageloader.hpp>
 #include "errorcheck.hpp"
 

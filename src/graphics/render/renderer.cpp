@@ -1,6 +1,6 @@
 #include <graphics/render/renderer.hpp>
 #include <graphics/app.hpp>
-#include <graphics/render/opengl/renderer.hpp>
+#include <graphics/render/opengl/glrenderer.hpp>
 
 namespace mgl
 {
@@ -8,7 +8,7 @@ namespace mgl
 	{
 		switch(App::getInstance()->getRenderApi()) {
 		case RenderApi::OPENGL:
-			return CreateRef<gl::Renderer>();
+			return CreateRef<GLRenderer>();
 		}
 
 		return nullptr;

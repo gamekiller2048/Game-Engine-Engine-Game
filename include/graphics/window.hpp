@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <math/math.hpp>
 #include <graphics/scene.hpp>
-#include <graphics/rendercontext.hpp>
+#include <graphics/render/rendercontext.hpp>
 
 namespace mgl
 {

@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <graphics/window.hpp>
-#include <graphics/rendercontext.hpp>
+#include <graphics/render/rendercontext.hpp>
 
 namespace mgl
 {

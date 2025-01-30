@@ -16,6 +16,7 @@ namespace mgl
 			return DefWindowProcA(hWnd, uMsg, wParam, lParam);
 
 		window->defaultCallback = true;
+		window->getScene()->lowLevelMsgLoopCallback(hWnd, uMsg, wParam, lParam);
 
 		switch(uMsg)
 		{

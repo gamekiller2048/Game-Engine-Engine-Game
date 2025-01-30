@@ -72,25 +72,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)include;$(IncludePath);$(SolutionDir)vendor\include</IncludePath>
+    <IncludePath>$(SolutionDir)include;$(IncludePath);$(SolutionDir)vendor\include;$(SolutionDir)vendor\include\imgui</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)include;$(IncludePath);$(SolutionDir)vendor\include</IncludePath>
+    <IncludePath>$(SolutionDir)include;$(IncludePath);$(SolutionDir)vendor\include;$(SolutionDir)vendor\include\imgui</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)include;$(IncludePath);$(SolutionDir)vendor\include</IncludePath>
+    <IncludePath>$(SolutionDir)include;$(IncludePath);$(SolutionDir)vendor\include;$(SolutionDir)vendor\include\imgui</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)include;$(IncludePath);$(SolutionDir)vendor\include</IncludePath>
+    <IncludePath>$(SolutionDir)include;$(IncludePath);$(SolutionDir)vendor\include;$(SolutionDir)vendor\include\imgui</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ForcedIncludeFiles>iostream;string;common/typealias.hpp;logging/logging.hpp</ForcedIncludeFiles>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
@@ -109,7 +109,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ForcedIncludeFiles>iostream;string;common/typealias.hpp;logging/logging.hpp</ForcedIncludeFiles>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
@@ -128,7 +128,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ForcedIncludeFiles>iostream;string;common/typealias.hpp;logging/logging.hpp</ForcedIncludeFiles>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
@@ -147,7 +147,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ForcedIncludeFiles>iostream;string;common/typealias.hpp;logging/logging.hpp</ForcedIncludeFiles>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
@@ -191,18 +191,35 @@
     <ClCompile Include="src\graphics\opengl\vao.cpp" />
     <ClCompile Include="src\graphics\opengl\vbo.cpp" />
     <ClCompile Include="src\graphics\opengl\vertexshader.cpp" />
+    <ClCompile Include="src\graphics\opengl\win32\context.cpp" />
+    <ClCompile Include="src\graphics\render\buffer.cpp" />
+    <ClCompile Include="src\graphics\render\cubemap.cpp" />
+    <ClCompile Include="src\graphics\render\indexbuffer.cpp" />
     <ClCompile Include="src\graphics\render\material.cpp" />
     <ClCompile Include="src\graphics\render\mesh.cpp" />
     <ClCompile Include="src\graphics\render\model.cpp" />
-    <ClCompile Include="src\graphics\render\opengl\shaderprogram.cpp" />
+    <ClCompile Include="src\graphics\render\light.cpp" />
+    <ClCompile Include="src\graphics\render\opengl\glcontext.cpp" />
+    <ClCompile Include="src\graphics\render\opengl\glcubemap.cpp" />
+    <ClCompile Include="src\graphics\render\opengl\gltexture2dimpl.hpp" />
+    <ClCompile Include="src\graphics\render\opengl\glindexbuffer.cpp" />
+    <ClCompile Include="src\graphics\render\opengl\glvertexbuffer.cpp" />
+    <ClCompile Include="src\graphics\render\opengl\win32\glcontext.cpp" />
+    <ClCompile Include="src\graphics\render\pointlight.cpp" />
+    <ClCompile Include="src\graphics\render\pointshadow.cpp" />
+    <ClCompile Include="src\graphics\render\rendercontext.cpp" />
+    <ClCompile Include="src\graphics\render\renderscene.cpp" />
+    <ClCompile Include="src\graphics\render\shadow.cpp" />
+    <ClCompile Include="src\graphics\render\opengl\glshaderprogram.cpp" />
+    <ClCompile Include="src\graphics\render\opengl\gltexture2d.cpp" />
     <ClCompile Include="src\graphics\render\renderer.cpp" />
-    <ClCompile Include="src\graphics\render\opengl\mesh.cpp" />
-    <ClCompile Include="src\graphics\render\opengl\renderer.cpp" />
+    <ClCompile Include="src\graphics\render\opengl\glrenderer.cpp" />
     <ClCompile Include="src\graphics\render\shaderprogram.cpp" />
+    <ClCompile Include="src\graphics\render\texture2d.cpp" />
+    <ClCompile Include="src\graphics\render\vertexbuffer.cpp" />
     <ClCompile Include="src\graphics\scene.cpp" />
     <ClCompile Include="src\graphics\win32\app.cpp" />
     <ClCompile Include="src\graphics\win32\devicecontext.cpp" />
-    <ClCompile Include="src\graphics\win32\glcontext.cpp" />
     <ClCompile Include="src\graphics\win32\window.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
     <ClCompile Include="src\input\event.cpp" />
@@ -218,6 +235,14 @@
     <ClCompile Include="src\resourceloader\resourceloader.cpp" />
     <ClCompile Include="vendor\src\glad\gl.c" />
     <ClCompile Include="vendor\src\glad\wgl.c" />
+    <ClCompile Include="vendor\src\imgui\imgui.cpp" />
+    <ClCompile Include="vendor\src\imgui\imgui_draw.cpp" />
+    <ClCompile Include="vendor\src\imgui\imgui_impl_mgl.cpp" />
+    <ClCompile Include="vendor\src\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="vendor\src\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="vendor\src\imgui\imgui_tables.cpp" />
+    <ClCompile Include="vendor\src\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="vendor\src\stb\stb_image.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\common\typealias.hpp" />
@@ -251,17 +276,29 @@
     <ClInclude Include="include\graphics\opengl\vao.hpp" />
     <ClInclude Include="include\graphics\opengl\vbo.hpp" />
     <ClInclude Include="include\graphics\opengl\vertexshader.hpp" />
-    <ClInclude Include="include\graphics\rendercontext.hpp" />
-    <ClInclude Include="include\graphics\render\opengl\shaderprogram.hpp" />
+    <ClInclude Include="include\graphics\render\buffer.hpp" />
+    <ClInclude Include="include\graphics\render\opengl\glcontext.hpp" />
+    <ClInclude Include="include\graphics\render\rendercontext.hpp" />
+    <ClInclude Include="include\graphics\render\cubemap.hpp" />
+    <ClInclude Include="include\graphics\render\indexbuffer.hpp" />
+    <ClInclude Include="include\graphics\render\light.hpp" />
+    <ClInclude Include="include\graphics\render\opengl\glcubemap.hpp" />
+    <ClInclude Include="include\graphics\render\opengl\glindexbuffer.hpp" />
+    <ClInclude Include="include\graphics\render\opengl\glvertexbuffer.hpp" />
+    <ClInclude Include="include\graphics\render\pointlight.hpp" />
+    <ClInclude Include="include\graphics\render\pointshadow.hpp" />
+    <ClInclude Include="include\graphics\render\renderscene.hpp" />
+    <ClInclude Include="include\graphics\render\shadow.hpp" />
+    <ClInclude Include="include\graphics\render\opengl\glshaderprogram.hpp" />
+    <ClInclude Include="include\graphics\render\opengl\gltexture2d.hpp" />
     <ClInclude Include="include\graphics\render\shaderprogram.hpp" />
     <ClInclude Include="include\graphics\render\material.hpp" />
     <ClInclude Include="include\graphics\render\model.hpp" />
     <ClInclude Include="include\graphics\render\renderer.hpp" />
-    <ClInclude Include="include\graphics\render\rendererscene.hpp" />
     <ClInclude Include="include\graphics\render\mesh.hpp" />
-    <ClInclude Include="include\graphics\render\opengl\mesh.hpp" />
-    <ClInclude Include="include\graphics\render\opengl\renderer.hpp" />
+    <ClInclude Include="include\graphics\render\opengl\glrenderer.hpp" />
     <ClInclude Include="include\graphics\render\texture2d.hpp" />
+    <ClInclude Include="include\graphics\render\vertexbuffer.hpp" />
     <ClInclude Include="include\graphics\render\vertexlayout.hpp" />
     <ClInclude Include="include\graphics\scene.hpp" />
     <ClInclude Include="include\graphics\win32\devicecontext.hpp" />
@@ -298,13 +335,29 @@
     <ClInclude Include="include\resourceloader\imageloader.hpp" />
     <ClInclude Include="include\resourceloader\resourceloader.hpp" />
     <ClInclude Include="src\graphics\opengl\errorcheck.hpp" />
+    <ClInclude Include="src\graphics\opengl\win32\contextimpl.hpp" />
+    <ClInclude Include="src\graphics\render\opengl\glcubemapimpl.hpp" />
+    <ClInclude Include="src\graphics\render\opengl\glindexbufferimpl.hpp" />
+    <ClInclude Include="src\graphics\render\opengl\glshaderprogramimpl.hpp" />
+    <ClInclude Include="src\graphics\render\opengl\glvertexbufferimpl.hpp" />
+    <ClInclude Include="src\graphics\render\opengl\glcontextimpl.hpp" />
     <ClInclude Include="src\graphics\win32\devicecontextimpl.hpp" />
     <ClInclude Include="src\common\win32\errorcheck.hpp" />
-    <ClInclude Include="src\graphics\win32\glcontextimpl.hpp" />
     <ClInclude Include="src\graphics\win32\windowimpl.hpp" />
     <ClInclude Include="vendor\include\glad\gl.h" />
     <ClInclude Include="vendor\include\glad\wgl.h" />
+    <ClInclude Include="vendor\include\imgui\imconfig.h" />
+    <ClInclude Include="vendor\include\imgui\imgui.h" />
+    <ClInclude Include="vendor\include\imgui\imgui_impl_mgl.h" />
+    <ClInclude Include="vendor\include\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="vendor\include\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="vendor\include\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="vendor\include\imgui\imgui_internal.h" />
+    <ClInclude Include="vendor\include\imgui\imstb_rectpack.h" />
+    <ClInclude Include="vendor\include\imgui\imstb_textedit.h" />
+    <ClInclude Include="vendor\include\imgui\imstb_truetype.h" />
     <ClInclude Include="vendor\include\KHR\khrplatform.h" />
+    <ClInclude Include="vendor\include\stb\stb_image.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -33,9 +33,9 @@ namespace mgl
                         continue;
                     }
 
-                    window->getContext()->useWindow(window.get());
+                    window->getContext()->useWindow(window);
 
-                    if(!window->getContext()->isCurrent() || !window->getContext()->isWindowUsed(window.get()))
+                    if(!window->getContext()->isCurrent() || !window->getContext()->isWindowUsed(window))
                     window->getContext()->makeCurrent();
                     window->getScene()->update();
                     window->getContext()->swapBuffers();

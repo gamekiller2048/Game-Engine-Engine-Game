@@ -12,6 +12,7 @@ namespace mgl
 		{GL_STACK_OVERFLOW, "Stack Overflow"},
 		{GL_STACK_UNDERFLOW, "Stack Underflow"},
 		{GL_OUT_OF_MEMORY, "Out Of Memory"},
+		{GL_INVALID_FRAMEBUFFER_OPERATION, "Invalid Framebuffer Operation"},
 		{GL_NO_ERROR, "No Error"}
 	};
 

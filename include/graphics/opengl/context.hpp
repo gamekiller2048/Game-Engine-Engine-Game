@@ -1,7 +1,6 @@
 #pragma once
+#include <vector>
 #include <glad/gl.h>
-#include <graphics/rendercontext.hpp>
-#include <graphics/window.hpp>
 #include <graphics/opengl/enums.hpp>
 
 namespace mgl
@@ -246,18 +245,22 @@ namespace mgl
         };
 
         class ContextImpl;
-        class Context : public RenderContext
+        class Context
         {
         public:
-            Context(Window* window, uint major, uint minor, ContextProfile profile = ContextProfile::CORE);
+            Context();
             ~Context();
 
-            void create(Window* window);
-            void useWindow(const Window* window);
+            ContextImpl* getImpl() const;
+
+            void create(uint major, uint minor, ContextProfile profile = ContextProfile::CORE);
             void makeCurrent();
             void swapBuffers();
             bool isCurrent() const;
-            bool isWindowUsed(const Window* window) const;
+
+            GLuint getUnusedTexUnit() const;
+            void consumeTexUnit(GLuint unit);
+            void freeTexUnit(GLuint unit);
 
             GLfloat getParameterFloat(ContextParam param);
             GLint getParameterInt(ContextParam param);
@@ -265,6 +268,7 @@ namespace mgl
             GLdouble getParameterDouble(ContextParam param);
             GLint64 getParameterInt64(ContextParam param);
 
+            void viewport(GLuint x, GLuint y, GLuint w, GLuint h) const;
             void setDepthTest(bool on) const;
             void setTransparency(bool on) const;
             void setCulling(bool on) const;
@@ -272,16 +276,15 @@ namespace mgl
             void setDepthFunc(DepthFunc func) const;
             void setTransparencyFunc(TransparentFunc srcFactor, TransparentFunc dstFactor) const;
             void setCullingFunc(FaceSide face) const;
-            void setFillColor(const mml::color& color) const;
+            void setFillColor(GLfloat r, GLfloat g, GLfloat b, GLfloat a) const;
             void clearColor() const;
             void clearDepth() const;
 
+            static Context* getCurrent();
+
         protected:
             Owned<ContextImpl> impl;
-
-            uint major;
-            uint minor;
-            ContextProfile profile;
+            std::vector<GLuint> unusedTexUnits;
         };
     }
 }

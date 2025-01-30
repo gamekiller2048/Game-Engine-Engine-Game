@@ -86,7 +86,6 @@ namespace mgl
             this->pixelType = pixelType;
 
             setActiveUnit();
-
             setTexFilters(filters);
 
             GL_CALL(glTexImage3D, gltype, 0, (GLenum)internalFormat, width, height, depth, 0, (GLenum)format, (GLenum)pixelType, NULL);

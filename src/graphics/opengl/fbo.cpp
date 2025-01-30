@@ -43,11 +43,6 @@ namespace mgl
             GL_CALL(glReadPixels, bounds.x, bounds.y, bounds.z, bounds.w, (GLenum)format, (GLenum)pixelgltype, data);
         }
 
-        void FBO::viewport(GLuint x, GLuint y, GLuint w, GLuint h) const
-        {
-            GL_CALL(glViewport, x, y, w, h);
-        }
-
         void FBO::attachTexture(const Texture& texture, Attachment attachment, int attachmentIndex) const
         {
             bind();

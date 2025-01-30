@@ -1,16 +1,31 @@
 #include <graphics/render/mesh.hpp>
-#include <graphics/app.hpp>
-#include <graphics/render/opengl/mesh.hpp>
 
 namespace mgl
 {
-	Ref<Mesh> createMesh()
+	Mesh::Mesh(RenderContext* context)
 	{
-		switch(App::getInstance()->getRenderApi()) {
-		case RenderApi::OPENGL:
-			return CreateRef<gl::Mesh>();
-		}
+		vertexBuffer = context->createVertexBuffer();
+		indexBuffer = context->createIndexBuffer();
+	}
 
-		return nullptr;
+	void Mesh::create()
+	{
+		vertexBuffer->create();
+		indexBuffer->create();
+	}
+
+	void Mesh::bind()
+	{
+		vertexBuffer->bind();
+		indexBuffer->bind();
+	}
+
+	void Mesh::draw(const Ref<ShaderProgram>& shader)
+	{
+		bind();
+		if(indiceCount)
+			shader->drawElements(indiceCount);
+		else
+			shader->drawArrays(0, vertexCount);
 	}
 }

@@ -17,4 +17,5 @@ namespace mgl
     void Scene::windowSizeCallback(int w, int h) {}
     void Scene::windowPosCallback(int x, int y) {}
     void Scene::windowCloseCallback() {}
+    void Scene::lowLevelMsgLoopCallback(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam) {}
 }

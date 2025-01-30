@@ -152,7 +152,7 @@ namespace mgl
             void setUnit(GLuint unit);
 
         protected:
-            GLuint unit;
+            GLuint unit = -1;
             Primative pixelType;
             Format format;
             Format internalFormat;

@@ -5,6 +5,26 @@ namespace mgl
 {
 	namespace gl
 	{
+        ContextImpl* Context::getImpl() const
+        {
+            return impl.get();
+        }
+
+        GLuint Context::getUnusedTexUnit() const
+        {
+            return unusedTexUnits[unusedTexUnits.size() - 1];
+        }
+
+        void Context::consumeTexUnit(GLuint unit)
+        {
+            unusedTexUnits.erase(std::find(unusedTexUnits.begin(), unusedTexUnits.end(), unit));
+        }
+
+        void Context::freeTexUnit(GLuint unit)
+        {
+            unusedTexUnits.push_back(unit);
+        }
+
         GLint Context::getParameterInt(ContextParam param)
         {
             GLint result;
@@ -38,6 +58,11 @@ namespace mgl
             GLint64 result;
             GL_CALL(glGetInteger64v, (GLenum)param, &result);
             return result;
+        }
+
+        void Context::viewport(GLuint x, GLuint y, GLuint w, GLuint h) const
+        {
+            GL_CALL(glViewport, x, y, w, h);
         }
 
         void Context::setDepthTest(bool on) const
@@ -84,9 +109,9 @@ namespace mgl
             GL_CALL(glCullFace, (GLenum)face);
         }
 
-        void Context::setFillColor(const mml::color& color) const
+        void Context::setFillColor(GLfloat r, GLfloat g, GLfloat b, GLfloat a) const
         {
-            GL_CALL(glClearColor, color.r, color.g, color.b, color.a);
+            GL_CALL(glClearColor, r, g, b, a);
         }
 
         void Context::clearColor() const

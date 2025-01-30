@@ -6,28 +6,30 @@ namespace mgl
 {
     namespace gl
     {
-        Cubemap::Cubemap() :
+        CubeMap::CubeMap() :
             Texture(GL_TEXTURE_CUBE_MAP) {}
 
-        Cubemap::Cubemap(Cubemap&& other) noexcept :
+        CubeMap::CubeMap(CubeMap&& other) noexcept :
             Texture(std::move(other))
         {
             width = other.width;
             height = other.height;
         }
 
-        GLuint Cubemap::getWidth() const
+        GLuint CubeMap::getWidth() const
         {
             return width;
         }
 
-        GLuint Cubemap::getHeight() const
+        GLuint CubeMap::getHeight() const
         {
             return height;
         }
 
-        void Cubemap::loadFromFile(const std::array<std::string, 6>& filePaths, GLuint unit, TexFilterOptions filters, bool genMipMap)
+        void CubeMap::loadFromFile(const std::array<std::string, 6>& filePaths, GLuint unit, TexFilterOptions filters, bool genMipMap)
         {
+            MLL_ASSERT(width == height, "cubemap must have same dims");
+
             this->unit = unit;
             this->width = width;
             this->height = height;
@@ -62,8 +64,10 @@ namespace mgl
                 GL_CALL(glGenerateMipmap, gltype);
         }
 
-        void Cubemap::allocate(GLuint width, GLuint height, Format format, Format internalFormat, Primative pixelType, GLuint unit, TexFilterOptions filters, bool genMipMap)
+        void CubeMap::allocate(GLuint width, GLuint height, Format format, Format internalFormat, Primative pixelType, GLuint unit, TexFilterOptions filters, bool genMipMap)
         {
+            MLL_ASSERT(width == height, "cubemap must have same dims");
+
             this->unit = unit;
             this->width = width;
             this->height = height;

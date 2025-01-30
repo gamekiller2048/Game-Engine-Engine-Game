@@ -6,11 +6,11 @@ namespace mgl
 {
     namespace gl
     {
-        class Cubemap : public Texture
+        class CubeMap : public Texture
         {
         public:
-            Cubemap();
-            Cubemap(Cubemap&& other) noexcept;
+            CubeMap();
+            CubeMap(CubeMap&& other) noexcept;
 
             GLuint getWidth() const;
             GLuint getHeight() const;
