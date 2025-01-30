@@ -12,8 +12,7 @@ namespace mgl
 		~GLTexture2D();
 
 		GLTexture2DImpl* getImpl() const;
-		
-		void create();
+
 		void bind() const;
 		void unbind() const;
 		void loadFromFile(const std::string& filePath);

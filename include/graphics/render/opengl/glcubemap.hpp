@@ -9,7 +9,6 @@ namespace mgl
         GLCubeMap(RenderContext* context);
         ~GLCubeMap();
 
-        void create();
         void bind();
         void unbind();
 

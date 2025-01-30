@@ -4,19 +4,16 @@
 namespace mgl
 {
 	GLShaderProgram::GLShaderProgram(RenderContext* context) :
-		ShaderProgram(context), impl(CreateOwned<GLShaderProgramImpl>()) {}
+		ShaderProgram(context), impl(CreateOwned<GLShaderProgramImpl>())
+	{
+		impl->program.create();
+	}
 
 	GLShaderProgram::~GLShaderProgram() = default;
 
 	GLShaderProgramImpl* GLShaderProgram::getImpl() const
 	{
 		return impl.get();
-	}
-
-
-	void GLShaderProgram::create()
-	{
-		impl->program.create();
 	}
 	
 	void GLShaderProgram::bind() const

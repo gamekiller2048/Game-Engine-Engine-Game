@@ -11,7 +11,12 @@ namespace mgl
     };
 
     GLVertexBuffer::GLVertexBuffer(RenderContext* context) :
-        VertexBuffer(context), impl(CreateOwned<GLVertexBufferImpl>()) {}
+        VertexBuffer(context), impl(CreateOwned<GLVertexBufferImpl>())
+    {
+        impl->vao.create();
+        impl->vao.bind();
+        impl->vbo.create();
+    }
 
     GLVertexBuffer::~GLVertexBuffer() = default;
 
@@ -27,13 +32,6 @@ namespace mgl
             impl->vao.linkAttrib(impl->vbo, attrib.layout, attrib.components, (gl::Primative)attrib.type, layout.size, offset);
             offset += attrib.size;
         }
-    }
-
-    void GLVertexBuffer::create()
-    {
-        impl->vao.create();
-        impl->vao.bind();
-        impl->vbo.create();
     }
 
     void GLVertexBuffer::bind() const

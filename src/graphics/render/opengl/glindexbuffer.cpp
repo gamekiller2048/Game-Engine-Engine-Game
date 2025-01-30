@@ -11,18 +11,16 @@ namespace mgl
     };
 
     GLIndexBuffer::GLIndexBuffer(RenderContext* context) :
-        IndexBuffer(context), impl(CreateOwned<GLIndexBufferImpl>()) {}
+        IndexBuffer(context), impl(CreateOwned<GLIndexBufferImpl>())
+    {
+        impl->ebo.create();
+    }
 
     GLIndexBuffer::~GLIndexBuffer() = default;
 
     GLIndexBufferImpl* GLIndexBuffer::getImpl() const
     {
         return impl.get();
-    }
-
-    void GLIndexBuffer::create()
-    {
-        impl->ebo.create();
     }
 
     void GLIndexBuffer::bind() const

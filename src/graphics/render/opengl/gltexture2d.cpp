@@ -5,18 +5,16 @@
 namespace mgl
 {
 	GLTexture2D::GLTexture2D(RenderContext* context) :
-		Texture2D(context), impl(CreateOwned<GLTexture2DImpl>()) {}
+		Texture2D(context), impl(CreateOwned<GLTexture2DImpl>())
+	{
+		impl->texture.create();
+	}
 
 	GLTexture2D::~GLTexture2D() = default;
 
 	GLTexture2DImpl* GLTexture2D::getImpl() const
 	{
 		return impl.get();
-	}
-
-	void GLTexture2D::create()
-	{
-		impl->texture.create();
 	}
 
 	void GLTexture2D::bind() const

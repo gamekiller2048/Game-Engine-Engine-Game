@@ -12,7 +12,6 @@ namespace mgl
 
         GLIndexBufferImpl* getImpl() const;
 
-        void create();
         void bind() const;
         void unbind() const;
 

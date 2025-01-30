@@ -4,14 +4,12 @@
 namespace mgl
 {
 	GLCubeMap::GLCubeMap(RenderContext* context) :
-		CubeMap(context) {}
-
-	GLCubeMap::~GLCubeMap() = default;
-
-	void GLCubeMap::create()
+		CubeMap(context), impl(CreateOwned<GLCubeMapImpl>())
 	{
 		impl->cubemap.create();
 	}
+
+	GLCubeMap::~GLCubeMap() = default;
 
 	void GLCubeMap::bind()
 	{

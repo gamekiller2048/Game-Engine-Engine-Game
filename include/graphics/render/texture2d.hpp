@@ -9,7 +9,6 @@ namespace mgl
 	public:
 		Texture2D(RenderContext* context);
 
-		virtual void create() = 0;
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;
 

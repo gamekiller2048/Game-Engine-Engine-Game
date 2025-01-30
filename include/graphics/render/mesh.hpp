@@ -14,7 +14,6 @@ namespace mgl
     public:
         Mesh(RenderContext* context);
 
-        void create();
         void bind();
         void draw(const Ref<ShaderProgram>& shader);
 

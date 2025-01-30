@@ -9,7 +9,6 @@ namespace mgl
 		Material(context)
 	{
 		shader = context->createShaderProgram();
-		shader->create();
 		shader->attachGLSLShadersFromSrc(
 			R"(
 			#version 430 core
@@ -40,7 +39,6 @@ namespace mgl
 		Material(context)
 	{
 		shader = context->createShaderProgram();
-		shader->create();
 		shader->attachGLSLShadersFromSrc(
 			R"(
 			#version 430 core

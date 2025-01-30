@@ -14,7 +14,6 @@ namespace mgl
 
         GLShaderProgramImpl* getImpl() const;
 
-        void create();
         void bind() const;
         void unbind() const;
 
