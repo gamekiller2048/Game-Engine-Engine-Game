@@ -11,7 +11,7 @@ namespace mgl
         ~GLVertexBuffer();
 
         GLVertexBufferImpl* getImpl() const;
-        void setLayout(const VertexLayout& layout);
+        void setLayout(const VertexLayout& layout) const;
         
         void bind() const;
         void unbind() const;

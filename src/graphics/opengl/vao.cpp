@@ -17,13 +17,10 @@ namespace mgl
         void VAO::create()
         {
             GL_CALL(glGenVertexArrays, 1, &id);
-            bind();
         }
 
         void VAO::linkAttrib(const VBO& vbo, GLuint layout, GLuint numComponents, Primative type, GLsizeiptr stride, GLuint offset) const
         {
-            vbo.bind();
-
             if(type == Primative::FLOAT)
                 GL_CALL(glVertexAttribPointer, layout, numComponents, (GLenum)type, GL_FALSE, stride, reinterpret_cast<void*>(offset));
             else if(type == Primative::UINT)
@@ -32,7 +29,6 @@ namespace mgl
                 GL_CALL(glVertexAttribLPointer, layout, numComponents, (GLenum)type, stride, reinterpret_cast<void*>(offset));
 
             GL_CALL(glEnableVertexAttribArray, layout);
-            vbo.unbind();
         }
 
         void VAO::bind() const

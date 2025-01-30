@@ -4,6 +4,8 @@
 #include <graphics/render/indexbuffer.hpp>
 #include <graphics/render/shaderprogram.hpp>
 #include <graphics/render/texture2d.hpp>
+#include <graphics/render/cubemap.hpp>
+#include <graphics/render/framebuffer.hpp>
 
 namespace mgl
 {
@@ -28,12 +30,17 @@ namespace mgl
 
 		void clearColor() const;
 		void clearDepth() const;
+		void setDepthTest(bool on) const;
+		void setTransparency(bool on) const;
+		void setCulling(bool on) const;
+		void viewport(uint x, uint y, uint w, uint h) const;
 
 		Ref<VertexBuffer> createVertexBuffer();
 		Ref<IndexBuffer> createIndexBuffer();
 		Ref<ShaderProgram> createShaderProgram();
 		Ref<Texture2D> createTexture2D();
 		Ref<CubeMap> createCubeMap();
+		Ref<FrameBuffer> createFrameBuffer();
 	
 	protected:
 		Owned<GLContextImpl> impl;

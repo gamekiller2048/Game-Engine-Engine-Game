@@ -1,7 +1,7 @@
 #pragma once
 #include <graphics/render/rendercontext.hpp>
 #include <graphics/render/shaderprogram.hpp>
-#include <graphics/opengl/fbo.hpp>
+#include <graphics/render/framebuffer.hpp>
 #include <graphics/camera/camera.hpp>
 
 namespace mgl
@@ -10,7 +10,6 @@ namespace mgl
     class Shadow
     {
     public:
-        RenderContext* context;
         mml::uvec2 size;
         float bias;
         int sampleRadius;
@@ -25,6 +24,7 @@ namespace mgl
         virtual Ref<ShaderProgram> getShader() const = 0;
 
     protected:
-        gl::FBO fbo;
+        RenderContext* context;
+        Ref<FrameBuffer> framebuffer;
     };
 }

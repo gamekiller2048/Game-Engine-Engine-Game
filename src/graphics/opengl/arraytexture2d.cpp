@@ -96,7 +96,6 @@ namespace mgl
 
         void ArrayTexture2D::write(GLuint texNum, const void* data)
         {
-            bind();
             GL_CALL(glTexSubImage3D, gltype, 0, 0, 0, texNum, width, height, 1, (GLenum)format, (GLenum)pixelType, data);
         }
     }

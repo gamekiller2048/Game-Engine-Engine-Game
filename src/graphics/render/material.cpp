@@ -72,8 +72,8 @@ namespace mgl
             in vec3 normal;
             in vec4 fragPosLight;
 
-            #define NUM_DIRECTIONAL_LIGHTS 0
-            #define NUM_POINT_LIGHTS 1
+            #define NUM_DIRECTIONAL_LIGHTS 1
+            #define NUM_POINT_LIGHTS 0
             #define NORMAL_MAP 0
             #define SPECULAR_MAP 0
 
@@ -263,6 +263,6 @@ namespace mgl
 
 	void StandardMaterial::use() const
 	{
-		//diffuseMap->bindToShader(shader, "u_diffuseMap");
+		diffuseMap->uniformSampler(shader, "u_diffuseMap");
 	}
 }

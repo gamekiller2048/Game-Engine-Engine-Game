@@ -33,48 +33,41 @@ namespace mgl
 
         void Buffer::allocate(const void* buffer, GLsizei size, UsagePattern usage) const
         {
-            bind();
             GL_CALL(glBufferData, gltype, size, buffer, (GLenum)usage);
         }
 
         template<typename T>
         void Buffer::allocate(const std::vector<T>& buffer, UsagePattern usage) const
         {
-            bind();
             GL_CALL(glBufferData, gltype, buffer.size() * sizeof(T), buffer.data(), (GLenum)usage);
         }
 
         template<typename T>
         void Buffer::allocate(GLsizei size, UsagePattern usage) const
         {
-            bind();
             GL_CALL(glBufferData, gltype, size, nullptr, (GLenum)usage);
         }
 
         void Buffer::write(const void* buffer, GLsizei size, GLintptr start, GLsizei end) const
         {
-            bind();
             GL_CALL(glBufferSubData, gltype, start, end == -1 ? end : size, buffer);
         }
 
         template<typename T>
         void Buffer::write(const std::vector<T>& buffer, GLintptr start, GLsizei end) const
         {
-            bind();
             GL_CALL(glBufferSubData, gltype, start, end == -1 ? end : buffer.size() * sizeof(T), buffer.data());
         }
 
         template<typename T>
         void* Buffer::map(std::vector<T>& buffer, Access access) const
         {
-            bind();
             return GL_CALLV(glMapBuffer, gltype, (GLenum)access);
         }
 
         template<typename T>
         void Buffer::read(std::vector<T>& buffer, GLintptr start, GLsizei end) const
         {
-            bind();
             GL_CALL(glGetBufferSubData, gltype, start, end == -1 ? end : buffer.size() * sizeof(T), buffer.data());
         }
 

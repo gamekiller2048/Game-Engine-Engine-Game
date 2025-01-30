@@ -23,13 +23,13 @@ namespace mgl
             shader->uniform(base + "shadow.sampleRadius", shadow->sampleRadius);
             
             shadow->getMap()->bind();
-            shader->uniform(base + "shadow.map", (int)shadow->getMap()->getUnit());
+            shadow->getMap()->uniformSampler(shader, base + "shadow.map");
         }
     }
 
-    void DirectionalLight::createShadow(const mml::uvec2& size)
+    void DirectionalLight::createShadow(RenderContext* context, const mml::uvec2& size)
     {
-        shadow = CreateRef<DirectionalShadow>();
+        shadow = CreateRef<DirectionalShadow>(context);
         shadow->create(size);
     }
 

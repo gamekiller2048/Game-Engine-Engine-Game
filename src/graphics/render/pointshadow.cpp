@@ -17,13 +17,13 @@ namespace mgl
 		this->sampleRadius = sampleRadius;
 
 		cubemap = context->createCubeMap();
-		//cubemap.allocate(size.x, size.y, gl::Format::DEPTH, gl::Format::DEPTH, gl::Primative::UBYTE, {}, true);
+		cubemap->allocate(size.x, size.y, TextureFormat::DEPTH);
+		cubemap->bind();
 
-		fbo.create();
-		//fbo.attachTexture(cubemap, gl::Attachment::DEPTH);
-		fbo.setDrawAttachments({GL_NONE});
-		fbo.setReadAttachment({GL_NONE});
-		fbo.unbind();
+		framebuffer = context->createFrameBuffer();
+		framebuffer->bind();
+		framebuffer->addRenderTarget(cubemap, FrameBufferAttachment{FrameBufferAttachmentType::DEPTH, 0}, -1);
+		framebuffer->unbind();
 		
 		static bool init = false;
 

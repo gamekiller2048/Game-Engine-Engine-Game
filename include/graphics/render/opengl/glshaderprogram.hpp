@@ -31,6 +31,7 @@ namespace mgl
         void uniform(const std::string& loc, const mml::vec4& vec) const;
         void uniform(const std::string& loc, int v) const;
         void uniform(const std::string& loc, uint v) const;
+        void uniform(const std::string& loc, const Ref<Texture2D>& texture) const;
 
         void uniform(const std::string& loc, const std::vector<mml::mat3>& values, bool transpose = false) const;
         void uniforms(const std::string& loc, const std::vector<mml::mat4>& values, bool transpose = false) const;

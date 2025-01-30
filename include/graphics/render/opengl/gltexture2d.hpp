@@ -15,8 +15,9 @@ namespace mgl
 
 		void bind() const;
 		void unbind() const;
-		void loadFromFile(const std::string& filePath);
-		void allocate(uint width, uint height);
+		void uniformSampler(const Ref<ShaderProgram>& shader, const std::string& loc) const;
+		void loadFromFile(const std::string& filePath) const;
+		void allocate(uint width, uint height, TextureFormat format) const;
 
 	protected:
 		Owned<GLTexture2DImpl> impl;

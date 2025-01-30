@@ -9,13 +9,14 @@ namespace mgl
 
 	void Shadow::startFrame() const
 	{
-		fbo.bind();
-		//gl::Context::getCurrent().lock()->viewport(0, 0, size.x, size.y);
-		fbo.clear(gl::BufferBit::DEPTH);
+		framebuffer->bind();
+		framebuffer->setShaderOutputLocations();
+		framebuffer->viewport(0, 0, size.x, size.y);
+		framebuffer->clear(FrameBufferAttachmentType::DEPTH);
 	}
 
 	void Shadow::endFrame() const
 	{
-		fbo.unbind();
+		framebuffer->unbind();
 	}
 }

@@ -194,6 +194,9 @@
     <ClCompile Include="src\graphics\opengl\win32\context.cpp" />
     <ClCompile Include="src\graphics\render\buffer.cpp" />
     <ClCompile Include="src\graphics\render\cubemap.cpp" />
+    <ClCompile Include="src\graphics\render\directionallight.cpp" />
+    <ClCompile Include="src\graphics\render\directionshadow.cpp" />
+    <ClCompile Include="src\graphics\render\framebuffer.cpp" />
     <ClCompile Include="src\graphics\render\indexbuffer.cpp" />
     <ClCompile Include="src\graphics\render\material.cpp" />
     <ClCompile Include="src\graphics\render\mesh.cpp" />
@@ -201,6 +204,8 @@
     <ClCompile Include="src\graphics\render\light.cpp" />
     <ClCompile Include="src\graphics\render\opengl\glcontext.cpp" />
     <ClCompile Include="src\graphics\render\opengl\glcubemap.cpp" />
+    <ClCompile Include="src\graphics\render\opengl\glframebuffer.cpp" />
+    <ClCompile Include="src\graphics\render\opengl\glframebufferimpl.hpp" />
     <ClCompile Include="src\graphics\render\opengl\gltexture2dimpl.hpp" />
     <ClCompile Include="src\graphics\render\opengl\glindexbuffer.cpp" />
     <ClCompile Include="src\graphics\render\opengl\glvertexbuffer.cpp" />
@@ -277,7 +282,11 @@
     <ClInclude Include="include\graphics\opengl\vbo.hpp" />
     <ClInclude Include="include\graphics\opengl\vertexshader.hpp" />
     <ClInclude Include="include\graphics\render\buffer.hpp" />
+    <ClInclude Include="include\graphics\render\directionallight.hpp" />
+    <ClInclude Include="include\graphics\render\directionalshadow.hpp" />
+    <ClInclude Include="include\graphics\render\framebuffer.hpp" />
     <ClInclude Include="include\graphics\render\opengl\glcontext.hpp" />
+    <ClInclude Include="include\graphics\render\opengl\glframebuffer.hpp" />
     <ClInclude Include="include\graphics\render\rendercontext.hpp" />
     <ClInclude Include="include\graphics\render\cubemap.hpp" />
     <ClInclude Include="include\graphics\render\indexbuffer.hpp" />

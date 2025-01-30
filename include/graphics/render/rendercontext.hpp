@@ -12,6 +12,7 @@ namespace mgl
 	class ShaderProgram;
 	class Texture2D;
 	class CubeMap;
+	class FrameBuffer;
 
 	class Window;
 	class RenderContext
@@ -27,6 +28,7 @@ namespace mgl
 		virtual Ref<ShaderProgram> createShaderProgram() = 0;
 		virtual Ref<Texture2D> createTexture2D() = 0;
 		virtual Ref<CubeMap> createCubeMap() = 0;
+		virtual Ref<FrameBuffer> createFrameBuffer() = 0;
 
 		virtual void useWindow(const Ref<Window>& window) = 0;
 		virtual void makeCurrent() = 0;
@@ -36,5 +38,9 @@ namespace mgl
 
 		virtual void clearColor() const = 0;
 		virtual void clearDepth() const = 0;
+		virtual void setDepthTest(bool on) const = 0;
+		virtual void setTransparency(bool on) const = 0;
+		virtual void setCulling(bool on) const = 0;
+		virtual void viewport(uint x, uint y, uint w, uint h) const = 0;
 	};
 }

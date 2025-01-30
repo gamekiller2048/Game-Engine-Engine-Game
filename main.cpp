@@ -13,7 +13,7 @@
 #include <graphics/camera/firstperson.hpp>
 #include <math/random.hpp>
 
-//#include <graphics/render/directionallight.hpp>
+#include <graphics/render/directionallight.hpp>
 #include <graphics/render/pointlight.hpp>
 #include <graphics/render/renderscene.hpp>
 #include <imgui/imgui_impl_opengl3.h>
@@ -27,7 +27,7 @@ public:
 	Ref<mgl::Renderer> renderer;
 	Ref<mgl::RenderContext> context;
 	Ref<mgl::FirstPersonCamera> camera;
-	Ref<mgl::PointLight> light;
+	Ref<mgl::DirectionalLight> light;
 
 	Ref<mgl::RenderScene> renderScene;
 	float i = 0.0f;
@@ -38,7 +38,7 @@ public:
 		window(window), renderer(mgl::createRenderer())
 	{
 		context = window->getContext();
-		//context->setDepthTest(true);
+		context->setDepthTest(true);
 
 		renderScene = CreateRef<mgl::RenderScene>();
 
@@ -67,7 +67,7 @@ public:
 			material->diffuseMap = texture;
 
 			Ref<mgl::Mesh> mesh = context->createMesh();
-			mesh->setGeometry(mgl::gl::Shape3D().PlainUVN());
+			mesh->setGeometry(mgl::gl::Shape3D(mml::vec3(0, -1, 0)).CubeUVN());
 
 			Ref<mgl::Model> ground = CreateRef<mgl::Model>();
 			ground->setPos(mml::vec3(0, -4, 0));
@@ -92,8 +92,8 @@ public:
 			renderScene->addModel(lightCube);
 		}
 
-		light = CreateRef<mgl::PointLight>(mml::vec3(-0.2f, -1.0f, -0.3f), mml::color(1), 0.3f);
-		//light->createShadow(mml::uvec2(window->getWidth()));
+		light = CreateRef<mgl::DirectionalLight>(mml::vec3(-0.2f, -1.0f, -0.3f), mml::color(1), 0.3f);
+		light->createShadow(context.get(), mml::uvec2(window->getWidth()));
 		renderScene->addLight(light);
 
 		camera = CreateRef<mgl::FirstPersonCamera>();
@@ -118,6 +118,7 @@ public:
 	{
 		context->clearColor();
 		context->clearDepth();
+		context->viewport(0, 0, window->getWidth(), window->getHeight());
 
 		window->setTitle(mil::getMousePos().toString());
 
@@ -130,7 +131,7 @@ public:
 		//material->color = mml::color(mml::sin(i) * 0.5f + 1, mml::cos(i) * 0.5f + 1, 0, 1);
 		//model->setScale(mml::vec3(model->getScale().x + mml::cos(i * 10.0f) / 1000));
 
-		lightCube->setPos(light->pos);
+		//lightCube->setPos(light->pos);
 
 		camera->BasicFirstPersonView(window);
 		camera->calculate();
@@ -168,8 +169,8 @@ public:
 		ImGui::NewFrame();
 
 		ImGui::Begin("Light");
-		ImGui::DragFloat3("lightPos", &light->pos);
-		ImGui::Image((ImTextureID)2, ImGui::GetContentRegionAvail(), ImVec2(0, 1), ImVec2(1, 0));
+		ImGui::DragFloat3("lightPos", &light->dir);
+		ImGui::Image((ImTextureID)3, ImGui::GetContentRegionAvail(), ImVec2(0, 1), ImVec2(1, 0));
 		ImGui::End();
 
 		ImGui::Render();

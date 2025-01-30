@@ -170,7 +170,6 @@ namespace mgl
 
         void Program::compute(const GLuvec3& workGroups) const
         {
-            bind();
             GL_CALL(glDispatchCompute, workGroups.x, workGroups.y, workGroups.z);
         }
 

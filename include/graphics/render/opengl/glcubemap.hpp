@@ -1,4 +1,5 @@
 #include <graphics/render/cubemap.hpp>
+#include <graphics/render/shaderprogram.hpp>
 
 namespace mgl
 {
@@ -9,8 +10,11 @@ namespace mgl
         GLCubeMap(RenderContext* context);
         ~GLCubeMap();
 
-        void bind();
-        void unbind();
+        void bind() const;
+        void unbind() const;
+        void uniformSampler(const Ref<ShaderProgram>& shader, const std::string& loc) const;
+        void loadFromFile(const std::string& filePath) const;
+        void allocate(uint width, uint height, TextureFormat format) const;
 
         GLCubeMapImpl* getImpl() const;
 

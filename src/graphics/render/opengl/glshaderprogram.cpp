@@ -86,7 +86,6 @@ namespace mgl
 		impl->program.uniformUint(loc, v);
 	}
 
-
 	void GLShaderProgram::uniform(const std::string& loc, const std::vector<mml::mat3>& values, bool transpose) const
 	{
 		impl->program.uniformMat3s(loc, values, transpose);

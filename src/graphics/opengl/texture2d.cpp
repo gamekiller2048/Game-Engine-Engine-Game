@@ -27,6 +27,7 @@ namespace mgl
             return height;
         }
 
+        // TODO: remove this from the lov level api
         void Texture2D::loadFromFile(const std::string& filePath, GLuint unit, TexFilterOptions filters, bool genMipMap)
         {
             mrl::ImageData imgData = mrl::ImageLoader::load(filePath);
@@ -80,7 +81,6 @@ namespace mgl
 
         void Texture2D::write(const void* data, const mml::ivec4& bounds) const
         {
-            bind();
             if(bounds == mml::ivec4(-1, -1, -1, -1))
                 GL_CALL(glTexSubImage2D, gltype, 0, 0, 0, width, height, (GLenum)format, (GLenum)pixelType, data);
             else

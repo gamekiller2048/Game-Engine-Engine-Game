@@ -7,8 +7,8 @@ namespace mgl
 {
 	static Ref<ShaderProgram> shader;
 
-	DirectionalShadow::DirectionalShadow(float bias, int sampleRadius) :
-		Shadow(bias, sampleRadius) {}
+	DirectionalShadow::DirectionalShadow(RenderContext* context, float bias, int sampleRadius) :
+		Shadow(context, bias, sampleRadius) {}
 
 	void DirectionalShadow::create(const mml::uvec2& size)
 	{
@@ -19,21 +19,19 @@ namespace mgl
 		camera = CreateRef<OrthographicCamera>();
 		camera->orthographic(10.0f, -10.0f, 10.0f, -10.0f, 500.0f, 0.1f);
 
-		map = CreateRef<gl::Texture2D>();
-		map->create();
-		map->allocate(size.x, size.y, gl::Format::DEPTH, gl::Format::DEPTH, gl::Primative::UBYTE, {}, true);
+		map = context->createTexture2D();
+		map->allocate(size.x, size.y, TextureFormat::DEPTH);
+		map->bind();
 
-		fbo.create();
-		fbo.attachTexture(*map.get(), gl::Attachment::DEPTH);
-		fbo.setDrawAttachments({GL_NONE});
-		fbo.setReadAttachment({GL_NONE});
-		fbo.unbind();
+		framebuffer = context->createFrameBuffer();
+		framebuffer->bind();
+		framebuffer->addRenderTarget(map, FrameBufferAttachment{FrameBufferAttachmentType::DEPTH, 0}, -1);
+		framebuffer->unbind();
 
 		static bool init = false;
 
 		if(!init) {
-			shader = createShaderProgram();
-			shader->create();
+			shader = context->createShaderProgram();
 			shader->attachGLSLShadersFromSrc(
 				R"(#version 430 core
 				layout (location = 0) in vec3 v_pos;
@@ -57,12 +55,18 @@ namespace mgl
 		}
 	}
 
-	Ref<gl::Texture2D> DirectionalShadow::getMap() const
+	Ref<Texture2D> DirectionalShadow::getMap() const
 	{
 		return map;
 	}
+
 	Ref<ShaderProgram> DirectionalShadow::getShader() const
 	{
 		return shader;
+	}
+
+	Ref<Camera> DirectionalShadow::getCamera() const
+	{
+		return camera;
 	}
 }

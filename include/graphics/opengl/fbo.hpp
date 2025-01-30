@@ -33,6 +33,7 @@ namespace mgl
             void bind() const;
             void unbind() const;
 
+            void viewport(GLuint x, GLuint y, GLuint w, GLuint h) const;
             void clear(BufferBit bufferbit) const;
             void read(void* data, Format format, Primative pixelType, const mml::ivec4& bounds) const;
             void attachTexture(const Texture& texture, Attachment attachment, int attachmentIndex=0) const;

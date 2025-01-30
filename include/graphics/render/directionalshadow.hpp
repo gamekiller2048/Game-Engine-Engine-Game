@@ -1,6 +1,5 @@
 #pragma once
 #include <graphics/render/shadow.hpp>
-#include <graphics/render/shaderprogram.hpp>
 #include <graphics/render/texture2d.hpp>
 #include <graphics/camera/orthographic.hpp>
 
@@ -9,14 +8,15 @@ namespace mgl
     class DirectionalShadow : public Shadow
     {
     public:
-        DirectionalShadow(float bias=0.0005f, int sampleRadius=2);
+        DirectionalShadow(RenderContext* context, float bias=0.0005f, int sampleRadius=2);
 
         void create(const mml::uvec2& size);
-        Ref<gl::Texture2D> getMap() const;
+        Ref<Texture2D> getMap() const;
         Ref<ShaderProgram> getShader() const;
+        Ref<Camera> getCamera() const;
     
     protected:
-        Ref<gl::Texture2D> map;
+        Ref<Texture2D> map;
         Ref<OrthographicCamera> camera;
     };
 }

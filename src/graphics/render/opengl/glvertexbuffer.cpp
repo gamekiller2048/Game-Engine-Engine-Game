@@ -25,15 +25,6 @@ namespace mgl
         return impl.get();
     }
 
-    void GLVertexBuffer::setLayout(const VertexLayout& layout)
-    {
-        GLuint offset = 0;
-        for(const VertexLayoutAttribute& attrib : layout.attributes) {
-            impl->vao.linkAttrib(impl->vbo, attrib.layout, attrib.components, (gl::Primative)attrib.type, layout.size, offset);
-            offset += attrib.size;
-        }
-    }
-
     void GLVertexBuffer::bind() const
     {
         impl->vao.bind();
@@ -43,6 +34,15 @@ namespace mgl
     void GLVertexBuffer::unbind() const
     {
         impl->vbo.unbind();
+    }
+
+    void GLVertexBuffer::setLayout(const VertexLayout& layout) const
+    {
+        GLuint offset = 0;
+        for(const VertexLayoutAttribute& attrib : layout.attributes) {
+            impl->vao.linkAttrib(impl->vbo, attrib.layout, attrib.components, (gl::Primative)attrib.type, layout.size, offset);
+            offset += attrib.size;
+        }
     }
 
     void GLVertexBuffer::allocate(const void* buffer, size_t size, BufferUsage usage) const

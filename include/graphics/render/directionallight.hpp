@@ -14,7 +14,7 @@ namespace mgl
         DirectionalLight(const mml::vec3& dir, const mml::color& color, float ambient=0.0f, float intensity=1, float specIntesity=0.5f);
         void use(const Ref<ShaderProgram>& shader, uint index) const;
         
-        void createShadow(const mml::uvec2& size);
+        void createShadow(RenderContext* context, const mml::uvec2& size);
         void useShadow() const;
         
         Ref<Shadow> getShadow() const;

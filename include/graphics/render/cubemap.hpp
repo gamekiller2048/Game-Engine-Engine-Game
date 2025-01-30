@@ -1,5 +1,6 @@
 #pragma once
 #include <graphics/render/rendercontext.hpp>
+#include <graphics/render/texture2d.hpp>
 
 namespace mgl
 {
@@ -7,6 +8,12 @@ namespace mgl
 	{
 	public:
 		CubeMap(RenderContext* context);
+
+		virtual void bind() const = 0;
+		virtual void unbind() const = 0;
+
+		virtual void loadFromFile(const std::string& filePath) const = 0;
+		virtual void allocate(uint width, uint height, TextureFormat format) const = 0;
 
 	protected:
 		RenderContext* context;

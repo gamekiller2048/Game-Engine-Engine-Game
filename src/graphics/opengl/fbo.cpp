@@ -33,6 +33,11 @@ namespace mgl
             GL_CALL(glBindFramebuffer, gltype, 0);
         }
 
+        void FBO::viewport(GLuint x, GLuint y, GLuint w, GLuint h) const
+        {
+            GL_CALL(glViewport, x, y, w, h);
+        }
+
         void FBO::clear(BufferBit bufferbit) const
         {
             GL_CALL(glClear, (GLenum)bufferbit);
@@ -45,13 +50,11 @@ namespace mgl
 
         void FBO::attachTexture(const Texture& texture, Attachment attachment, int attachmentIndex) const
         {
-            bind();
             GL_CALL(glFramebufferTexture, gltype, (GLenum)attachment + attachmentIndex, texture.getID(), 0);
         }
 
         void FBO::attachRBO(const RBO& rbo, Attachment attachment, int attachmentIndex) const
         {
-            bind();
             GL_CALL(glFramebufferRenderbuffer, gltype, (GLenum)attachment + attachmentIndex, rbo.getGLType(), rbo.getID());
         }
 

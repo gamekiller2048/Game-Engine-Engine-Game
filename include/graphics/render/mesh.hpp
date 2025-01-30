@@ -56,6 +56,7 @@ namespace mgl
     void Mesh::setVertices(const std::vector<T>& vertices, BufferUsage usage)
     {
         vertexCount = vertices.size();
+        vertexBuffer->bind();
         vertexBuffer->allocate(vertices.data(), vertexCount * sizeof(T), usage);
         
         if(vertexCount)
@@ -66,6 +67,7 @@ namespace mgl
     void Mesh::setIndices(const std::vector<U>& indices, int indicesPerElement, BufferUsage usage)
     {
         indiceCount = indices.size() * indicesPerElement;
+        indexBuffer->bind();
         indexBuffer->allocate(indices.data(), indiceCount * sizeof(U), usage);
     }
 

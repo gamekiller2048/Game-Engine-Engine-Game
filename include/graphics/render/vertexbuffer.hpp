@@ -10,6 +10,6 @@ namespace mgl
     public:
         VertexBuffer(RenderContext* context);
 
-        virtual void setLayout(const VertexLayout& layout) = 0;
+        virtual void setLayout(const VertexLayout& layout) const = 0;
     };
 }

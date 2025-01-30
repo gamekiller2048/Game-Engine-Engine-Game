@@ -5,6 +5,7 @@
 #include <graphics/render/opengl/glshaderprogram.hpp>
 #include <graphics/render/opengl/gltexture2d.hpp>
 #include <graphics/render/opengl/glcubemap.hpp>
+#include <graphics/render/opengl/glframebuffer.hpp>
 
 namespace mgl
 {
@@ -37,6 +38,26 @@ namespace mgl
 		impl->context.clearDepth();
 	}
 
+	void GLContext::setDepthTest(bool on) const
+	{
+		impl->context.setDepthTest(on);
+	}
+
+	void GLContext::setTransparency(bool on) const
+	{
+		impl->context.setTransparency(on);
+	}
+
+	void GLContext::setCulling(bool on) const
+	{
+		impl->context.setCulling(on);
+	}
+
+	void GLContext::viewport(uint x, uint y, uint w, uint h) const
+	{
+		impl->context.viewport(x, y, w, h);
+	}
+
 	Ref<VertexBuffer> GLContext::createVertexBuffer()
 	{
 		return CreateRef<GLVertexBuffer>(this);
@@ -60,5 +81,10 @@ namespace mgl
 	Ref<CubeMap> GLContext::createCubeMap()
 	{
 		return CreateRef<GLCubeMap>(this);
+	}
+
+	Ref<FrameBuffer> GLContext::createFrameBuffer()
+	{
+		return CreateRef<GLFrameBuffer>(this);
 	}
 }
