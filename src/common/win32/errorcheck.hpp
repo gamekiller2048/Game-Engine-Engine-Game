@@ -8,7 +8,7 @@
         x(__VA_ARGS__);                                                 \
         uint error = (uint)GetLastError();                              \
         if(error)                                                       \
-            MLL_LOG(mcl::Win32Error(error));                            \
+            MLL_LOG(mcl::Win32Error(error, mll::DebugInfo{#x, __FILE__, (uint)__LINE__})); \
     } while(0)                                          
 
 // return value and check error if the value is NULL
@@ -16,7 +16,7 @@
     [&]() {                                                             \
         auto res = x(__VA_ARGS__);                                      \
         if(res == NULL)                                                 \
-            MLL_LOG(mcl::Win32Error((uint)GetLastError()));             \
+            MLL_LOG(mcl::Win32Error((uint)GetLastError(), mll::DebugInfo{#x, __FILE__, (uint)__LINE__})); \
         return res;                                                     \
     }()
 
@@ -26,6 +26,6 @@
         auto res = x(__VA_ARGS__);                                      \
         uint error = (uint)GetLastError();                              \
         if(error)                                                       \
-            MLL_LOG(mcl::Win32Error(error));                            \
+            MLL_LOG(mcl::Win32Error(error, mll::DebugInfo{#x, __FILE__, (uint)__LINE__})); \
         return res;                                                     \
     }()

@@ -17,7 +17,7 @@ namespace mgl
         shader->uniform(base + "specIntensity", specIntensity);
 
         if(shadow) {
-            shader->uniform("u_lightProjection", getLightProjection());
+            shader->uniform(base + "projection", getLightProjection());
             shader->uniform(base + "shadows", true);
             shader->uniform(base + "shadow.bias", shadow->bias);
             shader->uniform(base + "shadow.sampleRadius", shadow->sampleRadius);
@@ -35,7 +35,7 @@ namespace mgl
 
     mml::mat4 DirectionalLight::getLightProjection() const
     {
-        return std::static_pointer_cast<DirectionalShadow>(shadow)->getCamera()->projection * mml::lookAt(mml::normalize(-dir), mml::vec3(0), mml::UP);
+        return shadow->getCamera()->projection * mml::lookAt(mml::normalize(-dir), mml::vec3(0), mml::UP);
     }
 
     void DirectionalLight::useShadow() const

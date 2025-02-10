@@ -17,7 +17,7 @@ namespace mml
 	}
 
 	template<typename T>
-	Mat<T, 4, 4> orthographic(T left, T right, T top, T bottom, T far, T near)
+	Mat<T, 4, 4> orthographic(T left, T right, T top, T bottom, T near, T far)
 	{
 		return Mat<T, 4, 4>(2 / (right - left), 0, 0, -(right + left) / (right - left),
 							0, 2 / (top - bottom), 0, -(top + bottom) / (top - bottom),

@@ -20,6 +20,9 @@
 #include <imgui/imgui_impl_mgl.h>
 #include <imgui/imgui_impl_win32.h>
 
+#include <resourceloader/modelloader.hpp>
+#include <graphics/geometry/util.hpp>
+
 class MyScene : public mgl::Scene
 {
 public:
@@ -28,6 +31,7 @@ public:
 	Ref<mgl::RenderContext> context;
 	Ref<mgl::FirstPersonCamera> camera;
 	Ref<mgl::DirectionalLight> light;
+	//Ref<mgl::PointLight> light2;
 
 	Ref<mgl::RenderScene> renderScene;
 	float i = 0.0f;
@@ -35,12 +39,32 @@ public:
 	Ref<mgl::Model> lightCube;
 	
 	MyScene(const Ref<mgl::Window>& window) :
-		window(window), renderer(mgl::createRenderer())
+		window(window), renderer(CreateRef<mgl::Renderer>())
 	{
 		context = window->getContext();
 		context->setDepthTest(true);
 
+		renderer->renderPasses.push_back(CreateRef<mgl::ShadowRenderPass>());
+		renderer->renderPasses.push_back(CreateRef<mgl::ForwardRenderPass>());
+
 		renderScene = CreateRef<mgl::RenderScene>();
+
+		//{
+		//	Ref<mgl::Texture2D> texture = context->createTexture2D();
+		//	texture->loadFromFile(R"(C:\Users\tony3\Downloads\iiii.png)");
+
+		//	Ref<mgl::StandardMaterial> material = CreateRef<mgl::StandardMaterial>(context.get());
+		//	material->diffuseMap = texture;
+
+		//	Ref<mgl::Mesh> mesh = context->createMesh();
+		//	mesh->setGeometry(mgl::gl::Shape3D().SphereUVN(20, 20));
+
+		//	Ref<mgl::Model> sphere;
+		//	sphere = CreateRef<mgl::Model>();
+		//	sphere->setMesh(mesh);
+		//	sphere->setMaterial(material);
+		//	renderScene->addModel(sphere);
+		//}
 
 		{
 			Ref<mgl::Texture2D> texture = context->createTexture2D();
@@ -49,14 +73,29 @@ public:
 			Ref<mgl::StandardMaterial> material = CreateRef<mgl::StandardMaterial>(context.get());
 			material->diffuseMap = texture;
 
-			Ref<mgl::Mesh> mesh = context->createMesh();
-			mesh->setGeometry(mgl::gl::Shape3D().SphereUVN(20, 20));
+			mrl::ModelLoader loader;
+			mrl::ObjModelData data = loader.loadObj("human.obj");
 
-			Ref<mgl::Model> sphere;
-			sphere = CreateRef<mgl::Model>();
-			sphere->setMesh(mesh);
-			sphere->setMaterial(material);
-			renderScene->addModel(sphere);
+			for(mrl::ObjMeshData& meshData : data.meshes) {
+
+				Ref<mgl::Model> model = CreateRef<mgl::Model>();
+				Ref<mgl::Mesh> mesh = context->createMesh();
+
+				mgl::Geometry<mgl::gl::Vertex3DUVN, GLuint> geometry = {
+					meshData.vertices,
+					meshData.indices
+				};
+
+				mgl::calculateSmoothNormals(geometry);
+				mesh->setGeometry(geometry);
+
+				model->setMesh(mesh);
+				model->setPos(mml::vec3(0));
+				model->setScale(mml::vec3(0.1f));
+				
+				model->setMaterial(material);
+				renderScene->addModel(model);
+			}
 		}
 
 		{
@@ -67,34 +106,39 @@ public:
 			material->diffuseMap = texture;
 
 			Ref<mgl::Mesh> mesh = context->createMesh();
-			mesh->setGeometry(mgl::gl::Shape3D(mml::vec3(0, -1, 0)).CubeUVN());
+			mesh->setGeometry(mgl::gl::Shape3D().CubeUVN());
 
 			Ref<mgl::Model> ground = CreateRef<mgl::Model>();
-			ground->setPos(mml::vec3(0, -4, 0));
-			ground->setScale(mml::vec3(5, 5, 5));
+			ground->setPos(mml::vec3(0));
+			ground->setScale(mml::vec3(2, 0.1f, 2));
 
 			ground->setMesh(mesh);
 			ground->setMaterial(material);
 			renderScene->addModel(ground);
 		}
 
-		{
-			Ref<mgl::BasicMaterial> material = CreateRef<mgl::BasicMaterial>(context.get());
-			material->color = mml::color(1);
+		//{
+		//	Ref<mgl::BasicMaterial> material = CreateRef<mgl::BasicMaterial>(context.get());
+		//	material->color = mml::color(1);
 
-			Ref<mgl::Mesh> mesh = context->createMesh();
-			mesh->setGeometry(mgl::gl::Shape3D().Cube());
+		//	Ref<mgl::Mesh> mesh = context->createMesh();
+		//	mesh->setGeometry(mgl::gl::Shape3D().Cube());
 
-			lightCube = CreateRef<mgl::Model>();
-			lightCube->setScale(mml::vec3(0.1f));
-			lightCube->setMesh(mesh);
-			lightCube->setMaterial(material);
-			renderScene->addModel(lightCube);
-		}
+		//	lightCube = CreateRef<mgl::Model>();
+		//	lightCube->setScale(mml::vec3(0.1f));
+		//	lightCube->setMesh(mesh);
+		//	lightCube->setMaterial(material);
+		//	renderScene->addModel(lightCube);
+		//}
 
 		light = CreateRef<mgl::DirectionalLight>(mml::vec3(-0.2f, -1.0f, -0.3f), mml::color(1), 0.3f);
-		light->createShadow(context.get(), mml::uvec2(window->getWidth()));
+		//light->createShadow(context.get(), mml::uvec2(window->getWidth(), window->getHeight()));
 		renderScene->addLight(light);
+
+
+		//light2 = CreateRef<mgl::DirectionalLight>(mml::vec3(-0.2f, -1.0f, -0.3f), mml::color(1), 0.3f);
+		//light2->createShadow(context.get(), mml::uvec2(window->getWidth()));
+		//renderScene->addLight(light2);
 
 		camera = CreateRef<mgl::FirstPersonCamera>();
 		renderScene->setCamera(camera);
@@ -116,6 +160,7 @@ public:
 
 	void update()
 	{
+
 		context->clearColor();
 		context->clearDepth();
 		context->viewport(0, 0, window->getWidth(), window->getHeight());
@@ -130,6 +175,8 @@ public:
 
 		//material->color = mml::color(mml::sin(i) * 0.5f + 1, mml::cos(i) * 0.5f + 1, 0, 1);
 		//model->setScale(mml::vec3(model->getScale().x + mml::cos(i * 10.0f) / 1000));
+
+		//renderScene->getModels()[0]->setRotate(mml::vec3(i, 0, 0));
 
 		//lightCube->setPos(light->pos);
 
@@ -169,9 +216,14 @@ public:
 		ImGui::NewFrame();
 
 		ImGui::Begin("Light");
-		ImGui::DragFloat3("lightPos", &light->dir);
+		ImGui::DragFloat3("lightPos", &light->dir, 0.1f);
 		ImGui::Image((ImTextureID)3, ImGui::GetContentRegionAvail(), ImVec2(0, 1), ImVec2(1, 0));
 		ImGui::End();
+
+		//ImGui::Begin("Light2");
+		//ImGui::DragFloat3("lightPos", &light2->dir, 0.1f);
+		//ImGui::Image((ImTextureID)4, ImGui::GetContentRegionAvail(), ImVec2(0, 1), ImVec2(1, 0));
+		//ImGui::End();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

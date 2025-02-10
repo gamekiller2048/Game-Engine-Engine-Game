@@ -8,7 +8,7 @@ namespace mgl
     class DirectionalShadow : public Shadow
     {
     public:
-        DirectionalShadow(RenderContext* context, float bias=0.0005f, int sampleRadius=2);
+        DirectionalShadow(RenderContext* context, float bias=0.005f, int sampleRadius=2);
 
         void create(const mml::uvec2& size);
         Ref<Texture2D> getMap() const;

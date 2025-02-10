@@ -1,25 +1,26 @@
 #pragma once
+#include <vector>
 #include <resourceloader/resourceloader.hpp>
-#include <graphics/render/modelmesh.hpp>
+#include <graphics/render/model.hpp>
+#include <graphics/render/rendercontext.hpp>
 
 namespace mrl
 {
 	struct ModelData
 	{
-		std::vector<mgl::Ref<mgl::ModelMesh>> meshes;
+		std::vector<Ref<mgl::Model>> meshes;
 	};
 
-	struct ObjMesh
+	struct ObjMeshData
 	{
 		std::string name;
-		mgl::Ref<mgl::ModelMesh> mesh;
-		std::vector<mgl::Vertex3DUVN> vertices;
+		std::vector<mgl::gl::Vertex3DUVN> vertices;
 		std::vector<GLuint> indices;
 	};
 
 	struct ObjModelData
 	{
-		std::vector<mgl::Ref<ObjMesh>> meshes;
+		std::vector<ObjMeshData> meshes;
 	};
 
 	class ModelLoader : ResourceLoader

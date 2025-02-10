@@ -2,6 +2,7 @@
 #include <graphics/render/pointlight.hpp>
 #include <math/projection.hpp>
 #include <cassert>
+#include <glad/gl.h>
 
 namespace mgl
 {
@@ -16,13 +17,16 @@ namespace mgl
 		this->bias = bias;
 		this->sampleRadius = sampleRadius;
 
+		camera = CreateRef<PerspectiveCamera>();
+		camera->perspective((float)mml::PI / 2.0f, 0.1f, 10.0f, (float)size.x / size.y);
+
 		cubemap = context->createCubeMap();
 		cubemap->allocate(size.x, size.y, TextureFormat::DEPTH);
-		cubemap->bind();
 
 		framebuffer = context->createFrameBuffer();
 		framebuffer->bind();
-		framebuffer->addRenderTarget(cubemap, FrameBufferAttachment{FrameBufferAttachmentType::DEPTH, 0}, -1);
+		//framebuffer->addRenderTarget(cubemap, FrameBufferAttachment{FrameBufferAttachmentType::DEPTH});
+		framebuffer->setShaderColorOutputLoc();
 		framebuffer->unbind();
 		
 		static bool init = false;
@@ -40,7 +44,7 @@ namespace mgl
 				gl_Position = vec4(v_pos, 1.0) * u_transform;
 			})",
 
-				R"(#version 430 core
+			R"(#version 430 core
 
 			in vec4 fragPos;
 			uniform float u_farPlane;
@@ -72,7 +76,7 @@ namespace mgl
 			})"
 			);
 
-			init = false;
+			init = true;
 		}
 	}
 

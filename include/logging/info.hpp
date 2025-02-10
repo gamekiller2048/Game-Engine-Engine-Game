@@ -6,6 +6,6 @@ namespace mll
 	class Info : public Logable
 	{
 	public:
-		Info(const std::string& name, const std::string message="");
+		Info(const std::string& name, const std::string message="", const DebugInfo& debugInfo={});
 	};
 }

@@ -10,7 +10,7 @@ namespace mgl
 	void Shadow::startFrame() const
 	{
 		framebuffer->bind();
-		framebuffer->setShaderOutputLocations();
+		framebuffer->setShaderColorOutputLoc();
 		framebuffer->viewport(0, 0, size.x, size.y);
 		framebuffer->clear(FrameBufferAttachmentType::DEPTH);
 	}

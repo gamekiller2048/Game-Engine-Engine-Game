@@ -45,7 +45,7 @@ namespace mgl
 
 	mml::mat4 Model::calculateTransform()
 	{
-		return mml::translate(mml::scale(mml::rotate(mml::mat4(1), rotate), scale), pos);
+		return mml::translate(mml::rotate(mml::scale(mml::mat4(1), scale), rotate), pos);
 	}
 
 	void Model::setPos(const mml::vec3& pos)

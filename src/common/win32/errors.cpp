@@ -3,13 +3,13 @@
 
 namespace mcl
 {
-	Win32Error::Win32Error(uint error) :
-		mll::Error("Win32")
+	Win32Error::Win32Error(uint error, const mll::DebugInfo& errorInfo) :
+		mll::Error("Win32", "", errorInfo)
 	{
 		// this condition should not happen
 		if(!error)
 			severity = mll::Severity::WARNING;
-
+		
 		LPSTR msgBuf = nullptr;
 
 		size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,

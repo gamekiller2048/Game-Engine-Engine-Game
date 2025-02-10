@@ -5,6 +5,7 @@
 
 namespace mrl
 {
+	// TODO: make my own loader
 	ImageData ImageLoader::load(const std::string& filePath)
 	{
 		stbi_set_flip_vertically_on_load(true);

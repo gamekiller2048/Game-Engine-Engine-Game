@@ -21,7 +21,6 @@ namespace mgl
         if(shadow) {
             mml::mat4 proj = mml::perspective((float)mml::PI, 0.1f, 1000.0f, 1.0f);
             mml::mat4 view = mml::lookAt(pos, mml::vec3(0), mml::UP);
-            shader->uniform("u_lightProjection", proj * view);
         }
     }
 
@@ -33,7 +32,7 @@ namespace mgl
 
     void PointLight::useShadow() const
     {
-        mml::mat4 shadowProj = mml::perspective((float)mml::PI / 2.0f, 10.0f, 0.1f, (float)shadow->size.x / shadow->size.y);
+        mml::mat4 shadowProj = shadow->getCamera()->projection;
         std::vector<mml::mat4> shadowTransforms = {
 	        shadowProj * mml::lookAt(pos, pos + mml::RIGHT, mml::DOWN),
 	        shadowProj * mml::lookAt(pos, pos + mml::LEFT, mml::DOWN),

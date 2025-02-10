@@ -44,14 +44,13 @@ namespace mgl
 			#version 430 core
 			layout(location = 0) in vec3 v_pos;
 			layout(location = 1) in vec2 v_texUV;
-			layout(location = 1) in vec3 v_normal;
+			layout(location = 2) in vec3 v_normal;
 			uniform mat4 u_projection;
 			uniform mat4 u_transform;
 			uniform mat4 u_lightProjection;
 			out vec2 texUV;
 			out vec3 pos;
 			out vec3 normal;
-			out vec4 fragPosLight;
 
 			void main()
 			{
@@ -59,7 +58,6 @@ namespace mgl
 				pos = vec3(p);
 				normal = v_normal;
 				gl_Position = p * u_projection;
-				fragPosLight = vec4(pos, 1.0f) * u_lightProjection;
 
 				texUV = v_texUV;
 			})",
@@ -70,7 +68,6 @@ namespace mgl
             in vec3 pos;
             in vec2 texUV;
             in vec3 normal;
-            in vec4 fragPosLight;
 
             #define NUM_DIRECTIONAL_LIGHTS 1
             #define NUM_POINT_LIGHTS 0
@@ -104,6 +101,7 @@ namespace mgl
                     float specIntensity;
                     bool shadows;
                     DirectionalShadow shadow;
+					mat4 projection;
                 };
 
                 uniform DirectionalLight u_directionalLights[NUM_DIRECTIONAL_LIGHTS];
@@ -134,12 +132,13 @@ namespace mgl
                 
                     if(light.shadows) {
                         float shadow = 0.0f;
-	                    vec3 lightCoords = fragPosLight.xyz / fragPosLight.w;
+						
+	                    vec3 lightCoords = (vec4(pos, 1.0f) * light.projection).xyz;
 	                    if(lightCoords.z <= 1.0f)
 	                    {
 		                    lightCoords = (lightCoords + 1.0f) / 2.0f;
 		                    float currentDepth = lightCoords.z;
-		                    float bias = max(0.05f * (1.0f - dot(norm, lightDir)), light.shadow.bias);
+		                    float bias = max(0.00025f * (1.0f - dot(norm, lightDir)), light.shadow.bias);
 
 		                    vec2 pixelSize = 1.0 / textureSize(light.shadow.map, 0);
 		                    for(int y = -light.shadow.sampleRadius; y <= light.shadow.sampleRadius; y++)
@@ -216,8 +215,8 @@ namespace mgl
                         float shadow = 0.0f;
 	                    vec3 fragToLight = pos - light.pos;
                         float currentDepth = length(fragToLight);
-                        float bias = max(0.05f * (1.0f - dot(norm, lightDirection)), light.shadow.bias);
-                        float offset = 0.1f;
+                        float bias = max(0.00025f * (1.0f - dot(norm, lightDirection)), light.shadow.bias);
+                        float offset = 0.01f;
 
 	                    for(int z = -light.shadow.sampleRadius; z <= light.shadow.sampleRadius; z++)
 	                    {
@@ -226,12 +225,13 @@ namespace mgl
 		                        for(int x = -light.shadow.sampleRadius; x <= light.shadow.sampleRadius; x++)
 		                        {
 		                            float closestDepth = texture(light.shadow.cubemap, fragToLight + vec3(x, y, z) * offset).r;
-				                    closestDepth *= 50;
-				                    if (currentDepth > closestDepth + bias)
+				                    closestDepth *= 50; // TODO: this is farplane
+				                    if(currentDepth > closestDepth + bias)
 					                    shadow += 1.0f;     
 		                        }    
 		                    }
 	                    }
+
 	                    // Average shadow
 	                    shadow /= pow((light.shadow.sampleRadius * 2 + 1), 3);
 

@@ -28,9 +28,9 @@ namespace mgl
 
 		virtual void viewport(uint x, uint y, uint w, uint h) const = 0;
 		virtual void clear(FrameBufferAttachmentType type) const = 0;
-		virtual void addRenderTarget(const Ref<Texture2D>& target, FrameBufferAttachment attachment, uint outputLoc) = 0;
-		virtual void addRenderTarget(const Ref<CubeMap>& target, FrameBufferAttachment attachment, uint outputLoc) = 0;
-		virtual void setShaderOutputLocations() const = 0;
+		virtual void addRenderTarget(const Ref<Texture2D>& target, FrameBufferAttachment attachment, uint colorOutputLoc=0) = 0;
+		virtual void addRenderTarget(const Ref<CubeMap>& target, FrameBufferAttachment attachment, uint colorOutputLoc=0) = 0;
+		virtual void setShaderColorOutputLoc() const = 0;
 
 	protected:
 		RenderContext* context;

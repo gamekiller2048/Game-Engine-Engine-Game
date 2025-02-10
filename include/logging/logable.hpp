@@ -10,12 +10,20 @@ namespace mll
 		CRITICAL
 	};
 
+	struct DebugInfo
+	{
+		std::string funcName;
+		std::string fileName;
+		uint line;
+	};
+
 	class Logable
 	{
 	public:
 		Severity severity;
+		DebugInfo debugInfo;
 
-		Logable(Severity severity, const std::string& name, const std::string message="");
+		Logable(Severity severity, const std::string& name, const std::string message="", const DebugInfo& debugInfo={});
 		std::string getString() const;
 
 	protected:

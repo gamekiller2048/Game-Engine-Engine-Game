@@ -25,27 +25,11 @@ namespace mgl
 
 				for(const Ref<Model>& model : scene->getModels()) {
 					shader->uniform("u_transform", model->getTransform());
-
-					model->getMesh()->bind();
-					glDrawElements(GL_TRIANGLES, 3 * 800, GL_UNSIGNED_INT, 0);
+					model->getMesh()->draw(shader);
 				}
 
 				shadow->endFrame();
-			}
-			
-			
-			//gl::Context::getCurrent().lock()->viewport(0, 0, scene->getSize().x, scene->getSize().y);
-
-			for(const Ref<Model>& model : scene->getModels()) {
-				Ref<mgl::ShaderProgram> shader = model->getMaterial()->shader;
-				shader->bind();
-				shader->uniform("u_projection", scene->getCamera()->projView);
-				shader->uniform("u_transform", model->getTransform());
-
-				light->use(shader, 0);
-				model->getMaterial()->use();
-				model->getMesh()->draw(shader);
-			}
+			}	
 		}
 	}
 }

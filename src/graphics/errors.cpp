@@ -17,11 +17,11 @@ namespace mgl
 	};
 
 
-	GLError::GLError(uint error) :
-		mll::Error("GL", GLErrorMap.find(error)->second) {}
+	GLError::GLError(uint error, const mll::DebugInfo& debugInfo) :
+		mll::Error("GL", GLErrorMap.find(error)->second, debugInfo) {}
 
-	GLError::GLError(const std::string& msg) :
-		mll::Error("GL", msg) {}
+	GLError::GLError(const std::string& msg, const mll::DebugInfo& debugInfo) :
+		mll::Error("GL", msg, debugInfo) {}
 
 	GLSLError::GLSLError(const std::string& stage, const std::string& msg) :
 		GLError(stage + " failed: " + msg) {}

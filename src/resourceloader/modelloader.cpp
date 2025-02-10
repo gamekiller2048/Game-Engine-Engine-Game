@@ -19,7 +19,7 @@ namespace mrl
         std::vector<mml::vec3> positions;
         std::vector<mml::vec2> texUVs;
         std::vector<mml::vec3> normals;
-        std::vector<mgl::Vertex3DUVN> vertices;
+        std::vector<mgl::gl::Vertex3DUVN> vertices;
         std::vector<GLuint> indices;
 
         while(std::getline(file, line)) {
@@ -48,7 +48,7 @@ namespace mrl
                 int c = 0;
 
                 while(lineStream >> vertex) {
-                    vertices.push_back(mgl::Vertex3DUVN{});
+                    vertices.push_back(mgl::gl::Vertex3DUVN{});
 
                     std::string pos, texUV, normal;
                     std::istringstream vss(vertex);
@@ -86,38 +86,31 @@ namespace mrl
             else if(flag == "o") {
                 // skip first mesh
                 if(vertices.size() > 0) {
-                    data.meshes[data.meshes.size() - 1]->mesh->setGeometry(mgl::Geometry<mgl::Vertex3DUVN, GLuint>{vertices, indices});
-                    data.meshes[data.meshes.size() - 1]->vertices = vertices;
-                    data.meshes[data.meshes.size() - 1]->indices = indices;
+                    data.meshes[data.meshes.size() - 1].vertices = vertices;
+                    data.meshes[data.meshes.size() - 1].indices = indices;
                     indices.clear();
                 }
 
                 std::string meshName;
                 lineStream >> meshName;
 
-                mgl::Ref<ObjMesh> m = mgl::CreateRef<ObjMesh>();
-                m->mesh = mgl::CreateRef<mgl::ModelMesh>();
-                m->mesh->create();
-                m->name = meshName;
+                ObjMeshData m;
+                m.name = meshName;
                 data.meshes.push_back(m);
             }
         }
 
         // add the last mesh
         if(data.meshes.size() > 0) {
-            data.meshes[data.meshes.size() - 1]->mesh->setGeometry(mgl::Geometry<mgl::Vertex3DUVN, GLuint>{vertices, indices});
-            data.meshes[data.meshes.size() - 1]->vertices = vertices;
-            data.meshes[data.meshes.size() - 1]->indices = indices;
+            data.meshes[data.meshes.size() - 1].vertices = vertices;
+            data.meshes[data.meshes.size() - 1].indices = indices;
         }
+
         // some models don't specify o flag if it only has 1 mesh so create and add another mesh
         else {
-            mgl::Ref<ObjMesh> m = mgl::CreateRef<ObjMesh>();
-            
-            m->mesh = mgl::CreateRef<mgl::ModelMesh>();
-            m->mesh->create();
-            m->mesh->setGeometry(mgl::Geometry<mgl::Vertex3DUVN, GLuint>{vertices, indices});
-            m->vertices = vertices;
-            m->indices = indices;
+            ObjMeshData m;
+            m.vertices = vertices;
+            m.indices = indices;
             data.meshes.push_back(m);
         }
 

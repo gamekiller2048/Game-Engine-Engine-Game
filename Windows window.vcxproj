@@ -172,6 +172,7 @@
     <ClCompile Include="src\graphics\errors.cpp" />
     <ClCompile Include="src\graphics\geometry\shape2d.cpp" />
     <ClCompile Include="src\graphics\geometry\shape3d.cpp" />
+    <ClCompile Include="src\graphics\geometry\util.cpp" />
     <ClCompile Include="src\graphics\geometry\vertex.cpp" />
     <ClCompile Include="src\graphics\opengl\arraytexture2d.cpp" />
     <ClCompile Include="src\graphics\opengl\buffer.cpp" />
@@ -218,7 +219,6 @@
     <ClCompile Include="src\graphics\render\opengl\glshaderprogram.cpp" />
     <ClCompile Include="src\graphics\render\opengl\gltexture2d.cpp" />
     <ClCompile Include="src\graphics\render\renderer.cpp" />
-    <ClCompile Include="src\graphics\render\opengl\glrenderer.cpp" />
     <ClCompile Include="src\graphics\render\shaderprogram.cpp" />
     <ClCompile Include="src\graphics\render\texture2d.cpp" />
     <ClCompile Include="src\graphics\render\vertexbuffer.cpp" />
@@ -237,6 +237,7 @@
     <ClCompile Include="src\math\random.cpp" />
     <ClCompile Include="src\resourceloader\errors.cpp" />
     <ClCompile Include="src\resourceloader\imageloader.cpp" />
+    <ClCompile Include="src\resourceloader\modelloader.cpp" />
     <ClCompile Include="src\resourceloader\resourceloader.cpp" />
     <ClCompile Include="vendor\src\glad\gl.c" />
     <ClCompile Include="vendor\src\glad\wgl.c" />
@@ -260,6 +261,7 @@
     <ClInclude Include="include\graphics\errors.hpp" />
     <ClInclude Include="include\graphics\geometry\shape2d.hpp" />
     <ClInclude Include="include\graphics\geometry\shape3d.hpp" />
+    <ClInclude Include="include\graphics\geometry\util.hpp" />
     <ClInclude Include="include\graphics\geometry\vertex.hpp" />
     <ClInclude Include="include\graphics\opengl\arraytexture2d.hpp" />
     <ClInclude Include="include\graphics\opengl\buffer.hpp" />
@@ -305,7 +307,6 @@
     <ClInclude Include="include\graphics\render\model.hpp" />
     <ClInclude Include="include\graphics\render\renderer.hpp" />
     <ClInclude Include="include\graphics\render\mesh.hpp" />
-    <ClInclude Include="include\graphics\render\opengl\glrenderer.hpp" />
     <ClInclude Include="include\graphics\render\texture2d.hpp" />
     <ClInclude Include="include\graphics\render\vertexbuffer.hpp" />
     <ClInclude Include="include\graphics\render\vertexlayout.hpp" />
@@ -342,7 +343,9 @@
     <ClInclude Include="include\math\vec4.hpp" />
     <ClInclude Include="include\resourceloader\errors.hpp" />
     <ClInclude Include="include\resourceloader\imageloader.hpp" />
+    <ClInclude Include="include\resourceloader\modelloader.hpp" />
     <ClInclude Include="include\resourceloader\resourceloader.hpp" />
+    <ClInclude Include="include\graphics\render\renderpass.hpp" />
     <ClInclude Include="src\graphics\opengl\errorcheck.hpp" />
     <ClInclude Include="src\graphics\opengl\win32\contextimpl.hpp" />
     <ClInclude Include="src\graphics\render\opengl\glcubemapimpl.hpp" />

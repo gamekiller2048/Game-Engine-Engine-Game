@@ -17,7 +17,7 @@ namespace mgl
 		this->sampleRadius = sampleRadius;
 
 		camera = CreateRef<OrthographicCamera>();
-		camera->orthographic(10.0f, -10.0f, 10.0f, -10.0f, 500.0f, 0.1f);
+		camera->orthographic(5.0f, -5.0f, 5.0f, -5.0f, -5.0f, 5.0f);
 
 		map = context->createTexture2D();
 		map->allocate(size.x, size.y, TextureFormat::DEPTH);
@@ -25,7 +25,8 @@ namespace mgl
 
 		framebuffer = context->createFrameBuffer();
 		framebuffer->bind();
-		framebuffer->addRenderTarget(map, FrameBufferAttachment{FrameBufferAttachmentType::DEPTH, 0}, -1);
+		framebuffer->addRenderTarget(map, FrameBufferAttachment{FrameBufferAttachmentType::DEPTH});
+		framebuffer->setShaderColorOutputLoc();
 		framebuffer->unbind();
 
 		static bool init = false;

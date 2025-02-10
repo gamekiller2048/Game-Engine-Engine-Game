@@ -50,7 +50,7 @@ namespace mgl
         impl->fbo.clear(glAttachmentToBufferBitMap[type]);
     }
 
-    void GLFrameBuffer::addRenderTarget(const Ref<Texture2D>& target, FrameBufferAttachment attachment, uint outputLoc)
+    void GLFrameBuffer::addRenderTarget(const Ref<Texture2D>& target, FrameBufferAttachment attachment, uint colorOutputLoc)
     {
         bind();
 
@@ -61,11 +61,11 @@ namespace mgl
             attachment.index
         );
 
-        if(outputLoc != -1)
-            outputLocMap[outputLoc] = (uint)glAttachmentMap[attachment.type] + attachment.index;
+        if(attachment.type == FrameBufferAttachmentType::DEPTH)
+            colorOutputLocMap[colorOutputLoc] = (uint)glAttachmentMap[attachment.type] + attachment.index;
     }
 
-    void GLFrameBuffer::addRenderTarget(const Ref<CubeMap>& target, FrameBufferAttachment attachment, uint outputLoc)
+    void GLFrameBuffer::addRenderTarget(const Ref<CubeMap>& target, FrameBufferAttachment attachment, uint colorOutputLoc)
     {
         bind();
 
@@ -76,22 +76,25 @@ namespace mgl
             attachment.index
         );
 
-        if(outputLoc != -1)
-            outputLocMap[outputLoc] = (uint)glAttachmentMap[attachment.type] + attachment.index;
+        if(attachment.type == FrameBufferAttachmentType::COLOR)
+            colorOutputLocMap[colorOutputLoc] = (uint)glAttachmentMap[attachment.type] + attachment.index;
     }
     
-    void GLFrameBuffer::setShaderOutputLocations() const
+    void GLFrameBuffer::setShaderColorOutputLoc() const
     {
         std::vector<GLenum> outputs = {};
-        std::unordered_map<uint, uint> outputLocMapCurr = outputLocMap;
+        std::unordered_map<uint, uint> outputLocMapCurr = colorOutputLocMap;
 
-        uint outLoc = 0;
-        while(outputLocMapCurr.size()) {
-            auto it = outputLocMapCurr.find(outLoc);
-            if(it != outputLocMapCurr.end())
-                outputs.push_back(it->second);
-            else
-                outputs.push_back(GL_NONE);
+        if(outputs.size()) {
+            uint outLoc = 0;
+            while(outputLocMapCurr.size()) {
+                auto it = outputLocMapCurr.find(outLoc);
+                if(it != outputLocMapCurr.end())
+                    outputs.push_back(it->second);
+            }
+        }
+        else {
+            outputs = {GL_NONE};
         }
 
         impl->fbo.setDrawAttachments(outputs);

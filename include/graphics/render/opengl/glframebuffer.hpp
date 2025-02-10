@@ -18,13 +18,13 @@ namespace mgl
 
 		void viewport(uint x, uint y, uint w, uint h) const;
 		void clear(FrameBufferAttachmentType type) const;
-		void addRenderTarget(const Ref<Texture2D>& target, FrameBufferAttachment attachment, uint outputLoc);
-		void addRenderTarget(const Ref<CubeMap>& target, FrameBufferAttachment attachment, uint outputLoc);
-		void setShaderOutputLocations() const;
+		void addRenderTarget(const Ref<Texture2D>& target, FrameBufferAttachment attachment, uint colorOutputLoc=0);
+		void addRenderTarget(const Ref<CubeMap>& target, FrameBufferAttachment attachment, uint colorOutputLoc=0);
+		void setShaderColorOutputLoc() const;
 
 	protected:
 		Owned<GLFrameBufferImpl> impl;
 		uint numColorAttachments = 0;
-		std::unordered_map<uint, uint> outputLocMap;
+		std::unordered_map<uint, uint> colorOutputLocMap;
 	};
 }
