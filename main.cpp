@@ -45,8 +45,8 @@ public:
 		context->setDepthTest(true);
 
 		renderer->renderPasses.push_back(CreateRef<mgl::ShadowRenderPass>());
-		renderer->renderPasses.push_back(CreateRef<mgl::ForwardRenderPass>());
-
+		//renderer->renderPasses.push_back(CreateRef<mgl::ForwardRenderPass>());
+		renderer->renderPasses.push_back(CreateRef<mgl::DeferredRenderPass>(context.get(), window->getSize()));
 		renderScene = CreateRef<mgl::RenderScene>();
 
 		//{
@@ -217,7 +217,7 @@ public:
 
 		ImGui::Begin("Light");
 		ImGui::DragFloat3("lightPos", &light->dir, 0.1f);
-		ImGui::Image((ImTextureID)3, ImGui::GetContentRegionAvail(), ImVec2(0, 1), ImVec2(1, 0));
+		ImGui::Image((ImTextureID)1, ImGui::GetContentRegionAvail(), ImVec2(0, 1), ImVec2(1, 0));
 		ImGui::End();
 
 		//ImGui::Begin("Light2");

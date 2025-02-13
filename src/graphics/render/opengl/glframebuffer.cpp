@@ -61,7 +61,7 @@ namespace mgl
             attachment.index
         );
 
-        if(attachment.type == FrameBufferAttachmentType::DEPTH)
+        if(attachment.type == FrameBufferAttachmentType::COLOR)
             colorOutputLocMap[colorOutputLoc] = (uint)glAttachmentMap[attachment.type] + attachment.index;
     }
 
@@ -85,17 +85,21 @@ namespace mgl
         std::vector<GLenum> outputs = {};
         std::unordered_map<uint, uint> outputLocMapCurr = colorOutputLocMap;
 
-        if(outputs.size()) {
+        if(colorOutputLocMap.size()) {
             uint outLoc = 0;
             while(outputLocMapCurr.size()) {
                 auto it = outputLocMapCurr.find(outLoc);
-                if(it != outputLocMapCurr.end())
+                if(it != outputLocMapCurr.end()) {
                     outputs.push_back(it->second);
+                    outputLocMapCurr.erase(it);
+                }
+                else
+                    outputs.push_back(GL_NONE);
+                outLoc++;
             }
         }
-        else {
+        else
             outputs = {GL_NONE};
-        }
 
         impl->fbo.setDrawAttachments(outputs);
     }
