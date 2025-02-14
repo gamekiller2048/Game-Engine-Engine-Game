@@ -44,55 +44,6 @@ namespace mgl
 
 	DeferredGeometryPass::DeferredGeometryPass(RenderContext* context, const mml::uvec2& size)
 	{
-		shader = context->createShaderProgram();
-		shader->attachGLSLShadersFromSrc(
-			R"(
-			#version 430 core
-			layout(location = 0) in vec3 v_pos;
-			layout(location = 1) in vec2 v_texUV;
-			layout(location = 2) in vec3 v_normal;
-
-			uniform mat4 u_projection;
-			uniform mat4 u_transform;
-
-			out vec2 texUV;
-			out vec3 pos;
-			out vec3 normal;
-
-			void main()
-			{
-				vec4 p = vec4(v_pos, 1) * u_transform;
-				pos = vec3(p);
-				normal = normalize(v_normal);
-				gl_Position = p * u_projection;
-
-				texUV = v_texUV;
-			}
-			)",
-
-			R"(
-			#version 430 core
-			layout (location = 0) out vec3 gPosition;
-			layout (location = 1) out vec3 gNormal;
-			layout (location = 2) out vec4 gAlbedoSpec;
-
-			in vec2 texUV;
-			in vec3 pos;
-			in vec3 normal;
-
-			uniform sampler2D diffuse;
-			uniform sampler2D specular;
-
-			void main()
-			{    
-				gPosition = pos;
-				gNormal = normal;
-				gAlbedoSpec.rgb = texture(diffuse, texUV).rgb;
-				gAlbedoSpec.a = texture(specular, texUV).r;
-			}  
-			)"
-		);
-
 		framebuffer = context->createFrameBuffer();
 		framebuffer->bind();
 
@@ -130,6 +81,7 @@ namespace mgl
 		framebuffer->clear(mgl::FrameBufferAttachmentType::DEPTH);
 
 		for(const Ref<Model>& model : scene->getModels()) {
+			Ref<mgl::ShaderProgram> shader = model->getMaterial()->shader;
 			shader->bind();
 			shader->uniform("u_projection", scene->getCamera()->projView);
 			shader->uniform("u_transform", model->getTransform());
@@ -154,8 +106,7 @@ namespace mgl
 			{
 				texUV = v_texUV;
 				gl_Position = vec4(v_pos, 0.0f, 1.0f);
-			}
-			)",
+			})",
 
 			R"(
 			#version 430 core
@@ -177,8 +128,7 @@ namespace mgl
 				float diffuse = max(dot(normal, lightDir), 0.0);
 	
 				gl_FragColor = vec4(vec3(1) * diffuse, 1.0);
-			}
-			)"
+			})"
 		);
 
 		quad = context->createMesh();
@@ -228,8 +178,7 @@ namespace mgl
 			{
 				gl_Position = vec4(v_pos, 0.0f, 1.0f);
 				texUV = v_texUV;
-			}
-			)",
+			})",
 
 			R"(
 			#version 430 core
@@ -242,8 +191,7 @@ namespace mgl
 			void main()
 			{    
 				gl_FragColor = texture(screen, texUV);
-			}  
-			)"
+			})"
 		);
 
 		quad = context->createMesh();

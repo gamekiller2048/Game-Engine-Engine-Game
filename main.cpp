@@ -22,6 +22,7 @@
 
 #include <resourceloader/modelloader.hpp>
 #include <graphics/geometry/util.hpp>
+#include <graphics/render/shadervariant.hpp>
 
 class MyScene : public mgl::Scene
 {
@@ -45,12 +46,12 @@ public:
 		context->setDepthTest(true);
 
 		renderer = CreateRef<mgl::Renderer>(context.get(), window->getSize());
-		Ref<mgl::DeferredGeometryPass> geometryPass = CreateRef<mgl::DeferredGeometryPass>(context.get(), window->getSize());
-		renderer->geometryPasses.push_back(geometryPass);
-		
-		renderer->lightingPasses.push_back(CreateRef<mgl::DeferredLightingPass>(context.get(), geometryPass));
-		renderer->filters.push_back(CreateRef<mgl::BlurFilter>(context.get(), window->getSize()));
-
+		//Ref<mgl::DeferredGeometryPass> geometryPass = CreateRef<mgl::DeferredGeometryPass>(context.get(), window->getSize());
+		//renderer->geometryPasses.push_back(geometryPass);
+		//renderer->lightingPasses.push_back(CreateRef<mgl::DeferredLightingPass>(context.get(), geometryPass));
+		//renderer->geometryPasses.push_back(CreateRef<mgl::ShadowGeometryPass>());
+		renderer->lightingPasses.push_back(CreateRef<mgl::ForwardLightingPass>());
+		renderer->filters.push_back(CreateRef<mgl::EdgeFilter>(context.get(), window->getSize()));
 		renderScene = CreateRef<mgl::RenderScene>();
 
 		//{
@@ -74,7 +75,7 @@ public:
 			Ref<mgl::Texture2D> texture = context->createTexture2D();
 			texture->loadFromFile(R"(C:\Users\tony3\Downloads\iiii.png)");
 
-			Ref<mgl::StandardMaterial> material = CreateRef<mgl::StandardMaterial>(context.get());
+			Ref<mgl::StandardMaterial> material = CreateRef<mgl::StandardMaterial>(context.get(), mgl::StandardShaderVairant(mgl::RenderPipeline::FORWARD, true, false, false, 1, 0));
 			material->diffuseMap = texture;
 
 			mrl::ModelLoader loader;
@@ -106,7 +107,7 @@ public:
 			Ref<mgl::Texture2D> texture = context->createTexture2D();
 			texture->loadFromFile(R"(C:\Users\tony3\Downloads\rickandmorty.jpg)");
 
-			Ref<mgl::StandardMaterial> material = CreateRef<mgl::StandardMaterial>(context.get());
+			Ref<mgl::StandardMaterial> material = CreateRef<mgl::StandardMaterial>(context.get(), mgl::StandardShaderVairant(mgl::RenderPipeline::FORWARD, true, false, false, 1, 0));
 			material->diffuseMap = texture;
 
 			Ref<mgl::Mesh> mesh = context->createMesh();
@@ -172,7 +173,7 @@ public:
 		window->setTitle(mil::getMousePos().toString());
 
 		if(mil::isKeyPressed(mil::Key::K_0)) {
-			std::cout << "Asd";
+			std::cout << "Asd";  
 		}
 
 		i += 0.001f;

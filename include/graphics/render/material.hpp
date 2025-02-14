@@ -2,7 +2,8 @@
 #include <math/math.hpp>
 #include <graphics/render/shaderprogram.hpp>
 #include <graphics/render/texture2d.hpp>
-#include  <graphics/render/rendercontext.hpp>
+#include <graphics/render/rendercontext.hpp>
+#include <graphics/render/shadervariant.hpp>
 
 namespace mgl
 {
@@ -17,17 +18,22 @@ namespace mgl
 
     struct BasicMaterial : public Material
     {
-        mml::color color;
+        mml::color albedo;
 
-        BasicMaterial(RenderContext* context);
+        BasicMaterial(RenderContext* context, const BasicShaderVairant& shaderVariant);
         void use() const;
     };
 
     struct StandardMaterial : public Material
     {
         Ref<Texture2D> diffuseMap;
+        Ref<Texture2D> normalMap;
+        Ref<Texture2D> specularMap;
+        mml::color albedo;
 
-        StandardMaterial(RenderContext* context);
+        StandardShaderVairant shaderVariant;
+
+        StandardMaterial(RenderContext* context, const StandardShaderVairant& shaderVariant);
         void use() const;
     };
 }

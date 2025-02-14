@@ -25,7 +25,6 @@ namespace mgl
 		void render(const Ref<RenderScene>& scene) const;
 
 	protected:
-		Ref<ShaderProgram> shader;
 		Ref<FrameBuffer> framebuffer;
 		Ref<Texture2D> position;
 		Ref<Texture2D> normal;

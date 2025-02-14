@@ -93,8 +93,19 @@ namespace mgl
 
 	BlurFilter::BlurFilter(RenderContext* context, const mml::uvec2 size) :
 		ConvolutionFilter(context,
-			{1.0 / 16, 2.0 / 16, 1.0 / 16,
-			2.0 / 16, 4.0 / 16, 2.0 / 16,
-			1.0 / 16, 2.0 / 16, 1.0 / 16}, size) {}
+			{1.0f / 16, 2.0f / 16, 1.0f / 16,
+			2.0f / 16, 4.0f / 16, 2.0f / 16,
+			1.0f / 16, 2.0f / 16, 1.0f / 16}, size) {}
 
+	SharpenFilter::SharpenFilter(RenderContext* context, const mml::uvec2 size) :
+		ConvolutionFilter(context,
+			{-1.0f, -1.0f, -1.0f,
+			-1.0f, 9.0f, -1.0f,
+			-1.0f, -1.0f, -1.0f }, size) {}
+
+	EdgeFilter::EdgeFilter(RenderContext* context, const mml::uvec2 size) :
+		ConvolutionFilter(context,
+			{1.0f, 1.0f, 1.0f,
+			1.0f, -8.0f, 1.0f,
+			1.0f, 1.0f, 1.0f}, size) {}
 }

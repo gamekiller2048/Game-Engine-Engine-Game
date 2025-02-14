@@ -33,4 +33,16 @@ namespace mgl
 	public:
 		BlurFilter(RenderContext* context, const mml::uvec2 size);
 	};
+
+	class SharpenFilter : public ConvolutionFilter
+	{
+	public:
+		SharpenFilter(RenderContext* context, const mml::uvec2 size);
+	};
+
+	class EdgeFilter : public ConvolutionFilter
+	{
+	public:
+		EdgeFilter(RenderContext* context, const mml::uvec2 size);
+	};
 }

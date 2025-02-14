@@ -217,6 +217,7 @@
     <ClCompile Include="src\graphics\render\rendercontext.cpp" />
     <ClCompile Include="src\graphics\render\renderpass.cpp" />
     <ClCompile Include="src\graphics\render\renderscene.cpp" />
+    <ClCompile Include="src\graphics\render\shadervariant.cpp" />
     <ClCompile Include="src\graphics\render\shadow.cpp" />
     <ClCompile Include="src\graphics\render\opengl\glshaderprogram.cpp" />
     <ClCompile Include="src\graphics\render\opengl\gltexture2d.cpp" />
@@ -302,6 +303,7 @@
     <ClInclude Include="include\graphics\render\pointlight.hpp" />
     <ClInclude Include="include\graphics\render\pointshadow.hpp" />
     <ClInclude Include="include\graphics\render\renderscene.hpp" />
+    <ClInclude Include="include\graphics\render\shadervariant.hpp" />
     <ClInclude Include="include\graphics\render\shadow.hpp" />
     <ClInclude Include="include\graphics\render\opengl\glshaderprogram.hpp" />
     <ClInclude Include="include\graphics\render\opengl\gltexture2d.hpp" />
