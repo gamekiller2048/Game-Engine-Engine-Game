@@ -4,7 +4,7 @@
 
 namespace mgl
 {
-	void ForwardRenderPass::render(const Ref<RenderScene>& scene) const
+	void ForwardLightingPass::render(const Ref<RenderScene>& scene) const
 	{
 		for(const Ref<Model>& model : scene->getModels()) {
 			Ref<mgl::ShaderProgram> shader = model->getMaterial()->shader;
@@ -20,7 +20,8 @@ namespace mgl
 		}
 	}
 
-	void ShadowRenderPass::render(const Ref<RenderScene>& scene) const
+
+	void ShadowGeometryPass::render(const Ref<RenderScene>& scene) const
 	{
 		for(const Ref<Light>& light : scene->getLights()) {
 			if(light->getShadow()) {
@@ -41,7 +42,7 @@ namespace mgl
 		}
 	}
 
-	DeferredGeometryRenderPass::DeferredGeometryRenderPass(RenderContext* context, const mml::uvec2& size)
+	DeferredGeometryPass::DeferredGeometryPass(RenderContext* context, const mml::uvec2& size)
 	{
 		shader = context->createShaderProgram();
 		shader->attachGLSLShadersFromSrc(
@@ -95,6 +96,13 @@ namespace mgl
 		framebuffer = context->createFrameBuffer();
 		framebuffer->bind();
 
+		// depth attachment required for depth testing
+		// TODO: use renderbuffer
+		Ref<Texture2D> depth = context->createTexture2D();
+		depth->allocate(size.x, size.y, mgl::TextureFormat::DEPTH);
+		framebuffer->addRenderTarget(depth, FrameBufferAttachment{FrameBufferAttachmentType::DEPTH});
+		framebuffer->unbind();
+
 		position = context->createTexture2D();
 		position->allocate(size.x, size.y, TextureFormat::RGB);
 		position->bind();
@@ -115,7 +123,7 @@ namespace mgl
 		framebuffer->unbind();
 	}
 
-	void DeferredGeometryRenderPass::render(const Ref<RenderScene>& scene) const
+	void DeferredGeometryPass::render(const Ref<RenderScene>& scene) const
 	{
 		framebuffer->bind();
 		framebuffer->clear(mgl::FrameBufferAttachmentType::COLOR);
@@ -130,7 +138,8 @@ namespace mgl
 		framebuffer->unbind();
 	}
 
-	DeferredLightingRenderPass::DeferredLightingRenderPass(RenderContext* context)
+	DeferredLightingPass::DeferredLightingPass(RenderContext* context, const Ref<DeferredGeometryPass>& geometryPass) :
+		geometryPass(geometryPass)
 	{
 		shader = context->createShaderProgram();
 		shader->attachGLSLShadersFromSrc(
@@ -167,7 +176,7 @@ namespace mgl
 				vec3 lightDir = normalize(lightPos - pos);
 				float diffuse = max(dot(normal, lightDir), 0.0);
 	
-				gl_FragColor = vec4(clamp(normal.xyz, 0, 1), 1.0);
+				gl_FragColor = vec4(vec3(1) * diffuse, 1.0);
 			}
 			)"
 		);
@@ -176,33 +185,92 @@ namespace mgl
 		quad->setGeometry(gl::Shape2D().SquareUV());
 	}
 
-	void DeferredLightingRenderPass::render(const Ref<RenderScene>& scene) const
+	void DeferredLightingPass::render(const Ref<RenderScene>& scene) const
 	{
+		shader->bind();
+		
+		geometryPass->position->bind();
+		geometryPass->normal->bind();
+		geometryPass->albeodoSpecular->bind();
+
+		geometryPass->position->uniformSampler(shader, "gPosition");
+		geometryPass->normal->uniformSampler(shader, "gNormal");
+		geometryPass->albeodoSpecular->uniformSampler(shader, "gAlbedoSpec");
+
 		quad->draw(shader);
 	}
 
-	DeferredRenderPass::DeferredRenderPass(RenderContext* context, const mml::uvec2& size) :
-		geometryPass(context, size), lightingPass(context) {}
-
-	void DeferredRenderPass::render(const Ref<RenderScene>& scene) const
+	Renderer::Renderer(RenderContext* context, const mml::uvec2& size)
 	{
-		geometryPass.render(scene);
+		framebuffer = context->createFrameBuffer();
+		glEnable(GL_DEPTH_TEST);
+		renderOutput = context->createTexture2D();
+		renderOutput->allocate(size.x, size.y, mgl::TextureFormat::RGBA);
+		framebuffer->addRenderTarget(renderOutput, FrameBufferAttachment{FrameBufferAttachmentType::COLOR, 0});
+		
+		// depth attachment required for depth testing
+		// TODO: use renderbuffer
+		Ref<Texture2D> depth = context->createTexture2D();
+		depth->allocate(size.x, size.y, mgl::TextureFormat::DEPTH);
+		framebuffer->addRenderTarget(depth, FrameBufferAttachment{FrameBufferAttachmentType::DEPTH});
+		framebuffer->unbind();
 
-		lightingPass.shader->bind();
+		shader = context->createShaderProgram();
+		shader->attachGLSLShadersFromSrc(
+			R"(
+			#version 430 core
+			layout(location = 0) in vec2 v_pos;
+			layout(location = 1) in vec2 v_texUV;
 
-		geometryPass.position->bind();
-		geometryPass.normal->bind();
-		geometryPass.albeodoSpecular->bind();
+			out vec2 texUV;
 
-		geometryPass.position->uniformSampler(lightingPass.shader, "gPosition");
-		geometryPass.normal->uniformSampler(lightingPass.shader, "gNormal");
-		geometryPass.albeodoSpecular->uniformSampler(lightingPass.shader, "gAlbedoSpec");
-		lightingPass.render(scene);
+			void main()
+			{
+				gl_Position = vec4(v_pos, 0.0f, 1.0f);
+				texUV = v_texUV;
+			}
+			)",
+
+			R"(
+			#version 430 core
+
+			in vec2 texUV;
+			in vec3 pos;
+
+			uniform sampler2D screen;
+
+			void main()
+			{    
+				gl_FragColor = texture(screen, texUV);
+			}  
+			)"
+		);
+
+		quad = context->createMesh();
+		quad->setGeometry(gl::Shape2D().SquareUV());
 	}
 
 	void Renderer::render(const Ref<RenderScene>& scene) const
 	{
-		for(const Ref<RenderPass>& renderPass : renderPasses)
-			renderPass->render(scene);
+		for(const Ref<GeometryPass>& pass : geometryPasses)
+			pass->render(scene);
+
+		framebuffer->bind();
+		framebuffer->clear(FrameBufferAttachmentType::COLOR);
+		framebuffer->clear(FrameBufferAttachmentType::DEPTH);
+
+		for(const Ref<LightingPass>& pass : lightingPasses)
+			pass->render(scene);
+		framebuffer->unbind();
+
+		Ref<Texture2D> input = renderOutput;
+		for(const Ref<Filter>& filter : filters)
+			input = filter->apply(input);
+
+		shader->bind();
+		input->uniformSampler(shader, "screen");
+		quad->draw(shader);
+		
+
 	}
 }

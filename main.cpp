@@ -39,14 +39,18 @@ public:
 	Ref<mgl::Model> lightCube;
 	
 	MyScene(const Ref<mgl::Window>& window) :
-		window(window), renderer(CreateRef<mgl::Renderer>())
+		window(window)
 	{
 		context = window->getContext();
 		context->setDepthTest(true);
 
-		renderer->renderPasses.push_back(CreateRef<mgl::ShadowRenderPass>());
-		//renderer->renderPasses.push_back(CreateRef<mgl::ForwardRenderPass>());
-		renderer->renderPasses.push_back(CreateRef<mgl::DeferredRenderPass>(context.get(), window->getSize()));
+		renderer = CreateRef<mgl::Renderer>(context.get(), window->getSize());
+		Ref<mgl::DeferredGeometryPass> geometryPass = CreateRef<mgl::DeferredGeometryPass>(context.get(), window->getSize());
+		renderer->geometryPasses.push_back(geometryPass);
+		
+		renderer->lightingPasses.push_back(CreateRef<mgl::DeferredLightingPass>(context.get(), geometryPass));
+		renderer->filters.push_back(CreateRef<mgl::BlurFilter>(context.get(), window->getSize()));
+
 		renderScene = CreateRef<mgl::RenderScene>();
 
 		//{

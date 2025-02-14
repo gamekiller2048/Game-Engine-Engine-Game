@@ -197,6 +197,7 @@
     <ClCompile Include="src\graphics\render\cubemap.cpp" />
     <ClCompile Include="src\graphics\render\directionallight.cpp" />
     <ClCompile Include="src\graphics\render\directionshadow.cpp" />
+    <ClCompile Include="src\graphics\render\filter.cpp" />
     <ClCompile Include="src\graphics\render\framebuffer.cpp" />
     <ClCompile Include="src\graphics\render\indexbuffer.cpp" />
     <ClCompile Include="src\graphics\render\material.cpp" />
@@ -214,6 +215,7 @@
     <ClCompile Include="src\graphics\render\pointlight.cpp" />
     <ClCompile Include="src\graphics\render\pointshadow.cpp" />
     <ClCompile Include="src\graphics\render\rendercontext.cpp" />
+    <ClCompile Include="src\graphics\render\renderpass.cpp" />
     <ClCompile Include="src\graphics\render\renderscene.cpp" />
     <ClCompile Include="src\graphics\render\shadow.cpp" />
     <ClCompile Include="src\graphics\render\opengl\glshaderprogram.cpp" />
@@ -286,6 +288,7 @@
     <ClInclude Include="include\graphics\render\buffer.hpp" />
     <ClInclude Include="include\graphics\render\directionallight.hpp" />
     <ClInclude Include="include\graphics\render\directionalshadow.hpp" />
+    <ClInclude Include="include\graphics\render\filter.hpp" />
     <ClInclude Include="include\graphics\render\framebuffer.hpp" />
     <ClInclude Include="include\graphics\render\opengl\glcontext.hpp" />
     <ClInclude Include="include\graphics\render\opengl\glframebuffer.hpp" />
