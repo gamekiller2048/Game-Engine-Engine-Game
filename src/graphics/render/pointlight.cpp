@@ -19,8 +19,10 @@ namespace mgl
         shader->uniform(base + "specIntensity", specIntensity);
 
         if(shadow) {
-            mml::mat4 proj = mml::perspective((float)mml::PI, 0.1f, 1000.0f, 1.0f);
-            mml::mat4 view = mml::lookAt(pos, mml::vec3(0), mml::UP);
+            shader->uniform(base + "shadow.farPlane", shadow->farPlane);
+
+            shadow->getCubeMap()->bindUnit();
+            shadow->getCubeMap()->uniformSampler(shader, base + "shadow.cubemap");
         }
     }
 

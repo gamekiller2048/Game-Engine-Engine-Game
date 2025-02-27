@@ -20,12 +20,14 @@ namespace mgl
 		camera = CreateRef<PerspectiveCamera>();
 		camera->perspective((float)mml::PI / 2.0f, 0.1f, 10.0f, (float)size.x / size.y);
 
-		cubemap = context->createCubeMap();
-		cubemap->allocate(size.x, size.y, TextureFormat::DEPTH);
-
 		framebuffer = context->createFrameBuffer();
 		framebuffer->bind();
-		//framebuffer->addRenderTarget(cubemap, FrameBufferAttachment{FrameBufferAttachmentType::DEPTH});
+
+		cubemap = context->createCubeMap();
+		cubemap->allocate(size.x, size.y, TextureFormat::DEPTH);
+		cubemap->bind();
+
+		framebuffer->addRenderTarget(cubemap, FrameBufferAttachment{FrameBufferAttachmentType::DEPTH});
 		framebuffer->setShaderColorOutputLoc();
 		framebuffer->unbind();
 		
@@ -78,6 +80,11 @@ namespace mgl
 
 			init = true;
 		}
+	}
+
+	Ref<CubeMap> PointShadow::getCubeMap() const
+	{
+		return cubemap;
 	}
 
 	Ref<ShaderProgram> PointShadow::getShader() const

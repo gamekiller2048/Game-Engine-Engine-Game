@@ -12,7 +12,6 @@ namespace mgl
 
         uniform mat4 u_projection;
 		uniform mat4 u_transform;
-		uniform mat4 u_lightProjection;
 
 		out vec2 texUV;
 		out vec3 pos;
@@ -195,7 +194,7 @@ namespace mgl
 		                    for(int x = -light.shadow.sampleRadius; x <= light.shadow.sampleRadius; x++)
 		                    {
 		                        float closestDepth = texture(light.shadow.cubemap, fragToLight + vec3(x, y, z) * offset).r;
-				                closestDepth *= 50; // TODO: this is farplane
+				                closestDepth *= light.shadow.farPlane;
 				                if(currentDepth > closestDepth + bias)
 					                shadow += 1.0f;     
 		                    }    

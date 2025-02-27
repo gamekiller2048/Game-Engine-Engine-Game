@@ -3,6 +3,9 @@
 #include <algorithm>
 #include <vector>
 
+#include <graphics/render/opengl/gltexture2d.hpp>
+#include "opengl/gltexture2dimpl.hpp"
+
 namespace mgl
 {
 	Filter::Filter(RenderContext* context, const mml::uvec2 size)
@@ -12,10 +15,9 @@ namespace mgl
 		framebuffer->bind();
 
 		output = context->createTexture2D();
+		output->allocate(size.x, size.y, TextureFormat::RGBA);
 		output->bind();
-		output->allocate(size.x, size.y, mgl::TextureFormat::RGBA);
-
-		framebuffer->addRenderTarget(output, mgl::FrameBufferAttachment{mgl::FrameBufferAttachmentType::COLOR, 0});
+		framebuffer->addRenderTarget(output, FrameBufferAttachment{FrameBufferAttachmentType::COLOR});
 		framebuffer->unbind();
 
 		quad = context->createMesh();
@@ -26,7 +28,8 @@ namespace mgl
 	{
 		framebuffer->bind();
 		shader->bind();
-		input->uniformSampler(shader, "screen");
+		input->bindUnit();
+		input->uniformSampler(shader, "u_screen");
 		quad->draw(shader);
 		framebuffer->unbind();
 		return output;
@@ -47,18 +50,17 @@ namespace mgl
 			{
 				texUV = v_texUV;
 				gl_Position = vec4(v_pos, 0.0f, 1.0f);
-			}
-			)",
+			})",
 
 			R"(
 			#version 430 core
 			in vec2 texUV;
 
-			uniform sampler2D screen;
+			uniform sampler2D u_screen;
 
 			const float offset = 1.0 / 300.0;
 
-			uniform float kernel[9];
+			uniform float u_kernel[9];
 
 			void main()
 			{
@@ -76,19 +78,18 @@ namespace mgl
 
 				vec3 sampleTex[9];
 				for(int i = 0; i < 9; i++)
-					sampleTex[i] = vec3(texture(screen, texUV.xy + offsets[i]));
+					sampleTex[i] = vec3(texture(u_screen, texUV.xy + offsets[i]));
 
 				vec3 col = vec3(0.0);
 				for(int i = 0; i < 9; i++)
-					col += sampleTex[i] * kernel[i];
+					col += sampleTex[i] * u_kernel[i];
 
-				gl_FragColor = vec4(col, 1.0);
-			}
-			)"
+				gl_FragColor = vec4(col, 1.0f);
+			})"
 		);
 
 		shader->bind();
-		shader->uniforms("kernel", std::vector<float>(kernel.begin(), kernel.end()));
+		shader->uniforms("u_kernel", std::vector<float>(kernel.begin(), kernel.end()));
 	}
 
 	BlurFilter::BlurFilter(RenderContext* context, const mml::uvec2 size) :

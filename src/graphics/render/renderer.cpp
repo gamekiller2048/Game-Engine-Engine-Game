@@ -2,6 +2,9 @@
 #include <graphics/app.hpp>
 #include <graphics/geometry/shape2d.hpp>
 
+#include <graphics/render/opengl/gltexture2d.hpp>
+#include "opengl/gltexture2dimpl.hpp"
+
 namespace mgl
 {
 	void ForwardLightingPass::render(const Ref<RenderScene>& scene) const
@@ -49,9 +52,9 @@ namespace mgl
 
 		// depth attachment required for depth testing
 		// TODO: use renderbuffer
-		Ref<Texture2D> depth = context->createTexture2D();
-		depth->allocate(size.x, size.y, mgl::TextureFormat::DEPTH);
-		framebuffer->addRenderTarget(depth, FrameBufferAttachment{FrameBufferAttachmentType::DEPTH});
+		depthOutput = context->createTexture2D();
+		depthOutput->allocate(size.x, size.y, mgl::TextureFormat::DEPTH);
+		framebuffer->addRenderTarget(depthOutput, FrameBufferAttachment{FrameBufferAttachmentType::DEPTH});
 		framebuffer->unbind();
 
 		position = context->createTexture2D();
@@ -138,13 +141,14 @@ namespace mgl
 	void DeferredLightingPass::render(const Ref<RenderScene>& scene) const
 	{
 		shader->bind();
-		
-		geometryPass->position->bind();
-		geometryPass->normal->bind();
-		geometryPass->albeodoSpecular->bind();
 
+		geometryPass->position->bindUnit();
 		geometryPass->position->uniformSampler(shader, "gPosition");
+
+		geometryPass->normal->bindUnit();
 		geometryPass->normal->uniformSampler(shader, "gNormal");
+		
+		geometryPass->albeodoSpecular->bindUnit();
 		geometryPass->albeodoSpecular->uniformSampler(shader, "gAlbedoSpec");
 
 		quad->draw(shader);
@@ -153,16 +157,20 @@ namespace mgl
 	Renderer::Renderer(RenderContext* context, const mml::uvec2& size)
 	{
 		framebuffer = context->createFrameBuffer();
-		glEnable(GL_DEPTH_TEST);
+		
 		renderOutput = context->createTexture2D();
 		renderOutput->allocate(size.x, size.y, mgl::TextureFormat::RGBA);
-		framebuffer->addRenderTarget(renderOutput, FrameBufferAttachment{FrameBufferAttachmentType::COLOR, 0});
+		renderOutput->bind();
+
+		framebuffer->addRenderTarget(renderOutput, FrameBufferAttachment{FrameBufferAttachmentType::COLOR});
 		
-		// depth attachment required for depth testing
+		//depth attachment required for depth testing
 		// TODO: use renderbuffer
-		Ref<Texture2D> depth = context->createTexture2D();
-		depth->allocate(size.x, size.y, mgl::TextureFormat::DEPTH);
-		framebuffer->addRenderTarget(depth, FrameBufferAttachment{FrameBufferAttachmentType::DEPTH});
+		depthOutput = context->createTexture2D();
+		depthOutput->allocate(size.x, size.y, mgl::TextureFormat::DEPTH);
+		depthOutput->bind();
+
+		framebuffer->addRenderTarget(depthOutput, FrameBufferAttachment{FrameBufferAttachmentType::DEPTH});
 		framebuffer->unbind();
 
 		shader = context->createShaderProgram();
@@ -182,15 +190,15 @@ namespace mgl
 
 			R"(
 			#version 430 core
-
+			
 			in vec2 texUV;
 			in vec3 pos;
 
-			uniform sampler2D screen;
+			uniform sampler2D u_screen;
 
 			void main()
 			{    
-				gl_FragColor = texture(screen, texUV);
+				gl_FragColor = texture(u_screen, texUV);
 			})"
 		);
 
@@ -214,11 +222,10 @@ namespace mgl
 		Ref<Texture2D> input = renderOutput;
 		for(const Ref<Filter>& filter : filters)
 			input = filter->apply(input);
-
-		shader->bind();
-		input->uniformSampler(shader, "screen");
-		quad->draw(shader);
 		
-
+		shader->bind();
+		input->bindUnit();
+		input->uniformSampler(shader, "u_screen");
+		quad->draw(shader);
 	}
 }

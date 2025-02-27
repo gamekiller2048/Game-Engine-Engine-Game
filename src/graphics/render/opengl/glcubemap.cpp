@@ -34,9 +34,14 @@ namespace mgl
 		impl->cubemap.unbind();
 	}
 
+	void GLCubeMap::bindUnit() const
+	{
+		impl->cubemap.setActiveUnit();
+	}
+
 	void GLCubeMap::uniformSampler(const Ref<ShaderProgram>& shader, const std::string& loc) const
 	{
-		shader->uniform(loc, impl->cubemap.getUnit());
+		shader->uniform(loc, (int)impl->cubemap.getUnit());
 	}
 
 	void GLCubeMap::loadFromFile(const std::string& filePath) const

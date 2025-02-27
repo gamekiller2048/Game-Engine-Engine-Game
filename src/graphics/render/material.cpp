@@ -26,14 +26,20 @@ namespace mgl
 
 	void StandardMaterial::use() const
 	{
-		if(shaderVariant.diffuseMap)
+		if(shaderVariant.diffuseMap) {
+			diffuseMap->bindUnit();
 			diffuseMap->uniformSampler(shader, "u_diffuseMap");
+		}
 		else
 			shader->uniform("u_albedo", (mml::vec4)albedo);
 
-		if(shaderVariant.normalMap)
+		if(shaderVariant.normalMap) {
+			normalMap->bindUnit();
 			normalMap->uniformSampler(shader, "u_normalMap");
-		if(shaderVariant.specularMap)
+		}
+		if(shaderVariant.specularMap) {
+			specularMap->bindUnit();
 			specularMap->uniformSampler(shader, "u_specularMap");
+		}
 	}
 }

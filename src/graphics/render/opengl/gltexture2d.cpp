@@ -29,6 +29,11 @@ namespace mgl
 		impl->texture.bind();
 	}
 
+	void GLTexture2D::bindUnit() const
+	{
+		impl->texture.setActiveUnit();
+	}
+
 	void GLTexture2D::unbind() const
 	{
 		impl->texture.unbind();
@@ -51,6 +56,7 @@ namespace mgl
 	{
 		gl::Context* context = gl::Context::getCurrent();
 		GLuint unit = context->getUnusedTexUnit();
+		std::cout << unit;
 		context->consumeTexUnit(unit);
 		impl->texture.allocate(width, height, formatMap[format], formatMap[format], gl::Primative::FLOAT, unit);
 	}

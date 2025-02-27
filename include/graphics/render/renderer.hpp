@@ -29,6 +29,7 @@ namespace mgl
 		Ref<Texture2D> position;
 		Ref<Texture2D> normal;
 		Ref<Texture2D> albeodoSpecular;
+		Ref<Texture2D> depthOutput;
 
 		friend class DeferredLightingPass;
 	};
@@ -58,6 +59,7 @@ namespace mgl
 	protected:
 		Ref<FrameBuffer> framebuffer;
 		Ref<Texture2D> renderOutput;
+		Ref<Texture2D> depthOutput;
 		Ref<ShaderProgram> shader;
 		Ref<Mesh> quad;
 	};

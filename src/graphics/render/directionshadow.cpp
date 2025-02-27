@@ -19,12 +19,13 @@ namespace mgl
 		camera = CreateRef<OrthographicCamera>();
 		camera->orthographic(5.0f, -5.0f, 5.0f, -5.0f, -5.0f, 5.0f);
 
+		framebuffer = context->createFrameBuffer();
+		framebuffer->bind();
+
 		map = context->createTexture2D();
 		map->allocate(size.x, size.y, TextureFormat::DEPTH);
 		map->bind();
 
-		framebuffer = context->createFrameBuffer();
-		framebuffer->bind();
 		framebuffer->addRenderTarget(map, FrameBufferAttachment{FrameBufferAttachmentType::DEPTH});
 		framebuffer->setShaderColorOutputLoc();
 		framebuffer->unbind();

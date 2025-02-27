@@ -22,7 +22,7 @@ namespace mgl
             shader->uniform(base + "shadow.bias", shadow->bias);
             shader->uniform(base + "shadow.sampleRadius", shadow->sampleRadius);
             
-            shadow->getMap()->bind();
+            shadow->getMap()->bindUnit();
             shadow->getMap()->uniformSampler(shader, base + "shadow.map");
         }
     }

@@ -17,6 +17,7 @@ namespace mgl
 		Texture2D(RenderContext* context);
 
 		virtual void bind() const = 0;
+		virtual void bindUnit() const = 0;
 		virtual void unbind() const = 0;
 		virtual void uniformSampler(const Ref<ShaderProgram>& shader, const std::string& loc) const = 0;
 

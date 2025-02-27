@@ -13,6 +13,7 @@ namespace mgl
         PointShadow(RenderContext* context, float bias=0.0005f, int sampleRadius=2);
         
         void create(const mml::uvec2& size);
+        Ref<CubeMap> getCubeMap() const;
         Ref<ShaderProgram> getShader() const;
         Ref<Camera> getCamera() const;
 

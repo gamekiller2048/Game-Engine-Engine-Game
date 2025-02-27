@@ -11,6 +11,7 @@ namespace mgl
         ~GLCubeMap();
 
         void bind() const;
+        void bindUnit() const;
         void unbind() const;
         void uniformSampler(const Ref<ShaderProgram>& shader, const std::string& loc) const;
         void loadFromFile(const std::string& filePath) const;

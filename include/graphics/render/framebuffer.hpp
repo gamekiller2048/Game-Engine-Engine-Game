@@ -15,7 +15,7 @@ namespace mgl
 	{
 	public:
 		FrameBufferAttachmentType type;
-		uint index;
+		uint index = 0;
 	};
 
 	class FrameBuffer

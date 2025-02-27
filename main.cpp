@@ -31,8 +31,8 @@ public:
 	Ref<mgl::Renderer> renderer;
 	Ref<mgl::RenderContext> context;
 	Ref<mgl::FirstPersonCamera> camera;
-	Ref<mgl::DirectionalLight> light;
-	//Ref<mgl::PointLight> light2;
+	//Ref<mgl::DirectionalLight> light;
+	Ref<mgl::PointLight> light;
 
 	Ref<mgl::RenderScene> renderScene;
 	float i = 0.0f;
@@ -51,7 +51,9 @@ public:
 		//renderer->lightingPasses.push_back(CreateRef<mgl::DeferredLightingPass>(context.get(), geometryPass));
 		//renderer->geometryPasses.push_back(CreateRef<mgl::ShadowGeometryPass>());
 		renderer->lightingPasses.push_back(CreateRef<mgl::ForwardLightingPass>());
-		renderer->filters.push_back(CreateRef<mgl::EdgeFilter>(context.get(), window->getSize()));
+		//renderer->filters.push_back(CreateRef<mgl::EdgeFilter>(context.get(), window->getSize()));
+		//renderer->filters.push_back(CreateRef<mgl::BlurFilter>(context.get(), window->getSize()));
+
 		renderScene = CreateRef<mgl::RenderScene>();
 
 		//{
@@ -72,11 +74,8 @@ public:
 		//}
 
 		{
-			Ref<mgl::Texture2D> texture = context->createTexture2D();
-			texture->loadFromFile(R"(C:\Users\tony3\Downloads\iiii.png)");
-
-			Ref<mgl::StandardMaterial> material = CreateRef<mgl::StandardMaterial>(context.get(), mgl::StandardShaderVairant(mgl::RenderPipeline::FORWARD, true, false, false, 1, 0));
-			material->diffuseMap = texture;
+			Ref<mgl::StandardMaterial> material = CreateRef<mgl::StandardMaterial>(context.get(), mgl::StandardShaderVairant(mgl::RenderPipeline::FORWARD, false, false, false, 0, 1));
+			material->albedo = mml::color(1, 1, 0, 1);
 
 			mrl::ModelLoader loader;
 			mrl::ObjModelData data = loader.loadObj("human.obj");
@@ -107,7 +106,7 @@ public:
 			Ref<mgl::Texture2D> texture = context->createTexture2D();
 			texture->loadFromFile(R"(C:\Users\tony3\Downloads\rickandmorty.jpg)");
 
-			Ref<mgl::StandardMaterial> material = CreateRef<mgl::StandardMaterial>(context.get(), mgl::StandardShaderVairant(mgl::RenderPipeline::FORWARD, true, false, false, 1, 0));
+			Ref<mgl::StandardMaterial> material = CreateRef<mgl::StandardMaterial>(context.get(), mgl::StandardShaderVairant(mgl::RenderPipeline::FORWARD, true, false, false, 0, 1));
 			material->diffuseMap = texture;
 
 			Ref<mgl::Mesh> mesh = context->createMesh();
@@ -136,8 +135,8 @@ public:
 		//	renderScene->addModel(lightCube);
 		//}
 
-		light = CreateRef<mgl::DirectionalLight>(mml::vec3(-0.2f, -1.0f, -0.3f), mml::color(1), 0.3f);
-		//light->createShadow(context.get(), mml::uvec2(window->getWidth(), window->getHeight()));
+		light = CreateRef<mgl::PointLight>(mml::vec3(-0.2f, -1.0f, -0.3f), mml::color(1), 0.3f);
+		//light->createShadow(context.get(), mml::uvec2(window->getWidth(), window->getWidth()));
 		renderScene->addLight(light);
 
 
@@ -165,7 +164,6 @@ public:
 
 	void update()
 	{
-
 		context->clearColor();
 		context->clearDepth();
 		context->viewport(0, 0, window->getWidth(), window->getHeight());
@@ -221,8 +219,8 @@ public:
 		ImGui::NewFrame();
 
 		ImGui::Begin("Light");
-		ImGui::DragFloat3("lightPos", &light->dir, 0.1f);
-		ImGui::Image((ImTextureID)1, ImGui::GetContentRegionAvail(), ImVec2(0, 1), ImVec2(1, 0));
+		ImGui::DragFloat3("lightPos", &light->pos, 0.1f);
+		ImGui::Image((ImTextureID)4, ImGui::GetContentRegionAvail(), ImVec2(0, 1), ImVec2(1, 0));
 		ImGui::End();
 
 		//ImGui::Begin("Light2");
