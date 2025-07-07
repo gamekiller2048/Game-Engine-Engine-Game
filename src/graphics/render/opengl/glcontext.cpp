@@ -9,82 +9,87 @@
 
 namespace mgl
 {
-	GLContext::GLContext() :
-		impl(CreateOwned<GLContextImpl>()) {}
+    GLContext::GLContext() :
+        impl(CreateOwned<GLContextImpl>()) {}
 
-	void GLContext::create(const Ref<Window>& window, uint major, uint minor, GLContextProfile profile)
-	{
-		useWindow(window);
-		impl->context.create(major, minor, (gl::ContextProfile)profile);
-	}
+    GLContextImpl* GLContext::getImpl() const
+    {
+        return impl.get();
+    }
 
-	void GLContext::makeCurrent()
-	{
-		impl->context.makeCurrent();
-	}
+    void GLContext::create(const Ref<Window>& window, uint major, uint minor, GLContextProfile profile)
+    {
+        useWindow(window);
+        impl->context.create(major, minor, (gl::ContextProfile)profile);
+    }
 
-	void GLContext::swapBuffers()
-	{
-		impl->context.swapBuffers();
-	}
+    void GLContext::makeCurrent()
+    {
+        impl->context.makeCurrent();
+    }
 
-	void GLContext::clearColor() const
-	{
-		impl->context.clearColor();
-	}
-	
-	void GLContext::clearDepth() const
-	{
-		impl->context.clearDepth();
-	}
+    void GLContext::swapBuffers()
+    {
+        impl->context.swapBuffers();
+    }
 
-	void GLContext::setDepthTest(bool on) const
-	{
-		impl->context.setDepthTest(on);
-	}
+    void GLContext::clearColor() const
+    {
+        impl->context.clearColor();
+    }
+    
+    void GLContext::clearDepth() const
+    {
+        impl->context.clearDepth();
+    }
 
-	void GLContext::setTransparency(bool on) const
-	{
-		impl->context.setTransparency(on);
-	}
+    void GLContext::setDepthTest(bool on) const
+    {
+        impl->context.setDepthTest(on);
+    }
 
-	void GLContext::setCulling(bool on) const
-	{
-		impl->context.setCulling(on);
-	}
+    void GLContext::setTransparency(bool on) const
+    {
+        impl->context.setTransparency(on);
+    }
 
-	void GLContext::viewport(uint x, uint y, uint w, uint h) const
-	{
-		impl->context.viewport(x, y, w, h);
-	}
+    void GLContext::setCulling(bool on) const
+    {
+        impl->context.setCulling(on);
+    }
 
-	Ref<VertexBuffer> GLContext::createVertexBuffer()
-	{
-		return CreateRef<GLVertexBuffer>(this);
-	}
+    void GLContext::viewport(uint x, uint y, uint w, uint h) const
+    {
+        impl->context.viewport(x, y, w, h);
+    }
 
-	Ref<IndexBuffer> GLContext::createIndexBuffer()
-	{
-		return CreateRef<GLIndexBuffer>(this);
-	}
+    Ref<VertexBuffer> GLContext::createVertexBuffer()
+    {
+        return CreateRef<GLVertexBuffer>(this);
+    }
 
-	Ref<ShaderProgram> GLContext::createShaderProgram()
-	{
-		return CreateRef<GLShaderProgram>(this);
-	}
+    Ref<IndexBuffer> GLContext::createIndexBuffer()
+    {
+        return CreateRef<GLIndexBuffer>(this);
+    }
 
-	Ref<Texture2D> GLContext::createTexture2D()
-	{
-		return CreateRef<GLTexture2D>(this);
-	}
+    Ref<ShaderProgram> GLContext::createShaderProgram()
+    {
+        return CreateRef<GLShaderProgram>(this);
+    }
 
-	Ref<CubeMap> GLContext::createCubeMap()
-	{
-		return CreateRef<GLCubeMap>(this);
-	}
+    Ref<Texture2D> GLContext::createTexture2D()
+    {
+        return CreateRef<GLTexture2D>(this);
+    }
 
-	Ref<FrameBuffer> GLContext::createFrameBuffer()
-	{
-		return CreateRef<GLFrameBuffer>(this);
-	}
+    Ref<CubeMap> GLContext::createCubeMap()
+    {
+        return CreateRef<GLCubeMap>(this);
+    }
+
+    Ref<FrameBuffer> GLContext::createFrameBuffer()
+    {
+        return CreateRef<GLFrameBuffer>(this);
+    }
 }

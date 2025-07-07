@@ -2,6 +2,6 @@
 
 namespace mgl
 {
-	CubeMap::CubeMap(RenderContext* context) :
-		context(context) {}
+    CubeMap::CubeMap(RenderContext* context) :
+        context(context) {}
 }

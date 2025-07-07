@@ -5,32 +5,32 @@
 
 namespace mgl
 {
-	class Model
-	{
-	public:
-		Ref<Mesh> getMesh() const;
-		Ref<Material> getMaterial() const;
-		mml::vec3 getPos() const;
-		mml::vec3 getRotate() const;
-		mml::vec3 getScale() const;
-		mml::mat4 getTransform() const;
+    class Model
+    {
+    public:
+        Ref<Mesh> getMesh() const;
+        Ref<Material> getMaterial() const;
+        mml::vec3 getPos() const;
+        mml::vec3 getRotate() const;
+        mml::vec3 getScale() const;
+        mml::mat4 getTransform() const;
 
-		void setMesh(const Ref<Mesh>& mesh);
-		void setMaterial(const Ref<Material>& material);
-		void setPos(const mml::vec3& pos);
-		void setRotate(const mml::vec3& rotate);
-		void setScale(const mml::vec3& scale);
-		void setTransform(const mml::mat4& transform);
+        void setMesh(const Ref<Mesh>& mesh);
+        void setMaterial(const Ref<Material>& material);
+        void setPos(const mml::vec3& pos);
+        void setRotate(const mml::vec3& rotate);
+        void setScale(const mml::vec3& scale);
+        void setTransform(const mml::mat4& transform);
 
-	protected:
-		Ref<Mesh> mesh;
-		Ref<Material> material;
+    protected:
+        Ref<Mesh> mesh;
+        Ref<Material> material;
 
-		mml::vec3 pos = mml::vec3(0);
-		mml::vec3 rotate = mml::vec3(0);
-		mml::vec3 scale = mml::vec3(1);
-		mml::mat4 transform = mml::mat4(1);
-	
-		mml::mat4 calculateTransform();
-	};
+        mml::vec3 pos = mml::vec3(0);
+        mml::vec3 rotate = mml::vec3(0);
+        mml::vec3 scale = mml::vec3(1);
+        mml::mat4 transform = mml::mat4(1);
+    
+        mml::mat4 calculateTransform();
+    };
 }

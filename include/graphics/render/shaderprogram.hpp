@@ -5,9 +5,14 @@
 
 namespace mgl
 {
-	class ShaderProgram
-	{
-	public:
+    enum class MemoryBarrier
+    {
+        ALL
+    };
+
+    class ShaderProgram
+    {
+    public:
         ShaderProgram(RenderContext* context);
 
         virtual void bind() const = 0;
@@ -18,6 +23,9 @@ namespace mgl
 
         virtual void drawArrays(uint startIndex, uint vertexCount) const = 0;
         virtual void drawElements(uint indiceCount) const = 0;
+
+        virtual void compute(const mml::uvec3& workGroups) const = 0;
+        virtual void computeBarrier(MemoryBarrier barrier) const = 0;
 
         virtual void uniform(const std::string& loc, const mml::mat3& mat, bool transpose = false) const = 0;
         virtual void uniform(const std::string& loc, const mml::mat4& mat, bool transpose = false) const = 0;

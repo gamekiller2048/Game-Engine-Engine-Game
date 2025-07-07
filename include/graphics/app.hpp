@@ -5,24 +5,24 @@
 
 namespace mgl
 {
-	class App
-	{
-	public:
-		App(RenderApi api);
+    class App
+    {
+    public:
+        App(RenderApi api);
 
-		void run();
-		void destroy();
-		void addWindow(const Ref<Window>& window);
+        void run();
+        void destroy();
+        void addWindow(const Ref<Window>& window);
 
-		RenderApi getRenderApi() const;
-		void setRenderApi(RenderApi api);
-		
-		static App* getInstance();
+        RenderApi getRenderApi() const;
+        void setRenderApi(RenderApi api);
+        
+        static App* getInstance();
 
-	protected:
-		std::vector<Ref<Window>> windows;
-		RenderApi api;
+    protected:
+        std::vector<Ref<Window>> windows;
+        RenderApi api;
 
-		inline static App* instance;
-	};
+        inline static App* instance;
+    };
 }

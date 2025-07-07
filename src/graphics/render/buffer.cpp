@@ -2,6 +2,6 @@
 
 namespace mgl
 {
-	Buffer::Buffer(RenderContext* context) :
-		context(context) {}
+    Buffer::Buffer(RenderContext* context) :
+        context(context) {}
 }

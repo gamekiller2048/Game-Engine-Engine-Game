@@ -23,6 +23,9 @@ namespace mgl
         void drawArrays(uint startIndex, uint vertexCount) const;
         void drawElements(uint indiceCount) const;
 
+        void compute(const mml::uvec3& workGroups) const;
+        void computeBarrier(MemoryBarrier barrier) const;
+
         void uniform(const std::string& loc, const mml::mat3& mat, bool transpose = false) const;
         void uniform(const std::string& loc, const mml::mat4& mat, bool transpose = false) const;
         void uniform(const std::string& loc, float v) const;

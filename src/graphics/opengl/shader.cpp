@@ -8,8 +8,8 @@ namespace mgl
 {
     namespace gl
     {
-	    Shader::Shader(ShaderType type) :
-		    GLObject((GLenum)type) {}
+        Shader::Shader(ShaderType type) :
+            GLObject((GLenum)type) {}
 
         Shader::Shader(Shader&& other) noexcept :
             GLObject(std::move(other)) {}

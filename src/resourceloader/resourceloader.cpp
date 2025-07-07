@@ -18,13 +18,13 @@ namespace mrl
         std::string bytes((uint)size, '\0');
 
         if(!file.read(&bytes[0], size))
-            MLL_DEBUG(ResourceError(filePath, "failed to read"))
+            MLL_DEBUG(ResourceError(filePath, "could only read " + std::to_string(file.gcount()) + " of " + std::to_string(size) + " bytes"))
 
         return bytes;
     }
 
     std::string ResourceLoader::readBytes(const std::string& filePath)
-	{
+    {
         std::ifstream file(filePath, std::ios::binary);
         if(!file)
             MLL_DEBUG(ResourceError(filePath, "failed to open"));
@@ -36,8 +36,8 @@ namespace mrl
         std::string bytes((uint)size, '\0');
 
         if(!file.read(&bytes[0], size))
-            MLL_DEBUG(ResourceError(filePath, "failed to read"))
+            MLL_DEBUG(ResourceError(filePath, "could only read " + std::to_string(file.gcount()) + " of " + std::to_string(size) + " bytes"))
         
         return bytes;
-	}
+    }
 }

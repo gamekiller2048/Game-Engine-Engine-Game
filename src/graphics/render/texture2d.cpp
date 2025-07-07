@@ -2,6 +2,6 @@
 
 namespace mgl
 {
-	Texture2D::Texture2D(RenderContext* context) :
-		context(context) {}
+    Texture2D::Texture2D(RenderContext* context) :
+        context(context) {}
 }

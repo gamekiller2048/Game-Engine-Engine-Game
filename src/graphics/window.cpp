@@ -4,88 +4,88 @@
 
 namespace mgl
 {
-	void Window::setContext(const Ref<RenderContext>& context)
-	{
-		this->context = context;
-	}
+    void Window::setContext(const Ref<RenderContext>& context)
+    {
+        this->context = context;
+    }
 
-	Ref<RenderContext> Window::getContext() const
-	{
-		return context;
-	}
+    Ref<RenderContext> Window::getContext() const
+    {
+        return context;
+    }
 
-	bool Window::isDestroyed() const
-	{
-		return destroyed;
-	}
+    bool Window::isDestroyed() const
+    {
+        return destroyed;
+    }
 
-	void Window::preventDefaultCallback()
-	{
-		defaultCallback = false;
-	}
+    void Window::preventDefaultCallback()
+    {
+        defaultCallback = false;
+    }
 
-	void Window::addScene(const std::string& name, const Ref<Scene>& scene)
-	{
-		scenes[name] = scene;
-		scene->name = name;
-	}
+    void Window::addScene(const std::string& name, const Ref<Scene>& scene)
+    {
+        scenes[name] = scene;
+        scene->name = name;
+    }
 
-	void Window::setScene(const std::string& name)
-	{
-		if(curScene)
-			curScene->exit();
+    void Window::setScene(const std::string& name)
+    {
+        if(curScene)
+            curScene->exit();
 
-		curScene = scenes[name];
-		curScene->enter();
-	}
+        curScene = scenes[name];
+        curScene->enter();
+    }
 
-	Ref<Scene> Window::getScene() const
-	{
-		return curScene;
-	}
+    Ref<Scene> Window::getScene() const
+    {
+        return curScene;
+    }
 
-	std::string Window::getTitle() const
-	{
-		return title;
-	}
+    std::string Window::getTitle() const
+    {
+        return title;
+    }
 
-	int Window::getX() const
-	{
-		return pos.x;
-	}
+    int Window::getX() const
+    {
+        return pos.x;
+    }
 
-	int Window::getY() const
-	{
-		return pos.y;
-	}
+    int Window::getY() const
+    {
+        return pos.y;
+    }
 
-	mml::ivec2 Window::getPos() const
-	{
-		return pos;
-	}
+    mml::ivec2 Window::getPos() const
+    {
+        return pos;
+    }
 
-	uint Window::getWidth() const
-	{
-		return size.x;
-	}
+    uint Window::getWidth() const
+    {
+        return size.x;
+    }
 
-	uint Window::getHeight() const
-	{
-		return size.y;
-	}
+    uint Window::getHeight() const
+    {
+        return size.y;
+    }
 
-	mml::uvec2 Window::getSize() const
-	{
-		return size;
-	}
+    mml::uvec2 Window::getSize() const
+    {
+        return size;
+    }
 
-	mml::vec2 Window::getMousePos() const
-	{
-		return mil::getMousePos() - pos;
-	}
+    mml::vec2 Window::getMousePos() const
+    {
+        return mil::getMousePos() - pos;
+    }
 
-	void Window::setMousePos(const mml::ivec2& pos) const
-	{
-		mil::setMousePos(pos + this->pos);
-	}
+    void Window::setMousePos(const mml::ivec2& pos) const
+    {
+        mil::setMousePos(pos + this->pos);
+    }
 }

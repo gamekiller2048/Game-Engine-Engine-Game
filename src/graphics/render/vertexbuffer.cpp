@@ -2,6 +2,6 @@
 
 namespace mgl
 {
-	VertexBuffer::VertexBuffer(RenderContext* context) :
-		Buffer(context) {}
+    VertexBuffer::VertexBuffer(RenderContext* context) :
+        Buffer(context) {}
 }

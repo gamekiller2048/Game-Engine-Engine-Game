@@ -3,8 +3,8 @@
 
 namespace mgl
 {
-	Ref<Mesh> RenderContext::createMesh()
-	{
-		return CreateRef<Mesh>(this);
-	}
+    Ref<Mesh> RenderContext::createMesh()
+    {
+        return CreateRef<Mesh>(this);
+    }
 }

@@ -2,12 +2,12 @@
 
 namespace mgl
 {
-	namespace gl
-	{
-		VertexShader::VertexShader() :
-			Shader(ShaderType::VERTEX) {}
+    namespace gl
+    {
+        VertexShader::VertexShader() :
+            Shader(ShaderType::VERTEX) {}
 
-		VertexShader::VertexShader(VertexShader&& other) noexcept :
-			Shader(std::move(other)) {}
-	}
+        VertexShader::VertexShader(VertexShader&& other) noexcept :
+            Shader(std::move(other)) {}
+    }
 }

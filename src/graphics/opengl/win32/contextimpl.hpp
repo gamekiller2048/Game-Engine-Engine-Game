@@ -3,13 +3,13 @@
 
 namespace mgl
 {
-	namespace gl
-	{
-		class ContextImpl
-		{
-		public:
-			HGLRC hRC;
-			HDC hDC;
-		};
-	}
+    namespace gl
+    {
+        class ContextImpl
+        {
+        public:
+            HGLRC hRC;
+            HDC hDC;
+        };
+    }
 }

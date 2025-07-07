@@ -4,19 +4,19 @@
 
 namespace mgl
 {
-	Shadow::Shadow(RenderContext* context, float bias, int sampleRadius) :
-		context(context), bias(bias), sampleRadius(sampleRadius) {}
+    Shadow::Shadow(RenderContext* context, float bias, int sampleRadius) :
+        context(context), bias(bias), sampleRadius(sampleRadius) {}
 
-	void Shadow::startFrame() const
-	{
-		framebuffer->bind();
-		framebuffer->setShaderColorOutputLoc();
-		framebuffer->viewport(0, 0, size.x, size.y);
-		framebuffer->clear(FrameBufferAttachmentType::DEPTH);
-	}
+    void Shadow::startFrame() const
+    {
+        framebuffer->bind();
+        framebuffer->setShaderColorOutputLoc();
+        framebuffer->viewport(0, 0, size.x, size.y);
+        framebuffer->clear(FrameBufferAttachmentType::DEPTH);
+    }
 
-	void Shadow::endFrame() const
-	{
-		framebuffer->unbind();
-	}
+    void Shadow::endFrame() const
+    {
+        framebuffer->unbind();
+    }
 }

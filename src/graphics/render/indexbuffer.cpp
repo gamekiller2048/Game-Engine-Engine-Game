@@ -2,6 +2,6 @@
 
 namespace mgl
 {
-	IndexBuffer::IndexBuffer(RenderContext* context) :
-		Buffer(context) {}
+    IndexBuffer::IndexBuffer(RenderContext* context) :
+        Buffer(context) {}
 }

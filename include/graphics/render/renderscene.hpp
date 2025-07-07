@@ -8,24 +8,24 @@
 
 namespace mgl
 {
-	class RenderScene
-	{
-	public:
-		std::vector<Ref<Model>> getModels() const;
-		std::vector<Ref<Light>> getLights() const;
-		Ref<Camera> getCamera() const;
-		mml::uvec2 getSize() const;
+    class RenderScene
+    {
+    public:
+        std::vector<Ref<Model>> getModels() const;
+        std::vector<Ref<Light>> getLights() const;
+        Ref<Camera> getCamera() const;
+        mml::uvec2 getSize() const;
 
-		void addModel(const Ref<Model>& model);
-		void addLight(const Ref<Light>& light);
-		void setCamera(const Ref<Camera>& camera);
-		void setSize(const mml::uvec2& size);
+        void addModel(const Ref<Model>& model);
+        void addLight(const Ref<Light>& light);
+        void setCamera(const Ref<Camera>& camera);
+        void setSize(const mml::uvec2& size);
 
-	protected:
-		std::vector<Ref<Model>> models;
-		std::vector<Ref<Light>> lights;
-		Ref<Camera> camera;
+    protected:
+        std::vector<Ref<Model>> models;
+        std::vector<Ref<Light>> lights;
+        Ref<Camera> camera;
 
-		mml::uvec2 size;
-	};
+        mml::uvec2 size;
+    };
 }

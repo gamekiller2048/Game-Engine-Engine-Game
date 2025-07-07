@@ -23,8 +23,8 @@ namespace mml
         };
 
         Vec() = default;
-        Vec(T value);
-        Vec(T x, T y, T z, T w);
+        constexpr Vec(T value);
+        constexpr Vec(T x, T y, T z, T w);
         static Vec<T, 4> fromArray(const T data[4]);
 
         template<typename U>
@@ -47,8 +47,8 @@ namespace mml
         Vec<T, 4> rotate(const Vec<T, 3>& vec) const;
 
         T* operator&();
-        T* operator[](size_t index);
-        const T* operator[](size_t index) const;
+        T& operator[](size_t index);
+        const T& operator[](size_t index) const;
 
         template<typename U>
         bool operator==(const Vec<U, 4>& vec) const;
@@ -105,11 +105,11 @@ namespace mml
     };
 
     template<typename T>
-    Vec<T, 4>::Vec(T value) :
+    constexpr Vec<T, 4>::Vec(T value) :
         x(value), y(value), z(value), w(value) {}
 
     template<typename T>
-    Vec<T, 4>::Vec(T x, T y, T z, T w) :
+    constexpr Vec<T, 4>::Vec(T x, T y, T z, T w) :
         x(x), y(y), z(z), w(w) {}
 
     template<typename T>
@@ -209,13 +209,13 @@ namespace mml
     }
 
     template<typename T>
-    T* Vec<T, 4>::operator[](size_t index)
+    T& Vec<T, 4>::operator[](size_t index)
     {
         return this->data[index];
     }
 
     template<typename T>
-    const T* Vec<T, 4>::operator[](size_t index) const
+    const T& Vec<T, 4>::operator[](size_t index) const
     {
         return this->data[index];
     }

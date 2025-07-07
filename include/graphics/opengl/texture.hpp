@@ -80,6 +80,7 @@ namespace mgl
             RGB10 = GL_RGB10,
             RGB12 = GL_RGB12,
             RGB16 = GL_RGB16,
+            RGB32F = GL_RGB32F,
             RGB_INTEGER = GL_RGB_INTEGER,
             RGBA2 = GL_RGBA2,
             RGBA4 = GL_RGBA4,
@@ -152,7 +153,7 @@ namespace mgl
             void setUnit(GLuint unit);
 
         protected:
-            GLuint unit = -1;
+            mutable GLuint unit = -1;
             Primative pixelType;
             Format format;
             Format internalFormat;

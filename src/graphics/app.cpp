@@ -2,29 +2,29 @@
 
 namespace mgl
 {
-	App::App(RenderApi api) :
-		api(api) 
-	{
-		instance = this;
-	}
+    App::App(RenderApi api) :
+        api(api) 
+    {
+        instance = this;
+    }
 
-	void App::addWindow(const Ref<Window>& window)
-	{
-		windows.push_back(window);
-	}
+    void App::addWindow(const Ref<Window>& window)
+    {
+        windows.push_back(window);
+    }
 
-	RenderApi App::getRenderApi() const
-	{
-		return api;
-	}
+    RenderApi App::getRenderApi() const
+    {
+        return api;
+    }
 
-	void App::setRenderApi(RenderApi api)
-	{
-		this->api = api;
-	}
+    void App::setRenderApi(RenderApi api)
+    {
+        this->api = api;
+    }
 
-	App* App::getInstance()
-	{
-		return App::instance;
-	}
+    App* App::getInstance()
+    {
+        return App::instance;
+    }
 }

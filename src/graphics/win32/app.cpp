@@ -5,8 +5,8 @@
 
 namespace mgl
 {
-	void App::run()
-	{
+    void App::run()
+    {
         bool running = true;
         MSG msg;
 
@@ -44,7 +44,7 @@ namespace mgl
                 }
             }
         }
-	}
+    }
 
     void App::destroy()
     {

@@ -2,9 +2,9 @@
 
 namespace mcl
 {
-	class Win32Error : public mll::Error
-	{
-	public:
-		Win32Error(uint error, const mll::DebugInfo& errorInfo={});
-	};
+    class Win32Error : public mll::Error
+    {
+    public:
+        Win32Error(uint error, const mll::DebugInfo& errorInfo={});
+    };
 }

@@ -6,27 +6,27 @@
 
 namespace mrl
 {
-	struct ModelData
-	{
-		std::vector<Ref<mgl::Model>> meshes;
-	};
+    struct ModelData
+    {
+        std::vector<Ref<mgl::Model>> meshes;
+    };
 
-	struct ObjMeshData
-	{
-		std::string name;
-		std::vector<mgl::gl::Vertex3DUVN> vertices;
-		std::vector<GLuint> indices;
-	};
+    struct ObjMeshData
+    {
+        std::string name;
+        std::vector<mgl::gl::Vertex3DUVN> vertices;
+        std::vector<GLuint> indices;
+    };
 
-	struct ObjModelData
-	{
-		std::vector<ObjMeshData> meshes;
-	};
+    struct ObjModelData
+    {
+        std::vector<ObjMeshData> meshes;
+    };
 
-	class ModelLoader : ResourceLoader
-	{
-	public:
-		static ModelData load(const std::string& filePath);
-		static ObjModelData loadObj(const std::string& filePath);
-	};
+    class ModelLoader : ResourceLoader
+    {
+    public:
+        static ModelData load(const std::string& filePath);
+        static ObjModelData loadObj(const std::string& filePath);
+    };
 }

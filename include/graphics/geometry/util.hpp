@@ -3,6 +3,6 @@
 
 namespace mgl
 {
-	void calculateFlatNormals(Geometry<gl::Vertex3DUVN, GLuint>& geometry);
-	void calculateSmoothNormals(Geometry<gl::Vertex3DUVN, GLuint>& geometry);
+    void calculateFlatNormals(Geometry<gl::Vertex3DUVN, GLuint>& geometry);
+    void calculateSmoothNormals(Geometry<gl::Vertex3DUVN, GLuint>& geometry);
 }

@@ -2,8 +2,8 @@
 
 namespace mml
 {
-	template<typename T, size_t N>
-	class Col
-	{
-	};
+    template<typename T, size_t N>
+    class Col
+    {
+    };
 }

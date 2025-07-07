@@ -3,7 +3,7 @@
 
 namespace mgl
 {
-	class GLVertexBufferImpl;
+    class GLVertexBufferImpl;
     class GLVertexBuffer : public VertexBuffer
     {
     public:

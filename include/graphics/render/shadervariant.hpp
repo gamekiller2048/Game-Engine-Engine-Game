@@ -2,35 +2,38 @@
 
 namespace mgl
 {
-	enum class RenderPipeline
-	{
-		FORWARD,
-		DEFERRED
-	};
+    enum class RenderPipeline
+    {
+        FORWARD,
+        DEFERRED
+    };
 
-	class ShaderVairant
-	{
-	public:
-		std::string srcVert;
-		std::string srcFrag;
-	};
+    class ShaderVariant
+    {
+    public:
+        std::string srcVert;
+        std::string srcFrag;
+        uint version;
 
-	class StandardShaderVairant : public ShaderVairant
-	{
-	public:
-		RenderPipeline pipeline;
-		bool diffuseMap;
-		bool normalMap;
-		bool specularMap;
-		uint numDirLights;
-		uint numPointLights;
+        ShaderVariant(uint version);
+    };
 
-		StandardShaderVairant(RenderPipeline pipeline, bool diffuseMap, bool normalMap, bool specularMap, uint numDirLights, uint numPointLights);
-	};
+    class StandardShaderVariant : public ShaderVariant
+    {
+    public:
+        RenderPipeline pipeline;
+        bool diffuseMap;
+        bool normalMap;
+        bool specularMap;
+        uint numDirLights;
+        uint numPointLights;
 
-	class BasicShaderVairant : public ShaderVairant
-	{
-	public:
-		BasicShaderVairant();
-	};
+        StandardShaderVariant(RenderPipeline pipeline, bool diffuseMap, bool normalMap, bool specularMap, uint numDirLights, uint numPointLights, uint version=440);
+    };
+
+    class BasicShaderVariant : public ShaderVariant
+    {
+    public:
+        BasicShaderVariant(uint version=440);
+    };
 }

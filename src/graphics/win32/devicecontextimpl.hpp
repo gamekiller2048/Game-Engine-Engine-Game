@@ -3,9 +3,9 @@
 
 namespace mgl
 {
-	class DeviceContextImpl
-	{
-	public:
-		HDC hDC;
-	};
+    class DeviceContextImpl
+    {
+    public:
+        HDC hDC;
+    };
 }

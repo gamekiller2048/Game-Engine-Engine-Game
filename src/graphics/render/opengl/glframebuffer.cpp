@@ -17,11 +17,11 @@ namespace mgl
         {FrameBufferAttachmentType::DEPTH, gl::BufferBit::DEPTH},
     };
 
-	GLFrameBuffer::GLFrameBuffer(RenderContext* context) :
-		FrameBuffer(context), impl(CreateOwned<GLFrameBufferImpl>())
-	{
-		impl->fbo.create();
-	}
+    GLFrameBuffer::GLFrameBuffer(RenderContext* context) :
+        FrameBuffer(context), impl(CreateOwned<GLFrameBufferImpl>())
+    {
+        impl->fbo.create();
+    }
 
     GLFrameBuffer::~GLFrameBuffer() = default;
 

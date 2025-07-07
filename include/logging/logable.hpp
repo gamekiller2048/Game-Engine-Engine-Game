@@ -2,32 +2,32 @@
 
 namespace mll
 {
-	enum class Severity
-	{
-		INFO,
-		WARNING,
-		MAJOR,
-		CRITICAL
-	};
+    enum class Severity
+    {
+        INFO,
+        WARNING,
+        MAJOR,
+        CRITICAL
+    };
 
-	struct DebugInfo
-	{
-		std::string funcName;
-		std::string fileName;
-		uint line;
-	};
+    struct DebugInfo
+    {
+        std::string funcName;
+        std::string fileName;
+        uint line;
+    };
 
-	class Logable
-	{
-	public:
-		Severity severity;
-		DebugInfo debugInfo;
+    class Logable
+    {
+    public:
+        Severity severity;
+        DebugInfo debugInfo;
 
-		Logable(Severity severity, const std::string& name, const std::string message="", const DebugInfo& debugInfo={});
-		std::string getString() const;
+        Logable(Severity severity, const std::string& name, const std::string message="", const DebugInfo& debugInfo={});
+        std::string getString() const;
 
-	protected:
-		std::string name;
-		std::string message;
-	};
+    protected:
+        std::string name;
+        std::string message;
+    };
 }

@@ -1,6 +1,7 @@
 #include <resourceloader/modelloader.hpp>
 #include <fstream>
 #include <sstream>
+#include <resourceloader/errors.hpp>
 
 namespace mrl
 {
@@ -10,11 +11,14 @@ namespace mrl
     }
 
     ObjModelData ModelLoader::loadObj(const std::string& filePath)
-	{
+    {
         ObjModelData data;
 
         std::string line;
         std::ifstream file(filePath);
+
+        if(!file)
+            MLL_DEBUG(ResourceError(filePath, "failed to open"));
         
         std::vector<mml::vec3> positions;
         std::vector<mml::vec2> texUVs;
@@ -115,5 +119,5 @@ namespace mrl
         }
 
         return data;
-	}
+    }
 }

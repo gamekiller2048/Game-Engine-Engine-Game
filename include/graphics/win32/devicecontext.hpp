@@ -2,15 +2,15 @@
 
 namespace mgl
 {
-	class DeviceContextImpl;
-	class DeviceContext
-	{
-	public:
-		DeviceContext();
+    class DeviceContextImpl;
+    class DeviceContext
+    {
+    public:
+        DeviceContext();
 
-		DeviceContextImpl* getImpl() const;
+        DeviceContextImpl* getImpl() const;
 
-	protected:
-		Owned<DeviceContextImpl> impl;
-	};
+    protected:
+        Owned<DeviceContextImpl> impl;
+    };
 }

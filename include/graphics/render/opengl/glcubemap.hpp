@@ -10,12 +10,11 @@ namespace mgl
         GLCubeMap(RenderContext* context);
         ~GLCubeMap();
 
-        void bind() const;
         void bindUnit() const;
         void unbind() const;
         void uniformSampler(const Ref<ShaderProgram>& shader, const std::string& loc) const;
-        void loadFromFile(const std::string& filePath) const;
-        void allocate(uint width, uint height, TextureFormat format) const;
+        void loadFromFile(const std::array<std::string, 6>& filePaths) const;
+        void allocate(uint width, uint height, TextureFormat format, TextureFormat internalFormat) const;
 
         GLCubeMapImpl* getImpl() const;
 

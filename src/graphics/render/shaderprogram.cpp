@@ -2,6 +2,6 @@
 
 namespace mgl
 {
-	ShaderProgram::ShaderProgram(RenderContext* context) :
-		context(context) {}
+    ShaderProgram::ShaderProgram(RenderContext* context) :
+        context(context) {}
 }

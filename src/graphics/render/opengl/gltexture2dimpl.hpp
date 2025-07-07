@@ -3,9 +3,9 @@
 
 namespace mgl
 {
-	class GLTexture2DImpl
-	{
-	public:
-		gl::Texture2D texture;
-	};
+    class GLTexture2DImpl
+    {
+    public:
+        gl::Texture2D texture;
+    };
 }

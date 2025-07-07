@@ -2,6 +2,6 @@
 
 namespace mgl
 {
-	FrameBuffer::FrameBuffer(RenderContext* context) :
-		context(context) {}
+    FrameBuffer::FrameBuffer(RenderContext* context) :
+        context(context) {}
 }

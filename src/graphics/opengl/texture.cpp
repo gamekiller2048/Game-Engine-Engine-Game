@@ -3,6 +3,7 @@
 #include <numeric>
 #include <graphics/opengl/shader.hpp>
 #include <graphics/opengl/enums.hpp>
+#include <graphics/opengl/context.hpp>
 #include "errorcheck.hpp"
 
 namespace mgl
@@ -34,9 +35,12 @@ namespace mgl
             GL_CALL(glGenTextures, 1, &id);
         }
 
+        // note: this actually binds the texture to the active unit (glActiveTexture)
+        // so if the texture needs to be bound for operations but keeping unit, you should call setActiveUnit
         void Texture::bind() const
         {
             GL_CALL(glBindTexture, gltype, id);
+            unit = Context::getCurrent()->getParameterInt(mgl::gl::ContextParam::ACTIVE_TEXTURE);
         }
 
         void Texture::setActiveUnit() const
@@ -105,7 +109,6 @@ namespace mgl
 
         void Texture::read(void* data, GLuint mipMapReduction) const
         {
-            bind();
             GL_CALL(glGetTexImage, gltype, mipMapReduction, (GLenum)format, (GLenum)pixelType, data);
         }
 
@@ -123,7 +126,6 @@ namespace mgl
 
         void Texture::setTexFilters(const TexFilterOptions& filters)
         {
-            bind();
             setParameter(TextureParam::MIN_FILTER, (GLint)filters.min);
             setParameter(TextureParam::MAG_FILTER, (GLint)filters.mag);
             setParameter(TextureParam::WRAP_S, (GLint)filters.wrapS);

@@ -6,5 +6,5 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 
 IMGUI_IMPL_API long ImGui_ImplMgl_WndProcHandler(void* hWnd, unsigned int msg, unsigned int wParam, long lParam)
 {
-	return ImGui_ImplWin32_WndProcHandler((HWND)hWnd, msg, wParam, lParam);
+    return ImGui_ImplWin32_WndProcHandler((HWND)hWnd, msg, wParam, lParam);
 }

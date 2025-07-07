@@ -3,9 +3,9 @@
 
 namespace mgl
 {
-	class GLFrameBufferImpl
-	{
-	public:
-		gl::FBO fbo;
-	};
+    class GLFrameBufferImpl
+    {
+    public:
+        gl::FBO fbo;
+    };
 }

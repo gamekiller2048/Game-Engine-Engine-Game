@@ -3,9 +3,9 @@
 
 namespace mgl
 {
-	class GLShaderProgramImpl
-	{
-	public:
-		gl::Program program;
-	};
+    class GLShaderProgramImpl
+    {
+    public:
+        gl::Program program;
+    };
 }

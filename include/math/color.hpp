@@ -39,38 +39,38 @@ namespace mml
         bool operator==(const Col <U, 4>& vec) const;
 
         template<typename U>
-        Col<T, 4> operator+(const Col<U, 4>& Col) const;
+        Col<T, 4> operator+(const Col<U, 4>& col) const;
         template<typename U>
         Col<T, 4> operator+(U value) const;
         template<typename U>
-        Col<T, 4>& operator+=(const Col<U, 4>& Col);
+        Col<T, 4>& operator+=(const Col<U, 4>& col);
         template<typename U>
         Col<T, 4>& operator+=(U value);
 
         template<typename U>
-        Col<T, 4> operator-(const Col<U, 4>& Col) const;
+        Col<T, 4> operator-(const Col<U, 4>& col) const;
         template<typename U>
         Col<T, 4> operator-(U value) const;
         template<typename U>
-        Col<T, 4>& operator-=(const Col<U, 4>& Col);
+        Col<T, 4>& operator-=(const Col<U, 4>& col);
         template<typename U>
         Col<T, 4>& operator-=(U value);
 
         template<typename U>
-        Col<T, 4> operator*(const Col<U, 4>& Col);
+        Col<T, 4> operator*(const Col<U, 4>& col);
         template<typename U>
         Col<T, 4> operator*(U value) const;
         template<typename U>
-        Col<T, 4>& operator*=(const Col<U, 4>& Col);
+        Col<T, 4>& operator*=(const Col<U, 4>& col);
         template<typename U>
         Col<T, 4>& operator*=(U value);
 
         template<typename U>
-        Col<T, 4> operator/(const Col<U, 4>& Col) const;
+        Col<T, 4> operator/(const Col<U, 4>& col) const;
         template<typename U>
         Col<T, 4> operator/(U value) const;
         template<typename U>
-        Col<T, 4>& operator/=(const Col<U, 4>& Col);
+        Col<T, 4>& operator/=(const Col<U, 4>& col);
         template<typename U>
         Col<T, 4>& operator/=(U value);
     };
@@ -125,9 +125,9 @@ namespace mml
 
     template<typename T>
     template<typename U>
-    Col<T, 4> Col<T, 4>::operator+(const Col<U, 4>& Col) const
+    Col<T, 4> Col<T, 4>::operator+(const Col<U, 4>& col) const
     {
-        return Col<T, 4>(this->r + Col.r, this->g + Col.g, this->b + Col.b, this->a + Col.a);
+        return Col<T, 4>(this->r + col.r, this->g + col.g, this->b + col.b, this->a + col.a);
     }
 
     template<typename T>
@@ -139,12 +139,12 @@ namespace mml
 
     template<typename T>
     template<typename U>
-    Col<T, 4>& Col<T, 4>::operator+=(const Col<U, 4>& Col)
+    Col<T, 4>& Col<T, 4>::operator+=(const Col<U, 4>& col)
     {
-        this->r += Col.r;
-        this->g += Col.g;
-        this->b += Col.b;
-        this->a += Col.a;
+        this->r += col.r;
+        this->g += col.g;
+        this->b += col.b;
+        this->a += col.a;
 
         return *this;
     }
@@ -164,9 +164,9 @@ namespace mml
 
     template<typename T>
     template<typename U>
-    Col<T, 4> Col<T, 4>::operator-(const Col<U, 4>& Col) const
+    Col<T, 4> Col<T, 4>::operator-(const Col<U, 4>& col) const
     {
-        return Col<T, 4>(this->r - Col.r, this->g - Col.g, this->b - Col.b, this->a - Col.a);
+        return Col<T, 4>(this->r - col.r, this->g - col.g, this->b - col.b, this->a - col.a);
     }
 
     template<typename T>
@@ -178,12 +178,12 @@ namespace mml
 
     template<typename T>
     template<typename U>
-    Col<T, 4>& Col<T, 4>::operator-=(const Col<U, 4>& Col)
+    Col<T, 4>& Col<T, 4>::operator-=(const Col<U, 4>& col)
     {
-        this->r -= Col.r;
-        this->g -= Col.g;
-        this->b -= Col.b;
-        this->a -= Col.a;
+        this->r -= col.r;
+        this->g -= col.g;
+        this->b -= col.b;
+        this->a -= col.a;
 
         return *this;
     }
@@ -203,9 +203,9 @@ namespace mml
 
     template<typename T>
     template<typename U>
-    Col<T, 4> Col<T, 4>::operator*(const Col<U, 4>& Col)
+    Col<T, 4> Col<T, 4>::operator*(const Col<U, 4>& col)
     {
-        return Col<T, 4>(this->r * Col.r, this->g * Col.g, this->b * Col.b, this->a * Col.a);
+        return Col<T, 4>(this->r * col.r, this->g * col.g, this->b * col.b, this->a * col.a);
     }
 
     template<typename T>
@@ -217,12 +217,12 @@ namespace mml
 
     template<typename T>
     template<typename U>
-    Col<T, 4>& Col<T, 4>::operator*=(const Col<U, 4>& Col)
+    Col<T, 4>& Col<T, 4>::operator*=(const Col<U, 4>& col)
     {
-        this->r *= Col.r;
-        this->g *= Col.g;
-        this->b *= Col.b;
-        this->a *= Col.a;
+        this->r *= col.r;
+        this->g *= col.g;
+        this->b *= col.b;
+        this->a *= col.a;
 
         return *this;
     }
@@ -242,9 +242,9 @@ namespace mml
 
     template<typename T>
     template<typename U>
-    Col<T, 4> Col<T, 4>::operator/(const Col<U, 4>& Col) const
+    Col<T, 4> Col<T, 4>::operator/(const Col<U, 4>& col) const
     {
-        return Col<T, 4>(this->r / Col.r, this->g / Col.g, this->b / Col.b, this->a / Col.a);
+        return Col<T, 4>(this->r / col.r, this->g / col.g, this->b / col.b, this->a / col.a);
     }
 
     template<typename T>
@@ -256,12 +256,12 @@ namespace mml
 
     template<typename T>
     template<typename U>
-    Col<T, 4>& Col<T, 4>::operator/=(const Col<U, 4>& Col)
+    Col<T, 4>& Col<T, 4>::operator/=(const Col<U, 4>& col)
     {
-        this->r /= Col.r;
-        this->g /= Col.g;
-        this->b /= Col.b;
-        this->a /= Col.a;
+        this->r /= col.r;
+        this->g /= col.g;
+        this->b /= col.b;
+        this->a /= col.a;
 
         return *this;
     }
@@ -279,8 +279,8 @@ namespace mml
     }
 
     template<typename T>
-    std::ostream& operator<<(std::ostream& out, const Col<T, 4>& Col)
+    std::ostream& operator<<(std::ostream& out, const Col<T, 4>& col)
     {
-        return out << '(' << (int)Col.r << ", " << (int)Col.g << ", " << (int)Col.b << ", " << (int)Col.a << ')';
+        return out << '(' << (int)col.r << ", " << (int)col.g << ", " << (int)col.b << ", " << (int)col.a << ')';
     }
 }

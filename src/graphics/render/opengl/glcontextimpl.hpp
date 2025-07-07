@@ -3,9 +3,9 @@
 
 namespace mgl
 {
-	class GLContextImpl
-	{
-	public:
-		gl::Context context;
-	};
+    class GLContextImpl
+    {
+    public:
+        gl::Context context;
+    };
 }

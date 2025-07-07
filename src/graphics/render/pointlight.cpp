@@ -36,12 +36,12 @@ namespace mgl
     {
         mml::mat4 shadowProj = shadow->getCamera()->projection;
         std::vector<mml::mat4> shadowTransforms = {
-	        shadowProj * mml::lookAt(pos, pos + mml::RIGHT, mml::DOWN),
-	        shadowProj * mml::lookAt(pos, pos + mml::LEFT, mml::DOWN),
-	        shadowProj * mml::lookAt(pos, pos + mml::UP, mml::FORWARD),
-	        shadowProj * mml::lookAt(pos, pos + mml::DOWN, mml::BACKWARD),
-	        shadowProj * mml::lookAt(pos, pos + mml::FORWARD, mml::DOWN),
-	        shadowProj * mml::lookAt(pos, pos + mml::BACKWARD, mml::DOWN)
+            shadowProj * mml::lookAt(pos, pos + mml::RIGHT, mml::DOWN),
+            shadowProj * mml::lookAt(pos, pos + mml::LEFT, mml::DOWN),
+            shadowProj * mml::lookAt(pos, pos + mml::UP, mml::FORWARD),
+            shadowProj * mml::lookAt(pos, pos + mml::DOWN, mml::BACKWARD),
+            shadowProj * mml::lookAt(pos, pos + mml::FORWARD, mml::DOWN),
+            shadowProj * mml::lookAt(pos, pos + mml::BACKWARD, mml::DOWN)
         };
 
         shadow->getShader()->uniforms("u_shadowMats", shadowTransforms);

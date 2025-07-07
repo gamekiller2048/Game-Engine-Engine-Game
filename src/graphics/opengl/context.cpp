@@ -3,8 +3,8 @@
 
 namespace mgl
 {
-	namespace gl
-	{
+    namespace gl
+    {
         ContextImpl* Context::getImpl() const
         {
             return impl.get();
@@ -123,5 +123,5 @@ namespace mgl
         {
             GL_CALL(glClear, GL_DEPTH_BUFFER_BIT);
         }
-	}
+    }
 }

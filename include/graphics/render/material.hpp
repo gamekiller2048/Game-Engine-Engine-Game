@@ -7,20 +7,20 @@
 
 namespace mgl
 {
-	struct Material
-	{
-		Ref<ShaderProgram> shader;
+    struct Material
+    {
+        Ref<ShaderProgram> shader;
         RenderContext* context;
 
         Material(RenderContext* context);
         virtual void use() const = 0;
-	};
+    };
 
     struct BasicMaterial : public Material
     {
         mml::color albedo;
 
-        BasicMaterial(RenderContext* context, const BasicShaderVairant& shaderVariant);
+        BasicMaterial(RenderContext* context, const BasicShaderVariant& shaderVariant);
         void use() const;
     };
 
@@ -31,9 +31,9 @@ namespace mgl
         Ref<Texture2D> specularMap;
         mml::color albedo;
 
-        StandardShaderVairant shaderVariant;
+        StandardShaderVariant shaderVariant;
 
-        StandardMaterial(RenderContext* context, const StandardShaderVairant& shaderVariant);
+        StandardMaterial(RenderContext* context, const StandardShaderVariant& shaderVariant);
         void use() const;
     };
 }
